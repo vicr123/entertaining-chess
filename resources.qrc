@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/black-bishop.svg</file>
+        <file>assets/black-king.svg</file>
+        <file>assets/black-knight.svg</file>
+        <file>assets/black-pawn.svg</file>
+        <file>assets/black-queen.svg</file>
+        <file>assets/black-rook.svg</file>
+        <file>assets/white-king.svg</file>
+    </qresource>
+</RCC>
