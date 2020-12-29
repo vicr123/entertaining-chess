@@ -18,6 +18,7 @@ SOURCES += \
     screens/gamescreen.cpp \
     screens/mainscreen.cpp \
     screens/pausescreen.cpp \
+    screens/promotescreen.cpp \
     widgets/turnbrowser.cpp
 
 HEADERS += \
@@ -29,6 +30,7 @@ HEADERS += \
     screens/gamescreen.h \
     screens/mainscreen.h \
     screens/pausescreen.h \
+    screens/promotescreen.h \
     widgets/turnbrowser.h
 
 FORMS += \
@@ -36,6 +38,7 @@ FORMS += \
     screens/gamescreen.ui \
     screens/mainscreen.ui \
     screens/pausescreen.ui \
+    screens/promotescreen.ui \
     widgets/turnbrowser.ui
 
 # Default rules for deployment.

@@ -17,39 +17,42 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * *************************************/
-#ifndef GAMERENDERER_H
-#define GAMERENDERER_H
+#ifndef PROMOTESCREEN_H
+#define PROMOTESCREEN_H
 
 #include <QWidget>
+#include <game/gameengine.h>
 
-struct GameEngine;
-struct GameRendererPrivate;
-class GameRenderer : public QWidget {
+namespace Ui {
+    class PromoteScreen;
+}
+
+struct PromoteScreenPrivate;
+class PromoteScreen : public QWidget {
         Q_OBJECT
+
     public:
-        explicit GameRenderer(QWidget* parent = nullptr);
-        ~GameRenderer();
-
-        void setGameEngine(GameEngine* engine);
-        GameEngine* gameEngine();
-
-        void setFixedGameState(int turn);
-
-        QRect viewport();
-
-        void select();
+        explicit PromoteScreen(bool isWhiteTurn, QWidget* parent = nullptr);
+        ~PromoteScreen();
 
     signals:
+        void dismiss();
+        void promote(GameEngine::Piece piece);
+
+    private slots:
+        void on_titleLabel_backButtonClicked();
+
+        void on_queenButton_clicked();
+
+        void on_rookButton_clicked();
+
+        void on_bishopButton_clicked();
+
+        void on_knightButton_clicked();
 
     private:
-        GameRendererPrivate* d;
-
-        // QWidget interface
-    protected:
-        void mousePressEvent(QMouseEvent* event);
-        void mouseReleaseEvent(QMouseEvent* event);
-        void mouseMoveEvent(QMouseEvent* event);
-        void paintEvent(QPaintEvent* event);
+        PromoteScreenPrivate* d;
+        Ui::PromoteScreen* ui;
 };
 
-#endif // GAMERENDERER_H
+#endif // PROMOTESCREEN_H

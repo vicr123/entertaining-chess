@@ -248,13 +248,13 @@ QString GameEngine::indexToCoordinate(int index) {
     return QStringLiteral("%1%2").arg(QStringLiteral("abcdefgh").at(file)).arg(QStringLiteral("87654321").at(rank));
 }
 
-void GameEngine::issueMove(int from, int to) {
+void GameEngine::issueMove(int from, int to, Piece promoteTo) {
     if (!isValidMove(from, to)) return;
 
     Piece fromPiece = pieceAt(from);
 
     //Move the piece
-    MoveResults results = issueMove(from, to, d->boardLayout);
+    MoveResults results = issueMove(from, to, d->boardLayout, promoteTo);
     d->boardLayout = results.newBoardLayout;
     d->takenPieces = results.takenPieces;
 
@@ -288,7 +288,7 @@ void GameEngine::issueMove(int from, int to) {
     }
 }
 
-GameEngine::MoveResults GameEngine::issueMove(int from, int to, QList<quint8> boardLayout) {
+GameEngine::MoveResults GameEngine::issueMove(int from, int to, QList<quint8> boardLayout, Piece promoteTo) {
     auto pieceAt = [ = ](int index) {
         return static_cast<Piece>(boardLayout.at(index));
     };
@@ -331,6 +331,17 @@ GameEngine::MoveResults GameEngine::issueMove(int from, int to, QList<quint8> bo
             boardLayout = issueMove(7, 5, boardLayout).newBoardLayout;
             results.moveType = KingsideCastle;
         }
+    }
+
+    //Check for a promotion
+    if (fromPiece == WhitePawn && to <= 7) {
+        boardLayout.replace(to, promoteTo);
+        results.moveType = Promotion;
+        results.movedPiece = promoteTo;
+    } else if (fromPiece == BlackPawn && to >= 56) {
+        boardLayout.replace(to, promoteTo);
+        results.moveType = Promotion;
+        results.movedPiece = promoteTo;
     }
 
     results.newBoardLayout = boardLayout;
@@ -499,17 +510,17 @@ bool GameEngine::isValidMove(int from, int to, QList<quint8> boardLayout, bool i
         case GameEngine::WhiteQueen: {
             //Turn the queen into a rook and bishop
             boardLayout.replace(from, WhiteRook);
-            if (isValidMove(from, to, boardLayout, isWhiteTurn)) return true;
+            if (isValidMove(from, to, boardLayout, isWhiteTurn, checkForCheckCondition)) return true;
             boardLayout.replace(from, WhiteBishop);
-            if (isValidMove(from, to, boardLayout, isWhiteTurn)) return true;
+            if (isValidMove(from, to, boardLayout, isWhiteTurn, checkForCheckCondition)) return true;
             return false;
         }
         case BlackQueen: {
             //Turn the queen into a rook and bishop
             boardLayout.replace(from, BlackRook);
-            if (isValidMove(from, to, boardLayout, isWhiteTurn)) return true;
+            if (isValidMove(from, to, boardLayout, isWhiteTurn, checkForCheckCondition)) return true;
             boardLayout.replace(from, BlackBishop);
-            if (isValidMove(from, to, boardLayout, isWhiteTurn)) return true;
+            if (isValidMove(from, to, boardLayout, isWhiteTurn, checkForCheckCondition)) return true;
             return false;
         }
         case GameEngine::WhiteKing:

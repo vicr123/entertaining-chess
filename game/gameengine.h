@@ -58,7 +58,8 @@ class GameEngine : public QObject {
             KingsideCastle,
             QueensideCastle,
             EnPassant,
-            InitialBoardState
+            InitialBoardState,
+            Promotion
         };
 
         struct MoveResults {
@@ -81,8 +82,8 @@ class GameEngine : public QObject {
         QPoint indexToGrid(int index);
         static QString indexToCoordinate(int index);
 
-        void issueMove(int from, int to);
-        MoveResults issueMove(int from, int to, QList<quint8> boardLayout);
+        void issueMove(int from, int to, Piece promoteTo = Empty);
+        MoveResults issueMove(int from, int to, QList<quint8> boardLayout, Piece promoteTo = Empty);
         bool isValidMove(int from, int to);
         bool isValidMove(int from, int to, QList<quint8> boardLayout, bool isWhiteTurn, bool checkForCheckCondition = true);
 

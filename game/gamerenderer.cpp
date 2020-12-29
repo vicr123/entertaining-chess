@@ -24,6 +24,8 @@
 #include <QPainter>
 #include <QSvgRenderer>
 #include <QMouseEvent>
+#include "screens/promotescreen.h"
+#include <pauseoverlay.h>
 #include <terrorflash.h>
 
 struct GameRendererPrivate {
@@ -68,6 +70,50 @@ QRect GameRenderer::viewport() {
     viewport.setSize(viewport.size().scaled(this->size(), Qt::KeepAspectRatio));
     viewport.moveCenter(QPoint(this->width() / 2, this->height() / 2));
     return viewport;
+}
+
+void GameRenderer::select() {
+    if (d->gameEngine->isHumanTurn() && d->fixedGameStateTurn == -1) {
+        if (d->currentSelection != -1) {
+            if (d->currentSelection == d->currentFocus) {
+                //Deselect the piece
+                d->currentSelection = -1;
+                d->availableMoves.clear();
+            } else if (d->availableMoves.contains(d->currentFocus)) {
+                //Perform the move
+                if ((d->gameEngine->pieceAt(d->currentSelection) == GameEngine::WhitePawn && d->currentFocus <= 7) || (d->gameEngine->pieceAt(d->currentSelection) == GameEngine::BlackPawn && d->currentFocus >= 56)) {
+                    //White promotion!
+                    PromoteScreen* promoteScreen = new PromoteScreen(d->gameEngine->isWhiteTurn());
+                    connect(promoteScreen, &PromoteScreen::dismiss, this, [ = ] {
+                        PauseOverlay::overlayForWindow(this)->popOverlayWidget();
+                    });
+                    connect(promoteScreen, &PromoteScreen::promote, this, [ = ](GameEngine::Piece piece) {
+                        PauseOverlay::overlayForWindow(this)->popOverlayWidget();
+                        d->gameEngine->issueMove(d->currentSelection, d->currentFocus, piece);
+                        d->currentSelection = -1;
+                        d->availableMoves.clear();
+                    });
+                    PauseOverlay::overlayForWindow(this)->pushOverlayWidget(promoteScreen);
+                } else {
+                    d->gameEngine->issueMove(d->currentSelection, d->currentFocus);
+                    d->currentSelection = -1;
+                    d->availableMoves.clear();
+                }
+            }
+        } else if (d->currentFocus != -1) {
+            //Find valid moves
+            d->currentSelection = d->currentFocus;
+            for (int i = 0; i < 64; i++) {
+                if (d->gameEngine->isValidMove(d->currentSelection, i)) d->availableMoves.append(i);
+            }
+            if (d->availableMoves.isEmpty()) {
+                //Invalid selection
+                d->currentSelection = -1;
+            }
+        }
+    }
+
+    this->update();
 }
 
 void GameRenderer::paintEvent(QPaintEvent* event) {
@@ -172,32 +218,7 @@ void GameRenderer::paintEvent(QPaintEvent* event) {
 }
 
 void GameRenderer::mousePressEvent(QMouseEvent* event) {
-    if (d->gameEngine->isHumanTurn() && d->fixedGameStateTurn == -1) {
-        if (d->currentSelection != -1) {
-            if (d->currentSelection == d->currentFocus) {
-                //Deselect the piece
-                d->currentSelection = -1;
-                d->availableMoves.clear();
-            } else if (d->availableMoves.contains(d->currentFocus)) {
-                //Perform the move
-                d->gameEngine->issueMove(d->currentSelection, d->currentFocus);
-                d->currentSelection = -1;
-                d->availableMoves.clear();
-            }
-        } else if (d->currentFocus != -1) {
-            //Find valid moves
-            d->currentSelection = d->currentFocus;
-            for (int i = 0; i < 64; i++) {
-                if (d->gameEngine->isValidMove(d->currentSelection, i)) d->availableMoves.append(i);
-            }
-            if (d->availableMoves.isEmpty()) {
-                //Invalid selection
-                d->currentSelection = -1;
-            }
-        }
-    }
-
-    this->update();
+    select();
 }
 
 void GameRenderer::mouseReleaseEvent(QMouseEvent* event) {
