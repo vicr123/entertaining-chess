@@ -58,11 +58,15 @@ void MainScreen::on_loadButton_clicked() {
 
     LoadOverlay* load = new LoadOverlay(this);
     connect(load, &LoadOverlay::loadData, this, [ = ](QDataStream * stream) {
-//        loadGame(stream);
+        GameEngine* engine = new GameEngine(new HumanMoveEngine(), new HumanMoveEngine());
+        engine->loadGame(stream);
+        emit startGame(engine);
     });
     load->load();
 }
 
 void MainScreen::on_playButton_clicked() {
-    emit startGame(new GameEngine(new HumanMoveEngine(), new HumanMoveEngine()));
+    GameEngine* engine = new GameEngine(new HumanMoveEngine(), new HumanMoveEngine());
+    engine->startGame();
+    emit startGame(engine);
 }

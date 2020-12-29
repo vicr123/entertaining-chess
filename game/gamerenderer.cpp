@@ -32,6 +32,8 @@ struct GameRendererPrivate {
     int currentFocus = -1;
     int currentSelection = -1;
     QList<int> availableMoves;
+
+    int fixedGameStateTurn = -1;
 };
 
 GameRenderer::GameRenderer(QWidget* parent) : QWidget(parent) {
@@ -52,6 +54,15 @@ void GameRenderer::setGameEngine(GameEngine* engine) {
     });
 }
 
+GameEngine* GameRenderer::gameEngine() {
+    return d->gameEngine;
+}
+
+void GameRenderer::setFixedGameState(int turn) {
+    d->fixedGameStateTurn = turn;
+    this->update();
+}
+
 QRect GameRenderer::viewport() {
     QRect viewport(0, 0, 1, 1);
     viewport.setSize(viewport.size().scaled(this->size(), Qt::KeepAspectRatio));
@@ -60,6 +71,8 @@ QRect GameRenderer::viewport() {
 }
 
 void GameRenderer::paintEvent(QPaintEvent* event) {
+    if (d->fixedGameStateTurn != -1) d->gameEngine->setFixedGameState(d->fixedGameStateTurn);
+
     QPainter painter(this);
     painter.setWindow(QRect(0, 0, 8, 8));
     painter.setViewport(this->viewport());
@@ -154,10 +167,12 @@ void GameRenderer::paintEvent(QPaintEvent* event) {
         painter.setPen(Qt::transparent);
         painter.drawEllipse(circleRect);
     }
+
+    if (d->fixedGameStateTurn != -1) d->gameEngine->restoreFixedGameState();
 }
 
 void GameRenderer::mousePressEvent(QMouseEvent* event) {
-    if (d->gameEngine->isHumanTurn()) {
+    if (d->gameEngine->isHumanTurn() && d->fixedGameStateTurn == -1) {
         if (d->currentSelection != -1) {
             if (d->currentSelection == d->currentFocus) {
                 //Deselect the piece
@@ -181,6 +196,8 @@ void GameRenderer::mousePressEvent(QMouseEvent* event) {
             }
         }
     }
+
+    this->update();
 }
 
 void GameRenderer::mouseReleaseEvent(QMouseEvent* event) {
@@ -188,19 +205,20 @@ void GameRenderer::mouseReleaseEvent(QMouseEvent* event) {
 }
 
 void GameRenderer::mouseMoveEvent(QMouseEvent* event) {
-    //Perform hit testing
-    QRect viewport = this->viewport();
-    if (!viewport.contains(event->pos())) {
-        d->currentFocus = -1;
-        this->update();
-        return;
-    }
+    if (d->gameEngine->isHumanTurn() && d->fixedGameStateTurn == -1) {
+        //Perform hit testing
+        QRect viewport = this->viewport();
+        if (!viewport.contains(event->pos())) {
+            d->currentFocus = -1;
+            this->update();
+            return;
+        }
 
-    QPoint transformedPos = event->pos() - viewport.topLeft();
-    int eighth = viewport.height() / 8;
-    int x = transformedPos.x() / eighth;
-    int y = transformedPos.y() / eighth;
-    d->currentFocus = y * 8 + x;
-    this->update();
-    return;
+        QPoint transformedPos = event->pos() - viewport.topLeft();
+        int eighth = viewport.height() / 8;
+        int x = transformedPos.x() / eighth;
+        int y = transformedPos.y() / eighth;
+        d->currentFocus = y * 8 + x;
+        this->update();
+    }
 }

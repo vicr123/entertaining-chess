@@ -17,33 +17,47 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * *************************************/
-#ifndef GAMESCREEN_H
-#define GAMESCREEN_H
+#ifndef PAUSESCREEN_H
+#define PAUSESCREEN_H
 
 #include <QWidget>
 
 namespace Ui {
-    class GameScreen;
+    class PauseScreen;
 }
 
-struct GameEngine;
-class GameScreen : public QWidget {
+class GameEngine;
+struct PauseScreenPrivate;
+class PauseScreen : public QWidget {
         Q_OBJECT
 
     public:
-        explicit GameScreen(QWidget* parent = nullptr);
-        ~GameScreen();
+        explicit PauseScreen(GameEngine* engine, QWidget* parent = nullptr);
+        ~PauseScreen();
 
-        void setGameEngine(GameEngine* engine);
+        void previousScreen();
+        void nextScreen();
 
     signals:
-        void returnToMainMenu();
+        void resume();
+        void mainMenu();
 
     private slots:
-        void on_menuButton_clicked();
+        void on_resumeButton_clicked();
+
+        void on_saveButton_clicked();
+
+        void on_mainMenuButton_clicked();
+
+        void on_stackedWidget_currentChanged(int arg1);
+
+        void on_leftButton_clicked();
+
+        void on_rightButton_clicked();
 
     private:
-        Ui::GameScreen* ui;
+        Ui::PauseScreen* ui;
+        PauseScreenPrivate* d;
 };
 
-#endif // GAMESCREEN_H
+#endif // PAUSESCREEN_H

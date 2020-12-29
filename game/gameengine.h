@@ -21,6 +21,7 @@
 #define GAMEENGINE_H
 
 #include <QObject>
+#include <QStack>
 
 class AbstractMoveEngine;
 struct GameEnginePrivate;
@@ -48,29 +49,60 @@ class GameEngine : public QObject {
             BlackPiecesEnd = BlackKing
         };
 
-        struct MoveResults {
-            QList<int> newBoardLayout;
-            Piece takenPiece;
+        enum GameMode {
+            StandardGameMode = 0
         };
+
+        enum MoveType {
+            StandardMove = 0,
+            KingsideCastle,
+            QueensideCastle,
+            EnPassant,
+            InitialBoardState
+        };
+
+        struct MoveResults {
+            QList<quint8> newBoardLayout;
+            quint8 from;
+            quint8 to;
+            Piece movedPiece;
+            Piece takenPiece;
+            MoveType moveType;
+            QList<GameEngine::Piece> takenPieces;
+        };
+
+        void startGame();
+        void saveGame(QDataStream* data);
+        bool loadGame(QDataStream* data);
+
+        QStack<MoveResults> previousMoves();
 
         int gridToIndex(int x, int y);
         QPoint indexToGrid(int index);
+        static QString indexToCoordinate(int index);
 
         void issueMove(int from, int to);
-        MoveResults issueMove(int from, int to, QList<int> boardLayout);
+        MoveResults issueMove(int from, int to, QList<quint8> boardLayout);
         bool isValidMove(int from, int to);
-        bool isValidMove(int from, int to, QList<int> boardLayout, bool isWhiteTurn, bool checkForCheckCondition = true);
+        bool isValidMove(int from, int to, QList<quint8> boardLayout, bool isWhiteTurn, bool checkForCheckCondition = true);
 
         AbstractMoveEngine* engineForCurrentTurn();
         bool isHumanTurn();
         bool isWhiteTurn();
         bool isCheck();
-        bool isCheck(bool isWhiteCheck, QList<int> boardLayout);
+        bool isCheck(bool isWhiteCheck, QList<quint8> boardLayout);
         bool isOwnPiece(Piece piece);
         bool isOwnPiece(bool isWhiteTurn, Piece piece);
         static bool isWhitePiece(Piece piece);
 
         Piece pieceAt(int index);
+        Piece pieceAt(int index, QList<quint8> boardLayout);
+        static QString pieceName(Piece piece);
+
+        void setFixedGameState(int turn);
+        void restoreFixedGameState();
+
+        static QString turnDescription(bool isWhiteMove, MoveResults results);
 
     signals:
         void moveIssued(int from, int to, bool isPlayer1);

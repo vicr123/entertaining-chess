@@ -20,14 +20,75 @@
 #include "gameengine.h"
 
 #include <QPoint>
+#include <QStack>
+#include <QMap>
+#include <QDataStream>
 #include "MoveEngines/abstractmoveengine.h"
 #include "MoveEngines/humanmoveengine.h"
+
+QDataStream& operator<<(QDataStream& dataStream, const GameEngine::Piece& piece) {
+    dataStream << static_cast<quint32>(piece);
+    return dataStream;
+}
+
+QDataStream& operator>>(QDataStream& dataStream, GameEngine::Piece& piece) {
+    quint32 temp;
+    dataStream >> temp;
+    piece = static_cast<GameEngine::Piece>(temp);
+    return dataStream;
+}
+
+QDataStream& operator<<(QDataStream& dataStream, const GameEngine::GameMode& gameMode) {
+    dataStream << static_cast<quint32>(gameMode);
+    return dataStream;
+}
+
+QDataStream& operator>>(QDataStream& dataStream, GameEngine::GameMode& gameMode) {
+    quint32 temp;
+    dataStream >> temp;
+    gameMode = static_cast<GameEngine::GameMode>(temp);
+    return dataStream;
+}
+
+QDataStream& operator<<(QDataStream& dataStream, const GameEngine::MoveType& moveType) {
+    dataStream << static_cast<quint32>(moveType);
+    return dataStream;
+}
+
+QDataStream& operator>>(QDataStream& dataStream, GameEngine::MoveType& moveType) {
+    quint32 temp;
+    dataStream >> temp;
+    moveType = static_cast<GameEngine::MoveType>(temp);
+    return dataStream;
+}
 
 struct GameEnginePrivate {
     AbstractMoveEngine* player1, *player2;
     bool isPlayer1Turn = true;
 
-    QList<int> boardLayout = {
+    QList<quint8> boardLayout;
+    QList<GameEngine::Piece> takenPieces;
+
+    //These fields are used for temporary rewinding of the game state
+    QList<quint8> currentBoardLayout;
+    QList<GameEngine::Piece> currentTakenPieces;
+
+    QStack<GameEngine::MoveResults> previousMoves;
+
+    GameEngine::GameMode gameMode = GameEngine::StandardGameMode;
+    bool whiteKingsideCastlePossible = true;
+    bool whiteQueensidesideCastlePossible = true;
+    bool blackKingsideCastlePossible = true;
+    bool blackQueensidesideCastlePossible = true;
+    quint8 enpassant = -1;
+};
+
+GameEngine::GameEngine(AbstractMoveEngine* player1, AbstractMoveEngine* player2, QObject* parent) : QObject(parent) {
+    d = new GameEnginePrivate();
+    d->player1 = player1;
+    d->player2 = player2;
+
+    d->boardLayout = {
         10,  8,  9, 11, 12,  9,  8, 10,
         7,  7,  7,  7,  7,  7,  7,  7,
         0,  0,  0,  0,  0,  0,  0,  0,
@@ -37,27 +98,139 @@ struct GameEnginePrivate {
         1,  1,  1,  1,  1,  1,  1,  1,
         4,  2,  3,  5,  6,  3,  2,  4
     };
-    QList<GameEngine::Piece> takenPieces;
-
-    bool whiteKingsideCastlePossible = true;
-    bool whiteQueensidesideCastlePossible = true;
-    bool blackKingsideCastlePossible = true;
-    bool blackQueensidesideCastlePossible = true;
-};
-
-GameEngine::GameEngine(AbstractMoveEngine* player1, AbstractMoveEngine* player2, QObject* parent) : QObject(parent) {
-    d = new GameEnginePrivate();
-    d->player1 = player1;
-    d->player2 = player2;
 
     player1->setGameEngine(this);
     player2->setGameEngine(this);
-
-    player1->startTurn();
 }
 
 GameEngine::~GameEngine() {
     delete d;
+}
+
+void GameEngine::startGame() {
+    d->boardLayout = {
+        10,  8,  9, 11, 12,  9,  8, 10,
+        7,  7,  7,  7,  7,  7,  7,  7,
+        0,  0,  0,  0,  0,  0,  0,  0,
+        0,  0,  0,  0,  0,  0,  0,  0,
+        0,  0,  0,  0,  0,  0,  0,  0,
+        0,  0,  0,  0,  0,  0,  0,  0,
+        1,  1,  1,  1,  1,  1,  1,  1,
+        4,  2,  3,  5,  6,  3,  2,  4
+    };
+    d->takenPieces.clear();
+    d->previousMoves.clear();
+    d->whiteKingsideCastlePossible = true;
+    d->whiteQueensidesideCastlePossible = true;
+    d->blackKingsideCastlePossible = true;
+    d->blackQueensidesideCastlePossible = true;
+    d->enpassant = -1;
+
+    MoveResults initialBoardState;
+    initialBoardState.newBoardLayout = d->boardLayout;
+    initialBoardState.moveType = InitialBoardState;
+    d->previousMoves.append(initialBoardState);
+
+    d->player1->startTurn();
+}
+
+void GameEngine::saveGame(QDataStream* data) {
+    *data << d->gameMode;
+    *data << d->isPlayer1Turn;
+    for (int i = 0; i < 64; i++) {
+        *data << d->boardLayout.at(i);
+    }
+
+    *data << static_cast<quint32>(d->takenPieces.length());
+    for (Piece piece : qAsConst(d->takenPieces)) {
+        *data << piece;
+    }
+
+    quint8 gameFlags = static_cast<quint8>(d->blackKingsideCastlePossible) | static_cast<quint8>(d->blackQueensidesideCastlePossible) << 1 | static_cast<quint8>(d->whiteKingsideCastlePossible) << 2 | static_cast<quint8>(d->whiteKingsideCastlePossible) << 3;
+    *data << gameFlags;
+    *data << d->enpassant;
+    *data << static_cast<quint32>(d->previousMoves.length());
+    for (const MoveResults& results : qAsConst(d->previousMoves)) {
+        *data << results.from;
+        *data << results.to;
+        *data << results.moveType;
+        *data << results.movedPiece;
+        *data << results.takenPiece;
+
+        *data << static_cast<quint32>(results.takenPieces.length());
+        for (Piece piece : results.takenPieces) {
+            *data << piece;
+        }
+        for (int i = 0; i < 64; i++) {
+            *data << results.newBoardLayout.at(i);
+        }
+    }
+}
+
+bool GameEngine::loadGame(QDataStream* data) {
+    *data >> d->gameMode;
+    *data >> d->isPlayer1Turn;
+    for (int i = 0; i < 64; i++) {
+        quint8 boardIndex;
+        *data >> boardIndex;
+        d->boardLayout.replace(i, boardIndex);
+    }
+
+    quint32 takenPiecesLength;
+    *data >> takenPiecesLength;
+    for (quint32 i = 0; i < takenPiecesLength; i++) {
+        Piece piece;
+        *data >> piece;
+        d->takenPieces.append(piece);
+    }
+
+    quint8 gameFlags;
+    *data >> gameFlags;
+    d->blackKingsideCastlePossible = gameFlags & 1;
+    d->blackQueensidesideCastlePossible = gameFlags & 2;
+    d->whiteKingsideCastlePossible = gameFlags & 4;
+    d->whiteQueensidesideCastlePossible = gameFlags & 8;
+    *data >> d->enpassant;
+
+    quint32 previousMovesLength;
+    *data >> previousMovesLength;
+    for (quint32 i = 0; i < previousMovesLength; i++) {
+        MoveResults results;
+        *data >> results.from;
+        *data >> results.to;
+        *data >> results.moveType;
+        *data >> results.movedPiece;
+        *data >> results.takenPiece;
+
+        quint32 takenPiecesLength;
+        *data >> takenPiecesLength;
+        for (quint32 j = 0; j < takenPiecesLength; j++) {
+            Piece piece;
+            *data >> piece;
+            results.takenPieces.append(piece);
+        }
+        for (int j = 0; j < 64; j++) {
+            quint8 boardIndex;
+            *data >> boardIndex;
+            results.newBoardLayout.append(boardIndex);
+        }
+
+        d->previousMoves.append(results);
+    }
+
+    if (data->status() != QDataStream::Ok) return false;
+
+    if (d->isPlayer1Turn) {
+        d->player1->startTurn();
+    } else {
+        d->player2->startTurn();
+    }
+
+    return true;
+}
+
+QStack<GameEngine::MoveResults> GameEngine::previousMoves() {
+    return d->previousMoves;
 }
 
 int GameEngine::gridToIndex(int x, int y) {
@@ -68,6 +241,13 @@ QPoint GameEngine::indexToGrid(int index) {
     return {index % 8, index / 8};
 }
 
+QString GameEngine::indexToCoordinate(int index) {
+    int file = index % 8;
+    int rank = index / 8;
+
+    return QStringLiteral("%1%2").arg(QStringLiteral("abcdefgh").at(file)).arg(QStringLiteral("87654321").at(rank));
+}
+
 void GameEngine::issueMove(int from, int to) {
     if (!isValidMove(from, to)) return;
 
@@ -76,7 +256,7 @@ void GameEngine::issueMove(int from, int to) {
     //Move the piece
     MoveResults results = issueMove(from, to, d->boardLayout);
     d->boardLayout = results.newBoardLayout;
-    if (results.takenPiece != Empty) d->takenPieces.append(results.takenPiece);
+    d->takenPieces = results.takenPieces;
 
     //TODO: Check if a rook is taken and update the castling flag accordingly
     if (isWhiteTurn()) {
@@ -97,6 +277,7 @@ void GameEngine::issueMove(int from, int to) {
         }
     }
 
+    d->previousMoves.append(results);
     emit moveIssued(from, to, d->isPlayer1Turn);
 
     d->isPlayer1Turn = !d->isPlayer1Turn;
@@ -107,7 +288,7 @@ void GameEngine::issueMove(int from, int to) {
     }
 }
 
-GameEngine::MoveResults GameEngine::issueMove(int from, int to, QList<int> boardLayout) {
+GameEngine::MoveResults GameEngine::issueMove(int from, int to, QList<quint8> boardLayout) {
     auto pieceAt = [ = ](int index) {
         return static_cast<Piece>(boardLayout.at(index));
     };
@@ -116,29 +297,39 @@ GameEngine::MoveResults GameEngine::issueMove(int from, int to, QList<int> board
     Piece toPiece = pieceAt(to);
 
     MoveResults results;
+    results.takenPieces = d->takenPieces;
 
+    results.from = from;
+    results.to = to;
+    results.movedPiece = fromPiece;
     results.takenPiece = toPiece;
+    results.moveType = StandardMove;
     boardLayout.replace(to, d->boardLayout.at(from));
     boardLayout.replace(from, 0);
+    if (toPiece != Empty) results.takenPieces.append(results.takenPiece);
 
     //Check for a castle
     if (fromPiece == WhiteKing && from == 60) {
         if (d->whiteQueensidesideCastlePossible && to == 58) {
             //Queenside Castle
             boardLayout = issueMove(56, 59, boardLayout).newBoardLayout;
+            results.moveType = QueensideCastle;
         }
         if (d->whiteKingsideCastlePossible && to == 62) {
             //Kingside Castle
             boardLayout = issueMove(63, 61, boardLayout).newBoardLayout;
+            results.moveType = KingsideCastle;
         }
     } else if (fromPiece == BlackKing && from == 4) {
         if (d->blackQueensidesideCastlePossible && to == 2) {
             //Queenside Castle
             boardLayout = issueMove(0, 3, boardLayout).newBoardLayout;
+            results.moveType = QueensideCastle;
         }
         if (d->blackKingsideCastlePossible && to == 6) {
             //Kingside Castle
             boardLayout = issueMove(7, 5, boardLayout).newBoardLayout;
+            results.moveType = KingsideCastle;
         }
     }
 
@@ -153,24 +344,19 @@ bool GameEngine::isValidMove(int from, int to) {
     return isValidMove(from, to, d->boardLayout, isWhiteTurn());
 }
 
-bool GameEngine::isValidMove(int from, int to, QList<int> boardLayout, bool isWhiteTurn, bool checkForCheckCondition) {
-    auto pieceAt = [ = ](int index) {
-        return static_cast<Piece>(boardLayout.at(index));
-    };
-
+bool GameEngine::isValidMove(int from, int to, QList<quint8> boardLayout, bool isWhiteTurn, bool checkForCheckCondition) {
     QPoint fromPoint = indexToGrid(from);
     QPoint toPoint = indexToGrid(to);
-    Piece fromPiece = pieceAt(from);
-    Piece toPiece = pieceAt(to);
+    Piece fromPiece = pieceAt(from, boardLayout);
+    Piece toPiece = pieceAt(to, boardLayout);
 
     if (isWhiteTurn && fromPiece > WhitePiecesEnd) return false; //Can't move other player's piece
     if (!isWhiteTurn && fromPiece <= WhitePiecesEnd) return false; //Can't move other player's piece
     if (isOwnPiece(isWhiteTurn, toPiece)) return false; //Can't take own piece
 
-    //TODO: Ensure that this move (if legal) will not place the player's king in check
     if (checkForCheckCondition) {
         //Move the piece
-        QList<int> temporaryBoardLayout = boardLayout;
+        QList<quint8> temporaryBoardLayout = boardLayout;
         temporaryBoardLayout.replace(to, temporaryBoardLayout.at(from));
         temporaryBoardLayout.replace(from, 0);
         if (isCheck(isWhiteTurn, temporaryBoardLayout)) return false;
@@ -224,7 +410,7 @@ bool GameEngine::isValidMove(int from, int to, QList<int> boardLayout, bool isWh
                     //Diagonally to the top left
                     if (i < 0 || i > 63) break;
                     if (to == i) return true;
-                    if (pieceAt(i) != Empty) break; //We can move here but no further
+                    if (pieceAt(i, boardLayout) != Empty) break; //We can move here but no further
                     if (indexToGrid(i).x() == 0) break; //We can not move further to the left
                     if (indexToGrid(i).y() == 0) break; //We can not move further to the top
                 }
@@ -235,7 +421,7 @@ bool GameEngine::isValidMove(int from, int to, QList<int> boardLayout, bool isWh
                     //Diagonally to the top right
                     if (i < 0 || i > 63) break;
                     if (to == i) return true;
-                    if (pieceAt(i) != Empty) break; //We can move here but no further
+                    if (pieceAt(i, boardLayout) != Empty) break; //We can move here but no further
                     if (indexToGrid(i).x() == 7) break; //We can not move further to the right
                     if (indexToGrid(i).y() == 0) break; //We can not move further to the top
                 }
@@ -246,7 +432,7 @@ bool GameEngine::isValidMove(int from, int to, QList<int> boardLayout, bool isWh
                     //Diagonally to the bottom right
                     if (i < 0 || i > 63) break;
                     if (to == i) return true;
-                    if (pieceAt(i) != Empty) break; //We can move here but no further
+                    if (pieceAt(i, boardLayout) != Empty) break; //We can move here but no further
                     if (indexToGrid(i).x() == 7) break; //We can not move further to the right
                     if (indexToGrid(i).y() == 7) break; //We can not move further to the bottom
                 }
@@ -257,7 +443,7 @@ bool GameEngine::isValidMove(int from, int to, QList<int> boardLayout, bool isWh
                     //Diagonally to the bottom left
                     if (i < 0 || i > 63) break;
                     if (to == i) return true;
-                    if (pieceAt(i) != Empty) break; //We can move here but no further
+                    if (pieceAt(i, boardLayout) != Empty) break; //We can move here but no further
                     if (indexToGrid(i).x() == 0) break; //We can not move further to the right
                     if (indexToGrid(i).y() == 7) break; //We can not move further to the bottom
                 }
@@ -273,7 +459,7 @@ bool GameEngine::isValidMove(int from, int to, QList<int> boardLayout, bool isWh
                     //Left
                     if (i < 0 || i > 63) break;
                     if (to == i) return true;
-                    if (pieceAt(i) != Empty) break; //We can move here but no further
+                    if (pieceAt(i, boardLayout) != Empty) break; //We can move here but no further
                     if (indexToGrid(i).x() == 0) break; //We can not move further to the left
                 }
             }
@@ -283,7 +469,7 @@ bool GameEngine::isValidMove(int from, int to, QList<int> boardLayout, bool isWh
                     //Right
                     if (i < 0 || i > 63) break;
                     if (to == i) return true;
-                    if (pieceAt(i) != Empty) break; //We can move here but no further
+                    if (pieceAt(i, boardLayout) != Empty) break; //We can move here but no further
                     if (indexToGrid(i).x() == 7) break; //We can not move further to the right
                 }
             }
@@ -293,7 +479,7 @@ bool GameEngine::isValidMove(int from, int to, QList<int> boardLayout, bool isWh
                     //Down
                     if (i < 0 || i > 63) break;
                     if (to == i) return true;
-                    if (pieceAt(i) != Empty) break; //We can move here but no further
+                    if (pieceAt(i, boardLayout) != Empty) break; //We can move here but no further
                     if (indexToGrid(i).y() == 7) break; //We can not move further to the bottom
                 }
             }
@@ -303,7 +489,7 @@ bool GameEngine::isValidMove(int from, int to, QList<int> boardLayout, bool isWh
                     //Up
                     if (i < 0 || i > 63) break;
                     if (to == i) return true;
-                    if (pieceAt(i) != Empty) break; //We can move here but no further
+                    if (pieceAt(i, boardLayout) != Empty) break; //We can move here but no further
                     if (indexToGrid(i).y() == 0) break; //We can not move further to the bottom
                 }
             }
@@ -333,49 +519,51 @@ bool GameEngine::isValidMove(int from, int to, QList<int> boardLayout, bool isWh
             }
 
             //Don't need to check from position because if the king moves, he can no longer castle anyway
-            if (fromPiece == WhiteKing) {
-                if (d->whiteQueensidesideCastlePossible && to == 58) {
-                    //Ensure the spaces are empty
-                    if (pieceAt(57) != Empty || pieceAt(58) != Empty || pieceAt(59) != Empty) return false;
+            if (checkForCheckCondition && !isCheck(isWhiteTurn, boardLayout)) {
+                if (fromPiece == WhiteKing) {
+                    if (d->whiteQueensidesideCastlePossible && to == 58) {
+                        //Ensure the spaces are empty
+                        if (pieceAt(57, boardLayout) != Empty || pieceAt(58, boardLayout) != Empty || pieceAt(59, boardLayout) != Empty) return false;
 
-                    //Ensure the king is not walking through a conflicting square
-                    boardLayout.replace(59, WhiteKing);
-                    boardLayout.replace(60, Empty);
-                    if (isCheck(true, boardLayout)) return false;
+                        //Ensure the king is not walking through a conflicting square
+                        boardLayout.replace(59, WhiteKing);
+                        boardLayout.replace(60, Empty);
+                        if (isCheck(true, boardLayout)) return false;
 
-                    return true;
-                }
-                if (d->whiteKingsideCastlePossible && to == 62) {
-                    if (pieceAt(61) != Empty || pieceAt(62) != Empty) return false;
+                        return true;
+                    }
+                    if (d->whiteKingsideCastlePossible && to == 62) {
+                        if (pieceAt(61, boardLayout) != Empty || pieceAt(62, boardLayout) != Empty) return false;
 
-                    //Ensure the king is not walking through a conflicting square
-                    boardLayout.replace(61, WhiteKing);
-                    boardLayout.replace(60, Empty);
-                    if (isCheck(true, boardLayout)) return false;
+                        //Ensure the king is not walking through a conflicting square
+                        boardLayout.replace(61, WhiteKing);
+                        boardLayout.replace(60, Empty);
+                        if (isCheck(true, boardLayout)) return false;
 
-                    return true;
-                }
-            } else {
-                if (d->blackQueensidesideCastlePossible && to == 2) {
-                    //Ensure the spaces are empty
-                    if (pieceAt(1) != Empty || pieceAt(2) != Empty || pieceAt(3) != Empty) return false;
+                        return true;
+                    }
+                } else {
+                    if (d->blackQueensidesideCastlePossible && to == 2) {
+                        //Ensure the spaces are empty
+                        if (pieceAt(1, boardLayout) != Empty || pieceAt(2, boardLayout) != Empty || pieceAt(3, boardLayout) != Empty) return false;
 
-                    //Ensure the king is not walking through a conflicting square
-                    boardLayout.replace(2, BlackKing);
-                    boardLayout.replace(4, Empty);
-                    if (isCheck(false, boardLayout)) return false;
+                        //Ensure the king is not walking through a conflicting square
+                        boardLayout.replace(2, BlackKing);
+                        boardLayout.replace(4, Empty);
+                        if (isCheck(false, boardLayout)) return false;
 
-                    return true;
-                }
-                if (d->blackKingsideCastlePossible && to == 6)  {
-                    if (pieceAt(5) != Empty || pieceAt(6) != Empty) return false;
+                        return true;
+                    }
+                    if (d->blackKingsideCastlePossible && to == 6)  {
+                        if (pieceAt(5, boardLayout) != Empty || pieceAt(6, boardLayout) != Empty) return false;
 
-                    //Ensure the king is not walking through a conflicting square
-                    boardLayout.replace(5, BlackKing);
-                    boardLayout.replace(4, Empty);
-                    if (isCheck(false, boardLayout)) return false;
+                        //Ensure the king is not walking through a conflicting square
+                        boardLayout.replace(5, BlackKing);
+                        boardLayout.replace(4, Empty);
+                        if (isCheck(false, boardLayout)) return false;
 
-                    return true;
+                        return true;
+                    }
                 }
             }
 
@@ -405,15 +593,11 @@ bool GameEngine::isCheck() {
     return isCheck(isWhiteTurn(), d->boardLayout);
 }
 
-bool GameEngine::isCheck(bool isWhiteCheck, QList<int> boardLayout) {
-    auto pieceAt = [ = ](int index) {
-        return static_cast<Piece>(boardLayout.at(index));
-    };
-
+bool GameEngine::isCheck(bool isWhiteCheck, QList<quint8> boardLayout) {
     //Locate the king
     int otherKing = -1;
     for (int i = 0; i < 64; i++) {
-        if ((isWhiteCheck && pieceAt(i) == WhiteKing) || (!isWhiteCheck && pieceAt(i) == BlackKing)) {
+        if ((isWhiteCheck && pieceAt(i, boardLayout) == WhiteKing) || (!isWhiteCheck && pieceAt(i, boardLayout) == BlackKing)) {
             otherKing = i;
             break;
         }
@@ -425,7 +609,7 @@ bool GameEngine::isCheck(bool isWhiteCheck, QList<int> boardLayout) {
 
     //See if any piece can take the king
     for (int i = 0; i < 64; i++) {
-        Piece piece = pieceAt(i);
+        Piece piece = pieceAt(i, boardLayout);
         if ((isWhiteCheck && !isWhitePiece(piece)) || (!isWhiteCheck && isWhitePiece(piece))) {
             if (isValidMove(i, otherKing, boardLayout, !isWhiteCheck, false)) return true;
         }
@@ -449,5 +633,70 @@ bool GameEngine::isWhitePiece(GameEngine::Piece piece) {
 }
 
 GameEngine::Piece GameEngine::pieceAt(int index) {
-    return static_cast<Piece>(d->boardLayout.at(index));
+    return pieceAt(index, d->boardLayout);
+}
+
+GameEngine::Piece GameEngine::pieceAt(int index, QList<quint8> boardLayout) {
+    return static_cast<Piece>(boardLayout.at(index));
+}
+
+QString GameEngine::pieceName(GameEngine::Piece piece) {
+    QMap<Piece, const char*> pieces = {
+        {Empty, QT_TR_NOOP("Empty Space")},
+        {WhitePawn, QT_TR_NOOP("White Pawn")},
+        {WhiteKnight, QT_TR_NOOP("White Knight")},
+        {WhiteBishop, QT_TR_NOOP("White Bishop")},
+        {WhiteRook, QT_TR_NOOP("White Rook")},
+        {WhiteQueen, QT_TR_NOOP("White Queen")},
+        {WhiteKing, QT_TR_NOOP("White King")},
+        {BlackPawn, QT_TR_NOOP("Black Pawn")},
+        {BlackKnight, QT_TR_NOOP("Black Knight")},
+        {BlackBishop, QT_TR_NOOP("Black Bishop")},
+        {BlackRook, QT_TR_NOOP("Black Rook")},
+        {BlackQueen, QT_TR_NOOP("Black Queen")},
+        {BlackKing, QT_TR_NOOP("Black King")},
+    };
+    return tr(pieces.value(piece));
+}
+
+void GameEngine::setFixedGameState(int turn) {
+    d->currentBoardLayout = d->boardLayout;
+    d->currentTakenPieces = d->takenPieces;
+
+    MoveResults results = d->previousMoves.at(turn);
+    d->boardLayout = results.newBoardLayout;
+}
+
+void GameEngine::restoreFixedGameState() {
+    d->boardLayout = d->currentBoardLayout;
+    d->takenPieces = d->currentTakenPieces;
+}
+
+QString GameEngine::turnDescription(bool isWhiteMove, GameEngine::MoveResults results) {
+    switch (results.moveType) {
+        case GameEngine::StandardMove:
+        case GameEngine::EnPassant:
+            if (results.takenPiece == Empty) {
+                return tr("%1 moves %2 -> %3").arg(pieceName(results.movedPiece), indexToCoordinate(results.from), indexToCoordinate(results.to));
+            } else {
+                return tr("%1 moves from %2 -> %3 capturing a %4").arg(pieceName(results.movedPiece), indexToCoordinate(results.from), indexToCoordinate(results.to), pieceName(results.takenPiece));
+            }
+            break;
+        case GameEngine::KingsideCastle:
+            if (isWhiteMove) {
+                return tr("White castles kingside");
+            } else {
+                return tr("Black castles kingside");
+            }
+        case GameEngine::QueensideCastle:
+            if (isWhiteMove) {
+                return tr("White castles queenside");
+            } else {
+                return tr("Black castles queenside");
+            }
+        case GameEngine::InitialBoardState:
+            return tr("Beginning of game");
+    }
+
+    return "A turn";
 }

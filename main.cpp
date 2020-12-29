@@ -19,12 +19,37 @@
  * *************************************/
 #include "mainwindow.h"
 
-#include <QApplication>
+#include <QDir>
+#include <tapplication.h>
 #include <notificationengine.h>
 #include <entertaining.h>
 
 int main(int argc, char* argv[]) {
-    QApplication a(argc, argv);
+    tApplication a(argc, argv);
+    a.registerCrashTrap();
+
+    if (QDir("/usr/share/entertaining-chess").exists()) {
+        a.setShareDir("/usr/share/entertaining-chess");
+    } else if (QDir(QDir::cleanPath(QApplication::applicationDirPath() + "/../share/entertaining-chess/")).exists()) {
+        a.setShareDir(QDir::cleanPath(QApplication::applicationDirPath() + "/../share/entertaining-chess/"));
+    }
+    a.installTranslators();
+
+    a.setOrganizationName("theSuite");
+    a.setOrganizationDomain("");
+    a.setApplicationIcon(QIcon::fromTheme("entertaining-chess", QIcon(":/icons/entertaining-chess.svg")));
+    a.setApplicationVersion("0.1");
+    a.setGenericName(QApplication::translate("main", "Chess"));
+//    a.setAboutDialogSplashGraphic(a.aboutDialogSplashGraphicFromSvg(":/icons/aboutsplash.svg"));
+    a.setApplicationLicense(tApplication::Gpl3OrLater);
+    a.setCopyrightHolder("Victor Tran");
+    a.setCopyrightYear("2019");
+    a.setDesktopFileName("com.vicr123.entertaining.chess");
+#ifdef T_BLUEPRINT_BUILD
+    a.setApplicationName("Entertaining Chess Blueprint");
+#else
+    a.setApplicationName("Entertaining Chess");
+#endif
 
     Entertaining::initialize();
 

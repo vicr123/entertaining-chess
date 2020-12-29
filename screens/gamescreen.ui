@@ -53,55 +53,11 @@
          <string/>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset theme="application-menu">
           <normaloff>:/icons/application-menu.svg</normaloff>:/icons/application-menu.svg</iconset>
         </property>
         <property name="flat">
          <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="mineIcon">
-        <property name="text">
-         <string notr="true">TextLabel</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="minesRemainingLabel">
-        <property name="text">
-         <string notr="true">300</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="hudSpacing">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QLabel" name="timeIcon">
-        <property name="text">
-         <string notr="true">TextLabel</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="timeLabel">
-        <property name="text">
-         <string notr="true">005</string>
         </property>
        </widget>
       </item>

@@ -31,6 +31,9 @@ class GameRenderer : public QWidget {
         ~GameRenderer();
 
         void setGameEngine(GameEngine* engine);
+        GameEngine* gameEngine();
+
+        void setFixedGameState(int turn);
 
         QRect viewport();
 

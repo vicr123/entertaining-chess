@@ -17,33 +17,46 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * *************************************/
-#ifndef GAMESCREEN_H
-#define GAMESCREEN_H
+#ifndef TURNBROWSER_H
+#define TURNBROWSER_H
 
 #include <QWidget>
 
 namespace Ui {
-    class GameScreen;
+    class TurnBrowser;
 }
 
-struct GameEngine;
-class GameScreen : public QWidget {
+class GameEngine;
+struct TurnBrowserPrivate;
+class TurnBrowser : public QWidget {
         Q_OBJECT
 
     public:
-        explicit GameScreen(QWidget* parent = nullptr);
-        ~GameScreen();
+        explicit TurnBrowser(QWidget* parent = nullptr);
+        ~TurnBrowser();
 
-        void setGameEngine(GameEngine* engine);
+        QSize sizeHint() const;
+
+        void setEngine(GameEngine* engine);
+
+        void nextTurn();
+        void previousTurn();
 
     signals:
-        void returnToMainMenu();
-
-    private slots:
-        void on_menuButton_clicked();
+        void currentTurnChanged(int turn);
 
     private:
-        Ui::GameScreen* ui;
+        TurnBrowserPrivate* d;
+        Ui::TurnBrowser* ui;
+
+        // QWidget interface
+    protected:
+        void paintEvent(QPaintEvent* event);
+        void resizeEvent(QResizeEvent* event);
+
+        // QObject interface
+    public:
+        bool event(QEvent* event);
 };
 
-#endif // GAMESCREEN_H
+#endif // TURNBROWSER_H

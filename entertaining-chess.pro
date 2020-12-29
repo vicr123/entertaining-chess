@@ -16,7 +16,9 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     screens/gamescreen.cpp \
-    screens/mainscreen.cpp
+    screens/mainscreen.cpp \
+    screens/pausescreen.cpp \
+    widgets/turnbrowser.cpp
 
 HEADERS += \
     game/MoveEngines/abstractmoveengine.h \
@@ -25,12 +27,16 @@ HEADERS += \
     game/gamerenderer.h \
     mainwindow.h \
     screens/gamescreen.h \
-    screens/mainscreen.h
+    screens/mainscreen.h \
+    screens/pausescreen.h \
+    widgets/turnbrowser.h
 
 FORMS += \
     mainwindow.ui \
     screens/gamescreen.ui \
-    screens/mainscreen.ui
+    screens/mainscreen.ui \
+    screens/pausescreen.ui \
+    widgets/turnbrowser.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

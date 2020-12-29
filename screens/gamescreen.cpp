@@ -20,10 +20,20 @@
 #include "gamescreen.h"
 #include "ui_gamescreen.h"
 
+#include <musicengine.h>
+#include "game/gameengine.h"
+#include "pausescreen.h"
+
 GameScreen::GameScreen(QWidget* parent) :
     QWidget(parent),
     ui(new Ui::GameScreen) {
     ui->setupUi(this);
+
+    ui->gamepadHud->bindKey(Qt::Key_Escape, QGamepadManager::ButtonStart);
+
+    ui->gamepadHud->setButtonAction(QGamepadManager::ButtonStart, [ = ] {
+        ui->menuButton->click();
+    });
 }
 
 GameScreen::~GameScreen() {
@@ -32,4 +42,30 @@ GameScreen::~GameScreen() {
 
 void GameScreen::setGameEngine(GameEngine* engine) {
     ui->gameRenderer->setGameEngine(engine);
+}
+
+void GameScreen::on_menuButton_clicked() {
+    MusicEngine::pauseBackgroundMusic();
+    MusicEngine::playSoundEffect(MusicEngine::Pause);
+
+    PauseScreen* screen = new PauseScreen(ui->gameRenderer->gameEngine(), this);
+    connect(screen, &PauseScreen::resume, this, [ = ] {
+        screen->deleteLater();
+        ui->gameRenderer->setFocus();
+    });
+    connect(screen, &PauseScreen::mainMenu, this, [ = ] {
+        screen->deleteLater();
+        emit returnToMainMenu();
+    });
+//    connect(screen, &PauseScreen::provideMetadata, this, [ = ](QVariantMap * metadata) {
+//        //TODO
+//        QStringList description;
+//        description.append(tr("Chess Game"));
+
+//        metadata->insert("description", description.join(" ∙ "));
+//    });
+//    connect(screen, &PauseScreen::provideSaveData, this, [ = ](QDataStream * data) {
+//        ui->gameRenderer->gameEngine()->saveGame(data);
+//    });
+    screen->show();
 }
