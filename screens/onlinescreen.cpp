@@ -17,37 +17,28 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * *************************************/
-#ifndef MAINSCREEN_H
-#define MAINSCREEN_H
+#include "onlinescreen.h"
+#include "ui_onlinescreen.h"
 
-#include <QWidget>
-#include "game/gameengine.h"
+#include "online/onlinecontroller.h"
 
-namespace Ui {
-    class MainScreen;
+OnlineScreen::OnlineScreen(QWidget* parent) :
+    QWidget(parent),
+    ui(new Ui::OnlineScreen) {
+    ui->setupUi(this);
+
+    connect(OnlineController::instance(), &OnlineController::onlineStateChanged, this, [ = ](OnlineController::OnlineState state) {
+        switch (state) {
+            case OnlineController::Connecting:
+                ui->stackedWidget->setCurrentWidget(ui->connectingPage);
+                break;
+            case OnlineController::Idle:
+                ui->stackedWidget->setCurrentWidget(ui->mainMenuPage);
+                break;
+        }
+    });
 }
 
-class MainScreen : public QWidget {
-        Q_OBJECT
-
-    public:
-        explicit MainScreen(QWidget* parent = nullptr);
-        ~MainScreen();
-
-    private slots:
-        void on_exitButton_clicked();
-
-        void on_loadButton_clicked();
-
-        void on_playButton_clicked();
-
-        void on_playOnlineButton_clicked();
-
-    signals:
-        void startGame(GameEngine* engine);
-
-    private:
-        Ui::MainScreen* ui;
-};
-
-#endif // MAINSCREEN_H
+OnlineScreen::~OnlineScreen() {
+    delete ui;
+}

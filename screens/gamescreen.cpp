@@ -22,7 +22,10 @@
 
 #include <musicengine.h>
 #include "game/gameengine.h"
+#include "endgamescreen.h"
 #include "pausescreen.h"
+#include <pauseoverlay.h>
+#include <QTimer>
 
 GameScreen::GameScreen(QWidget* parent) :
     QWidget(parent),
@@ -42,6 +45,31 @@ GameScreen::~GameScreen() {
 
 void GameScreen::setGameEngine(GameEngine* engine) {
     ui->gameRenderer->setGameEngine(engine);
+    connect(engine, &GameEngine::endOfGame, this, [ = ](GameEngine::GameResult result) {
+        EndgameScreen* endgameScreen = new EndgameScreen();
+        switch (result) {
+            case GameEngine::WhiteWins:
+                endgameScreen->setMainLabelText(tr("White wins!"));
+                endgameScreen->setDescriptionLabelText(tr("Black is in check and is unable to escape."));
+                break;
+            case GameEngine::BlackWins:
+                endgameScreen->setMainLabelText(tr("Black wins!"));
+                endgameScreen->setDescriptionLabelText(tr("White is in check and is unable to escape."));
+                break;
+            case GameEngine::Stalemate:
+                endgameScreen->setMainLabelText(tr("Stalemate!"));
+                endgameScreen->setDescriptionLabelText(tr("Add a spiffy description here!"));
+                break;
+        }
+
+        PauseOverlay::overlayForWindow(this)->pushOverlayWidget(endgameScreen);
+        QTimer::singleShot(3000, this, [ = ] {
+            PauseOverlay::overlayForWindow(this)->popOverlayWidget([ = ] {
+                ui->menuButton->click();
+                endgameScreen->deleteLater();
+            });
+        });
+    });
 }
 
 void GameScreen::on_menuButton_clicked() {

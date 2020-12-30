@@ -17,37 +17,40 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * *************************************/
-#ifndef MAINSCREEN_H
-#define MAINSCREEN_H
+#ifndef CREATEPRIVATEGAMESCREEN_H
+#define CREATEPRIVATEGAMESCREEN_H
 
 #include <QWidget>
-#include "game/gameengine.h"
 
 namespace Ui {
-    class MainScreen;
+    class CreatePrivateGameScreen;
 }
 
-class MainScreen : public QWidget {
+struct CreatePrivateGameScreenPrivate;
+class CreatePrivateGameScreen : public QWidget {
         Q_OBJECT
 
     public:
-        explicit MainScreen(QWidget* parent = nullptr);
-        ~MainScreen();
+        explicit CreatePrivateGameScreen(QWidget* parent = nullptr);
+        ~CreatePrivateGameScreen();
 
     private slots:
-        void on_exitButton_clicked();
+        void on_titleLabel_backButtonClicked();
 
-        void on_loadButton_clicked();
+        void on_existingGameButton_clicked();
 
-        void on_playButton_clicked();
+        void on_newGameButton_clicked();
 
-        void on_playOnlineButton_clicked();
+        void on_readyButton_clicked();
 
     signals:
-        void startGame(GameEngine* engine);
+        void done();
 
     private:
-        Ui::MainScreen* ui;
+        CreatePrivateGameScreenPrivate* d;
+        Ui::CreatePrivateGameScreen* ui;
+
+        void close();
 };
 
-#endif // MAINSCREEN_H
+#endif // CREATEPRIVATEGAMESCREEN_H

@@ -57,7 +57,7 @@ TurnBrowser::~TurnBrowser() {
 void TurnBrowser::setEngine(GameEngine* engine) {
     d->engine = engine;
 
-    bool isWhiteTurn = true;
+    bool isWhiteTurn = false;
     const QStack<GameEngine::MoveResults> previousMoves = engine->previousMoves();
     for (const GameEngine::MoveResults& results : previousMoves) {
         QString description = engine->turnDescription(isWhiteTurn, results);

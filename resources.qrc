@@ -7,5 +7,7 @@
         <file>assets/black-queen.svg</file>
         <file>assets/black-rook.svg</file>
         <file>assets/white-king.svg</file>
+        <file>assets/crossed-swords.svg</file>
+        <file>assets/open-space.svg</file>
     </qresource>
 </RCC>

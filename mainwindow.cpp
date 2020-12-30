@@ -20,6 +20,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "online/onlinecontroller.h"
 #include <pauseoverlay.h>
 
 MainWindow::MainWindow(QWidget* parent)
@@ -29,9 +30,19 @@ MainWindow::MainWindow(QWidget* parent)
 
     ui->menubar->setVisible(false);
 
+    OnlineController::instance()->setMainWindow(this);
+
     connect(ui->mainScreen, &MainScreen::startGame, this, [ = ](GameEngine * engine) {
         ui->gameScreen->setGameEngine(engine);
         ui->stackedWidget->setCurrentWidget(ui->gameScreen);
+    });
+
+    connect(OnlineController::instance(), &OnlineController::isOnlineChanged, this, [ = ](bool isOnline) {
+        if (isOnline) {
+            ui->stackedWidget->setCurrentWidget(ui->onlineScreen);
+        } else {
+            ui->stackedWidget->setCurrentWidget(ui->mainScreen);
+        }
     });
 
     connect(ui->gameScreen, &GameScreen::returnToMainMenu, this, [ = ] {

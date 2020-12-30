@@ -41,23 +41,25 @@ PauseScreen::PauseScreen(GameEngine* engine, QWidget* parent) :
     PauseOverlay::overlayForWindow(this->parentWidget())->pushOverlayWidget(this);
 
     ui->gamepadHud->setButtonText(QGamepadManager::ButtonA, tr("Select"));
-    ui->gamepadHud->setButtonText(QGamepadManager::ButtonB, tr("Resume"));
+    if (engine->isMoveAvailable()) ui->gamepadHud->setButtonText(QGamepadManager::ButtonB, tr("Resume"));
     ui->gamepadHud->bindKey(Qt::Key_Left, QGamepadManager::ButtonL1);
     ui->gamepadHud->bindKey(Qt::Key_Right, QGamepadManager::ButtonR1);
 
     ui->gamepadHud->setButtonAction(QGamepadManager::ButtonA, GamepadHud::standardAction(GamepadHud::SelectAction));
-    ui->gamepadHud->setButtonAction(QGamepadManager::ButtonB, [ = ] {
-        ui->resumeButton->click();
-    });
-    ui->gamepadHud->setButtonAction(QGamepadManager::ButtonStart, [ = ] {
-        ui->resumeButton->click();
-    });
     ui->gamepadHud->setButtonAction(QGamepadManager::ButtonL1, [ = ] {
         previousScreen();
     });
     ui->gamepadHud->setButtonAction(QGamepadManager::ButtonR1, [ = ] {
         nextScreen();
     });
+    if (engine->isMoveAvailable()) {
+        ui->gamepadHud->setButtonAction(QGamepadManager::ButtonB, [ = ] {
+            ui->resumeButton->click();
+        });
+        ui->gamepadHud->setButtonAction(QGamepadManager::ButtonStart, [ = ] {
+            ui->resumeButton->click();
+        });
+    }
 
     ui->stackedWidget->setCurrentAnimation(tStackedWidget::Fade);
     ui->stackedWidget->currentChanged(0);
@@ -73,6 +75,11 @@ PauseScreen::PauseScreen(GameEngine* engine, QWidget* parent) :
     connect(ui->turnBrowser, &TurnBrowser::currentTurnChanged, this, [ = ](int index) {
         ui->gameRewindRenderer->setFixedGameState(index);
     });
+
+    if (!engine->isMoveAvailable()) {
+        ui->resumeButton->setVisible(false);
+        ui->saveButton->setVisible(false);
+    }
 
     this->setFocusProxy(ui->turnBrowser);
 }

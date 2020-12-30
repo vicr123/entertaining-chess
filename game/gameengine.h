@@ -62,6 +62,12 @@ class GameEngine : public QObject {
             Promotion
         };
 
+        enum GameResult {
+            WhiteWins,
+            BlackWins,
+            Stalemate
+        };
+
         struct MoveResults {
             QList<quint8> newBoardLayout;
             quint8 from;
@@ -83,9 +89,11 @@ class GameEngine : public QObject {
         static QString indexToCoordinate(int index);
 
         void issueMove(int from, int to, Piece promoteTo = Empty);
-        MoveResults issueMove(int from, int to, QList<quint8> boardLayout, Piece promoteTo = Empty);
+        MoveResults issueMove(int from, int to, QList<quint8> boardLayout, bool animate = false, Piece promoteTo = Empty);
         bool isValidMove(int from, int to);
         bool isValidMove(int from, int to, QList<quint8> boardLayout, bool isWhiteTurn, bool checkForCheckCondition = true);
+
+        bool isMoveAvailable();
 
         AbstractMoveEngine* engineForCurrentTurn();
         bool isHumanTurn();
@@ -95,6 +103,7 @@ class GameEngine : public QObject {
         bool isOwnPiece(Piece piece);
         bool isOwnPiece(bool isWhiteTurn, Piece piece);
         static bool isWhitePiece(Piece piece);
+        static bool isBlackPiece(Piece piece);
 
         Piece pieceAt(int index);
         Piece pieceAt(int index, QList<quint8> boardLayout);
@@ -107,6 +116,8 @@ class GameEngine : public QObject {
 
     signals:
         void moveIssued(int from, int to, bool isPlayer1);
+        void animatePiece(int from, int to, Piece piece);
+        void endOfGame(GameResult result);
 
     private:
         GameEnginePrivate* d;

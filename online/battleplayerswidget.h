@@ -17,37 +17,29 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * *************************************/
-#ifndef MAINSCREEN_H
-#define MAINSCREEN_H
+#ifndef BATTLEPLAYERSWIDGET_H
+#define BATTLEPLAYERSWIDGET_H
 
 #include <QWidget>
-#include "game/gameengine.h"
 
 namespace Ui {
-    class MainScreen;
+    class BattlePlayersWidget;
 }
 
-class MainScreen : public QWidget {
+class BattlePlayersWidget : public QWidget {
         Q_OBJECT
 
     public:
-        explicit MainScreen(QWidget* parent = nullptr);
-        ~MainScreen();
+        explicit BattlePlayersWidget(QWidget* parent = nullptr);
+        ~BattlePlayersWidget();
 
-    private slots:
-        void on_exitButton_clicked();
-
-        void on_loadButton_clicked();
-
-        void on_playButton_clicked();
-
-        void on_playOnlineButton_clicked();
-
-    signals:
-        void startGame(GameEngine* engine);
+        void setWhiteSide(QImage image, QString name);
+        void clearWhiteSide();
+        void setBlackSide(QImage image, QString name);
+        void clearBlackSide();
 
     private:
-        Ui::MainScreen* ui;
+        Ui::BattlePlayersWidget* ui;
 };
 
-#endif // MAINSCREEN_H
+#endif // BATTLEPLAYERSWIDGET_H

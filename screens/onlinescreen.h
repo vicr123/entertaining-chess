@@ -17,37 +17,27 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * *************************************/
-#ifndef MAINSCREEN_H
-#define MAINSCREEN_H
+#ifndef ONLINESCREEN_H
+#define ONLINESCREEN_H
 
 #include <QWidget>
-#include "game/gameengine.h"
 
 namespace Ui {
-    class MainScreen;
+    class OnlineScreen;
 }
 
-class MainScreen : public QWidget {
+class OnlineScreen : public QWidget {
         Q_OBJECT
 
     public:
-        explicit MainScreen(QWidget* parent = nullptr);
-        ~MainScreen();
-
-    private slots:
-        void on_exitButton_clicked();
-
-        void on_loadButton_clicked();
-
-        void on_playButton_clicked();
-
-        void on_playOnlineButton_clicked();
+        explicit OnlineScreen(QWidget* parent = nullptr);
+        ~OnlineScreen();
 
     signals:
-        void startGame(GameEngine* engine);
+        void quitOnline();
 
     private:
-        Ui::MainScreen* ui;
+        Ui::OnlineScreen* ui;
 };
 
-#endif // MAINSCREEN_H
+#endif // ONLINESCREEN_H

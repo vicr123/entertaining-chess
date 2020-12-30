@@ -24,9 +24,15 @@
 #include <QPainter>
 #include <QSvgRenderer>
 #include <QMouseEvent>
+#include <tvariantanimation.h>
 #include "screens/promotescreen.h"
 #include <pauseoverlay.h>
 #include <terrorflash.h>
+
+struct AnimatedPiece {
+    QPointF currentLocation;
+    GameEngine::Piece piece;
+};
 
 struct GameRendererPrivate {
     GameEngine* gameEngine;
@@ -36,6 +42,9 @@ struct GameRendererPrivate {
     QList<int> availableMoves;
 
     int fixedGameStateTurn = -1;
+
+    QList<AnimatedPiece*> animations;
+    QList<int> animationsTo;
 };
 
 GameRenderer::GameRenderer(QWidget* parent) : QWidget(parent) {
@@ -50,9 +59,37 @@ GameRenderer::~GameRenderer() {
 
 void GameRenderer::setGameEngine(GameEngine* engine) {
     if (d->gameEngine != nullptr) d->gameEngine->deleteLater();
+
+    d->currentFocus = -1;
+    d->currentSelection = -1;
+    d->availableMoves.clear();
+
     d->gameEngine = engine;
     connect(engine, &GameEngine::moveIssued, this, [ = ] {
         this->update();
+    });
+    connect(engine, &GameEngine::animatePiece, this, [ = ](int from, int to, GameEngine::Piece piece) {
+        AnimatedPiece* ap = new AnimatedPiece();
+        ap->piece = piece;
+
+        d->animations.append(ap);
+        d->animationsTo.append(to);
+
+        tVariantAnimation* anim = new tVariantAnimation();
+        anim->setStartValue(QPointF(from % 8, from / 8));
+        anim->setEndValue(QPointF(to % 8, to / 8));
+        anim->setDuration(500);
+        anim->setEasingCurve(QEasingCurve::OutCubic);
+        connect(anim, &tVariantAnimation::valueChanged, this, [ = ](QVariant value) {
+            ap->currentLocation = value.toPointF();
+            this->update();
+        });
+        connect(anim, &tVariantAnimation::finished, this, [ = ] {
+            d->animationsTo.removeOne(to);
+            d->animations.removeOne(ap);
+            delete ap;
+        });
+        anim->start();
     });
 }
 
@@ -151,41 +188,44 @@ void GameRenderer::paintEvent(QPaintEvent* event) {
         painter.fillRect(QRect(d->currentFocus % 8, d->currentFocus / 8, 1, 1), QColor(0, 200, 255));
     }
 
+    //        const QMap<GameEngine::Piece, QString> pieceIcons = {
+    //            {GameEngine::WhitePawn, "black-pawn"},
+    //            {GameEngine::WhiteKnight, "black-knight"},
+    //            {GameEngine::WhiteBishop, "black-bishop"},
+    //            {GameEngine::WhiteRook, "black-rook"},
+    //            {GameEngine::WhiteQueen, "black-queen"},
+    //            {GameEngine::WhiteKing, "white-king"},
+    //            {GameEngine::BlackPawn, "black-pawn"},
+    //            {GameEngine::BlackKnight, "black-knight"},
+    //            {GameEngine::BlackBishop, "black-bishop"},
+    //            {GameEngine::BlackRook, "black-rook"},
+    //            {GameEngine::BlackQueen, "black-queen"},
+    //            {GameEngine::BlackKing, "black-king"}
+    //        };
+    const QMap<GameEngine::Piece, QString> pieceIcons = {
+        {GameEngine::WhitePawn, QChar(0x2659)},
+        {GameEngine::WhiteKnight, QChar(0x2658)},
+        {GameEngine::WhiteBishop, QChar(0x2657)},
+        {GameEngine::WhiteRook, QChar(0x2656)},
+        {GameEngine::WhiteQueen, QChar(0x2655)},
+        {GameEngine::WhiteKing, QChar(0x2654)},
+        {GameEngine::BlackPawn, QChar(0x265F)},
+        {GameEngine::BlackKnight, QChar(0x265E)},
+        {GameEngine::BlackBishop, QChar(0x265D)},
+        {GameEngine::BlackRook, QChar(0x265C)},
+        {GameEngine::BlackQueen, QChar(0x265B)},
+        {GameEngine::BlackKing, QChar(0x265A)}
+    };
+
     //Draw the chess pieces
     QFont font = painter.font();
     font.setPixelSize(1);
     painter.setFont(font);
     painter.setPen(Qt::black);
     for (int i = 0; i < 64; i++) {
+        //Don't draw pieces we're currently animating
+        if (d->animationsTo.contains(i)) continue;
         QRectF rect(i % 8, i / 8, 1, 1);
-//        const QMap<GameEngine::Piece, QString> pieceIcons = {
-//            {GameEngine::WhitePawn, "black-pawn"},
-//            {GameEngine::WhiteKnight, "black-knight"},
-//            {GameEngine::WhiteBishop, "black-bishop"},
-//            {GameEngine::WhiteRook, "black-rook"},
-//            {GameEngine::WhiteQueen, "black-queen"},
-//            {GameEngine::WhiteKing, "white-king"},
-//            {GameEngine::BlackPawn, "black-pawn"},
-//            {GameEngine::BlackKnight, "black-knight"},
-//            {GameEngine::BlackBishop, "black-bishop"},
-//            {GameEngine::BlackRook, "black-rook"},
-//            {GameEngine::BlackQueen, "black-queen"},
-//            {GameEngine::BlackKing, "black-king"}
-//        };
-        const QMap<GameEngine::Piece, QString> pieceIcons = {
-            {GameEngine::WhitePawn, QChar(0x2659)},
-            {GameEngine::WhiteKnight, QChar(0x2658)},
-            {GameEngine::WhiteBishop, QChar(0x2657)},
-            {GameEngine::WhiteRook, QChar(0x2656)},
-            {GameEngine::WhiteQueen, QChar(0x2655)},
-            {GameEngine::WhiteKing, QChar(0x2654)},
-            {GameEngine::BlackPawn, QChar(0x265F)},
-            {GameEngine::BlackKnight, QChar(0x265E)},
-            {GameEngine::BlackBishop, QChar(0x265D)},
-            {GameEngine::BlackRook, QChar(0x265C)},
-            {GameEngine::BlackQueen, QChar(0x265B)},
-            {GameEngine::BlackKing, QChar(0x265A)}
-        };
 
         GameEngine::Piece piece = d->gameEngine->pieceAt(i);
         if (piece == GameEngine::Empty) continue;
@@ -201,6 +241,12 @@ void GameRenderer::paintEvent(QPaintEvent* event) {
             painter.fillRect(rect.adjusted(0.9, 0, 0, 0), checkColor);
             painter.fillRect(rect.adjusted(0, 0.9, 0, 0), checkColor);
         }
+    }
+
+    //Draw animating pieces
+    for (AnimatedPiece* anim : d->animations) {
+        QRectF rect(anim->currentLocation, QSizeF(1, 1));
+        painter.drawText(rect, Qt::AlignCenter, pieceIcons.value(anim->piece));
     }
 
     //Draw the available moves

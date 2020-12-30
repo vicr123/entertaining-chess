@@ -1,4 +1,4 @@
-QT       += core gui entertaining svg
+QT       += core gui entertaining svg network websockets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -15,8 +15,14 @@ SOURCES += \
     game/gamerenderer.cpp \
     main.cpp \
     mainwindow.cpp \
+    online/battleplayerswidget.cpp \
+    online/createprivategamescreen.cpp \
+    online/onlinecontroller.cpp \
+    online/onlinemainmenu.cpp \
+    screens/endgamescreen.cpp \
     screens/gamescreen.cpp \
     screens/mainscreen.cpp \
+    screens/onlinescreen.cpp \
     screens/pausescreen.cpp \
     screens/promotescreen.cpp \
     widgets/turnbrowser.cpp
@@ -27,16 +33,27 @@ HEADERS += \
     game/gameengine.h \
     game/gamerenderer.h \
     mainwindow.h \
+    online/battleplayerswidget.h \
+    online/createprivategamescreen.h \
+    online/onlinecontroller.h \
+    online/onlinemainmenu.h \
+    screens/endgamescreen.h \
     screens/gamescreen.h \
     screens/mainscreen.h \
+    screens/onlinescreen.h \
     screens/pausescreen.h \
     screens/promotescreen.h \
     widgets/turnbrowser.h
 
 FORMS += \
     mainwindow.ui \
+    online/battleplayerswidget.ui \
+    online/createprivategamescreen.ui \
+    online/onlinemainmenu.ui \
+    screens/endgamescreen.ui \
     screens/gamescreen.ui \
     screens/mainscreen.ui \
+    screens/onlinescreen.ui \
     screens/pausescreen.ui \
     screens/promotescreen.ui \
     widgets/turnbrowser.ui

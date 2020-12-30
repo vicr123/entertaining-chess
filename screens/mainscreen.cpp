@@ -24,7 +24,11 @@
 #include "game/MoveEngines/humanmoveengine.h"
 #include <musicengine.h>
 #include <loadoverlay.h>
+#include <questionoverlay.h>
 #include <the-libs_global.h>
+#include <online/logindialog.h>
+#include <online/onlineapi.h>
+#include "online/onlinecontroller.h"
 
 MainScreen::MainScreen(QWidget* parent) :
     QWidget(parent),
@@ -59,8 +63,17 @@ void MainScreen::on_loadButton_clicked() {
     LoadOverlay* load = new LoadOverlay(this);
     connect(load, &LoadOverlay::loadData, this, [ = ](QDataStream * stream) {
         GameEngine* engine = new GameEngine(new HumanMoveEngine(), new HumanMoveEngine());
-        engine->loadGame(stream);
-        emit startGame(engine);
+        if (!engine->loadGame(stream)) {
+            QuestionOverlay* question = new QuestionOverlay(this);
+            question->setIcon(QMessageBox::Critical);
+            question->setTitle(tr("Corrupt File"));
+            question->setText(tr("Sorry, that file is corrupt and needs to be deleted."));
+            question->setButtons(QMessageBox::Ok);
+            connect(question, &QuestionOverlay::accepted, question, &QuestionOverlay::deleteLater);
+            connect(question, &QuestionOverlay::rejected, question, &QuestionOverlay::deleteLater);
+        } else {
+            emit startGame(engine);
+        }
     });
     load->load();
 }
@@ -69,4 +82,17 @@ void MainScreen::on_playButton_clicked() {
     GameEngine* engine = new GameEngine(new HumanMoveEngine(), new HumanMoveEngine());
     engine->startGame();
     emit startGame(engine);
+}
+
+void MainScreen::on_playOnlineButton_clicked() {
+    LoginDialog* login = new LoginDialog(this);
+    if (login->exec()) {
+//        ui->stackedWidget->setCurrentWidget(ui->onlineScreen);
+//        ui->onlineScreen->connectToOnline();
+
+//        ReportController::setAutomaticReportingEnabled(this, true);
+        OnlineController::instance()->connectToOnline();
+    } else {
+
+    }
 }

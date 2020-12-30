@@ -17,37 +17,23 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * *************************************/
-#ifndef MAINSCREEN_H
-#define MAINSCREEN_H
+#include "endgamescreen.h"
+#include "ui_endgamescreen.h"
 
-#include <QWidget>
-#include "game/gameengine.h"
-
-namespace Ui {
-    class MainScreen;
+EndgameScreen::EndgameScreen(QWidget* parent) :
+    QWidget(parent),
+    ui(new Ui::EndgameScreen) {
+    ui->setupUi(this);
 }
 
-class MainScreen : public QWidget {
-        Q_OBJECT
+EndgameScreen::~EndgameScreen() {
+    delete ui;
+}
 
-    public:
-        explicit MainScreen(QWidget* parent = nullptr);
-        ~MainScreen();
+void EndgameScreen::setMainLabelText(QString text) {
+    ui->mainLabel->setText(text);
+}
 
-    private slots:
-        void on_exitButton_clicked();
-
-        void on_loadButton_clicked();
-
-        void on_playButton_clicked();
-
-        void on_playOnlineButton_clicked();
-
-    signals:
-        void startGame(GameEngine* engine);
-
-    private:
-        Ui::MainScreen* ui;
-};
-
-#endif // MAINSCREEN_H
+void EndgameScreen::setDescriptionLabelText(QString text) {
+    ui->descriptionLabel->setText(text);
+}

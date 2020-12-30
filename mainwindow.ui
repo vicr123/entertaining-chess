@@ -33,6 +33,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <widget class="MainScreen" name="mainScreen"/>
+      <widget class="OnlineScreen" name="onlineScreen"/>
       <widget class="GameScreen" name="gameScreen"/>
      </widget>
     </item>
@@ -60,6 +61,12 @@
    <class>GameScreen</class>
    <extends>QWidget</extends>
    <header>screens/gamescreen.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>OnlineScreen</class>
+   <extends>QWidget</extends>
+   <header>screens/onlinescreen.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
