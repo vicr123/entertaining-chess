@@ -13,7 +13,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
-   sodipodi:docname="bishop_black.svg">
+   sodipodi:docname="black-bishop.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -25,7 +25,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
      inkscape:cx="310.01079"
-     inkscape:cy="277.57964"
+     inkscape:cy="234.7225"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -54,7 +54,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
         <cc:license
            rdf:resource="" />
       </cc:Work>
@@ -66,7 +66,7 @@
      id="layer1">
     <path
        id="path38"
-       style="fill:#1e1e1e;stroke:#000000;stroke-width:9;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:7.5;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
+       style="fill:#1e1e1e;stroke:#000000;stroke-width:11.00000003;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:7.5;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
        d="m 256,58.307692 c -16.8718,0 -33.74359,7.230769 -19.28205,21.692308 -5.34795,5.347948 -10.36237,11.357477 -14.74635,17.719143 l 24.38737,30.485987 -9.64102,9.64102 -22.19602,-27.74383 c -13.08039,25.26302 -14.38143,52.83973 12.55499,66.30794 L 198.15384,186.05128 232,196 224,376 c -24,0 -40,24.00001 -40,40 -24,0 -56,16.00003 -56,64 l 256,0 c 0,-47.99997 -32,-64 -56,-64 0,-15.99999 -16,-40 -40,-40 l -8,-180 33.84616,-9.94872 -28.92308,-9.64102 C 323.48718,157.12821 304.20513,108.92308 275.28205,80 289.74359,65.538461 272.8718,58.307692 256,58.307692 Z"
        sodipodi:nodetypes="sccccccccccccccccccs"
        transform="scale(0.2645833)" />

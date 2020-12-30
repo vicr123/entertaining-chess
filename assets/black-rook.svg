@@ -13,7 +13,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
-   sodipodi:docname="rook_black.svg">
+   sodipodi:docname="black-rook.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -52,7 +52,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
         <cc:license
            rdf:resource="" />
       </cc:Work>
@@ -63,7 +63,7 @@
      inkscape:groupmode="layer"
      id="layer1">
     <path
-       style="fill:#1e1e1e;stroke:#000000;stroke-width:2.38125;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:6.3;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
+       style="fill:#1e1e1e;stroke:#000000;stroke-width:2.91041631;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:6.30000019;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
        d="m 27.516663,126.99998 h 80.433327 c 0,-12.69999 -6.35,-16.93333 -14.816668,-16.93333 0,-4.23333 -4.233333,-10.583329 -12.699999,-10.583329 l -2.116666,-52.91666 19.049998,-4.233333 v -23.28333 l -9.524999,0 V 29.63333 H 81.491657 V 21.166664 H 70.908325 v 8.466666 h -6.35 l 0.04725,-8.466666 H 53.974993 V 29.63333 H 47.624994 V 19.049998 l -9.524999,0 v 23.28333 l 19.050001,4.233333 -2.116666,52.91666 c -8.466665,0 -12.699999,6.349999 -12.699999,10.583329 -8.466666,0 -14.816665,4.23334 -14.816665,16.93333 z"
        id="path38"
        sodipodi:nodetypes="cccccccccccccccccccccccccc" />

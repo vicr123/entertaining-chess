@@ -13,7 +13,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
-   sodipodi:docname="queen_black.svg">
+   sodipodi:docname="black-queen.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -63,17 +63,17 @@
      inkscape:groupmode="layer"
      id="layer1">
     <path
-       style="fill:#1e1e1e;fill-opacity:1;stroke:#000000;stroke-width:2.38125;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#1e1e1e;fill-opacity:1;stroke:#000000;stroke-width:2.91041631;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 50.799994,20.108331 16.933331,-9.524999 16.933331,9.524999"
        id="path1753"
        sodipodi:nodetypes="ccc" />
     <path
-       style="fill:#1e1e1e;fill-opacity:1;stroke:#000000;stroke-width:2.38125;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:6.2;stroke-dasharray:none;stroke-opacity:1"
-       d="m 27.516663,126.99998 h 80.433327 c 0,-12.69999 -6.35,-16.93333 -14.816668,-16.93333 0,-4.23333 -4.233333,-10.583329 -12.699999,-10.583329 L 78.316657,48.683327 86.783323,46.56666 78.316657,44.449994 88.899989,42.333327 78.316657,40.216661 88.899989,21.166664 l -5.291666,-4.233333 -5.291665,4.233333 -5.291667,-4.233333 -5.291666,4.233333 -5.291666,-4.233333 -5.291667,4.233333 -5.291665,-4.233333 -5.291666,4.233333 10.583332,19.049997 -10.583332,2.116666 10.583332,2.116667 -8.466666,2.116666 8.466666,2.116667 -2.116666,50.799994 c -8.466665,0 -12.699999,6.349999 -12.699999,10.583329 -8.466666,0 -14.816665,4.23334 -14.816665,16.93333 z"
+       style="fill:#1e1e1e;fill-opacity:1;stroke:#000000;stroke-width:2.91042;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:6.2;stroke-dasharray:none;stroke-opacity:1"
+       d="m 27.516663,126.99998 h 80.433327 c 0,-12.69999 -6.35,-16.93333 -14.816668,-16.93333 0,-4.23333 -4.233333,-10.583329 -12.699999,-10.583329 l -2.116666,-50.799994 8.466666,-2.116667 -6.35,-2.116665 8.466666,-2.116668 -10.583332,-2.116666 10.583332,-19.049997 -5.291666,-4.233333 -5.291665,4.233333 -5.291667,-4.233333 -5.291666,4.233333 -5.291666,-4.233333 -5.291667,4.233333 -5.291665,-4.233333 -5.291666,4.233333 10.583332,19.049997 -10.583332,2.116666 8.466666,2.116668 -6.35,2.116665 8.466666,2.116667 -2.116666,50.799994 c -8.466665,0 -12.699999,6.349999 -12.699999,10.583329 -8.466666,0 -14.816665,4.23334 -14.816665,16.93333 z"
        id="path38"
        sodipodi:nodetypes="cccccccccccccccccccccccccc" />
     <circle
-       style="fill:#1e1e1e;fill-opacity:1;stroke:#000000;stroke-width:2.38125;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#1e1e1e;fill-opacity:1;stroke:#000000;stroke-width:2.91041631;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path1768"
        cx="67.733322"
        cy="7.4083323"

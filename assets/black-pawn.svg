@@ -13,7 +13,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
-   sodipodi:docname="pawn_black.svg">
+   sodipodi:docname="black-pawn.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -52,7 +52,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
         <cc:license
            rdf:resource="" />
       </cc:Work>
@@ -64,7 +64,7 @@
      id="layer1">
     <path
        id="path38"
-       style="fill:#1e1e1e;stroke:#000000;stroke-width:9;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:6.5;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
+       style="fill:#1e1e1e;stroke:#000000;stroke-width:11.00000003;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:6.5;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
        d="m 255.92383,160 c -22.06164,0.042 -39.92387,17.93832 -39.92383,40 9e-5,15.03731 8.43371,28.8041 21.83008,35.63477 L 216,244 l 24,8 -8,140 c -32,0 -40,24.00001 -40,40 -32,0 -48,16 -48,48 h 224 c 0,-32 -15.99999,-48 -48,-48 0,-15.99999 -8,-40 -40,-40 l -8,-140 24,-8 -21.83008,-8.36523 C 287.56629,228.8041 295.99991,215.03731 296,200 c 0,-22.09139 -17.90861,-40 -40,-40 z"
        transform="scale(0.2645833)"
        sodipodi:nodetypes="cccccccccccccccsc" />
