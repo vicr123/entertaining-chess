@@ -17,30 +17,22 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * *************************************/
-#ifndef ONLINESCREEN_H
-#define ONLINESCREEN_H
+#ifndef ONLINEMOVEENGINE_H
+#define ONLINEMOVEENGINE_H
 
-#include <QWidget>
+#include "abstractmoveengine.h"
 
-namespace Ui {
-    class OnlineScreen;
-}
-
-class GameEngine;
-class OnlineScreen : public QWidget {
+class OnlineMoveEngine : public AbstractMoveEngine {
         Q_OBJECT
-
     public:
-        explicit OnlineScreen(QWidget* parent = nullptr);
-        ~OnlineScreen();
+        explicit OnlineMoveEngine(QObject* parent = nullptr);
 
     signals:
-        void quitOnline();
 
-    private:
-        Ui::OnlineScreen* ui;
 
-        void startGame(GameEngine* engine);
+        // AbstractMoveEngine interface
+    public:
+        void startTurn();
 };
 
-#endif // ONLINESCREEN_H
+#endif // ONLINEMOVEENGINE_H

@@ -37,8 +37,15 @@ OnlineScreen::OnlineScreen(QWidget* parent) :
                 break;
         }
     });
+
+    connect(ui->mainMenuPage, &OnlineMainMenu::startGame, this, &OnlineScreen::startGame);
 }
 
 OnlineScreen::~OnlineScreen() {
     delete ui;
+}
+
+void OnlineScreen::startGame(GameEngine* engine) {
+    ui->gamePage->setGameEngine(engine);
+    ui->stackedWidget->setCurrentWidget(ui->gamePage);
 }

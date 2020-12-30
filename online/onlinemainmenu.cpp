@@ -24,7 +24,10 @@
 #include "online/onlinecontroller.h"
 #include <online/friendsdialog.h>
 #include <online/accountdialog.h>
+#include <textinputoverlay.h>
+#include <QRegularExpression>
 #include "createprivategamescreen.h"
+#include "joingamescreen.h"
 
 OnlineMainMenu::OnlineMainMenu(QWidget* parent) :
     QWidget(parent),
@@ -66,8 +69,20 @@ void OnlineMainMenu::on_accountButton_clicked() {
 void OnlineMainMenu::on_createPrivateButton_clicked() {
     CreatePrivateGameScreen* screen = new CreatePrivateGameScreen(this);
     connect(screen, &CreatePrivateGameScreen::done, screen, &CreatePrivateGameScreen::deleteLater);
+    connect(screen, &CreatePrivateGameScreen::startGame, this, [ = ](GameEngine * engine) {
+        emit startGame(engine);
+    });
 }
 
 void OnlineMainMenu::on_joinPrivateButton_clicked() {
-
+    bool canceled;
+//    QString code = TextInputOverlay::getTextWithRegex(this, tr("What's the game code?"), QRegularExpression("\\d{6}"), &canceled, "", tr("Enter a valid game code"), Qt::ImhDigitsOnly, QLineEdit::Normal, tr("Get this from your buddy"));
+    QString code = TextInputOverlay::getTextWithRegex(this, tr("What's the game code?"), QRegularExpression("\\d{6}"), &canceled, "", tr("Enter a valid game code"), Qt::ImhDigitsOnly, QLineEdit::Normal, tr("Get this from your buddy"));
+    if (!canceled) {
+        JoinGameScreen* screen = new JoinGameScreen(code, this);
+        connect(screen, &JoinGameScreen::done, screen, &JoinGameScreen::deleteLater);
+        connect(screen, &JoinGameScreen::startGame, this, [ = ](GameEngine * engine) {
+            emit startGame(engine);
+        });
+    }
 }

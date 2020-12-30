@@ -33,6 +33,9 @@ class AbstractMoveEngine : public QObject {
         void setGameEngine(GameEngine* engine);
         GameEngine* gameEngine();
 
+        void setIsWhite(bool isWhite);
+        bool isWhite();
+
         virtual void startTurn() = 0;
 
     signals:

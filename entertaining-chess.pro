@@ -11,12 +11,14 @@ CONFIG += c++11
 SOURCES += \
     game/MoveEngines/abstractmoveengine.cpp \
     game/MoveEngines/humanmoveengine.cpp \
+    game/MoveEngines/onlinemoveengine.cpp \
     game/gameengine.cpp \
     game/gamerenderer.cpp \
     main.cpp \
     mainwindow.cpp \
     online/battleplayerswidget.cpp \
     online/createprivategamescreen.cpp \
+    online/joingamescreen.cpp \
     online/onlinecontroller.cpp \
     online/onlinemainmenu.cpp \
     screens/endgamescreen.cpp \
@@ -30,11 +32,13 @@ SOURCES += \
 HEADERS += \
     game/MoveEngines/abstractmoveengine.h \
     game/MoveEngines/humanmoveengine.h \
+    game/MoveEngines/onlinemoveengine.h \
     game/gameengine.h \
     game/gamerenderer.h \
     mainwindow.h \
     online/battleplayerswidget.h \
     online/createprivategamescreen.h \
+    online/joingamescreen.h \
     online/onlinecontroller.h \
     online/onlinemainmenu.h \
     screens/endgamescreen.h \
@@ -49,6 +53,7 @@ FORMS += \
     mainwindow.ui \
     online/battleplayerswidget.ui \
     online/createprivategamescreen.ui \
+    online/joingamescreen.ui \
     online/onlinemainmenu.ui \
     screens/endgamescreen.ui \
     screens/gamescreen.ui \

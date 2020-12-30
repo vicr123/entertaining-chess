@@ -26,6 +26,7 @@ namespace Ui {
     class CreatePrivateGameScreen;
 }
 
+class GameEngine;
 struct CreatePrivateGameScreenPrivate;
 class CreatePrivateGameScreen : public QWidget {
         Q_OBJECT
@@ -43,8 +44,11 @@ class CreatePrivateGameScreen : public QWidget {
 
         void on_readyButton_clicked();
 
+        void on_startButton_clicked();
+
     signals:
         void done();
+        void startGame(GameEngine* engine);
 
     private:
         CreatePrivateGameScreenPrivate* d;

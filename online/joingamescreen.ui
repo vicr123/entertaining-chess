@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>OnlineScreen</class>
- <widget class="QWidget" name="OnlineScreen">
+ <class>JoinGameScreen</class>
+ <widget class="QWidget" name="JoinGameScreen">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>718</width>
-    <height>533</height>
+    <width>662</width>
+    <height>484</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="spacing">
-    <number>0</number>
-   </property>
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -31,7 +28,10 @@
    </property>
    <item>
     <widget class="QStackedWidget" name="stackedWidget">
-     <widget class="QWidget" name="connectingPage">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="loadingPage">
       <layout class="QGridLayout" name="gridLayout">
        <item row="0" column="1">
         <spacer name="verticalSpacer_2">
@@ -53,35 +53,14 @@
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>172</width>
+           <width>302</width>
            <height>20</height>
           </size>
          </property>
         </spacer>
        </item>
        <item row="1" column="1">
-        <widget class="QWidget" name="widget" native="true">
-         <layout class="QVBoxLayout" name="verticalLayout_2">
-          <property name="spacing">
-           <number>20</number>
-          </property>
-          <item>
-           <widget class="QLabel" name="label">
-            <property name="font">
-             <font>
-              <pointsize>15</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>Connecting to Entertaining Games</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="tCircularSpinner" name="widget_2" native="true"/>
-          </item>
-         </layout>
-        </widget>
+        <widget class="tCircularSpinner" name="widget" native="true"/>
        </item>
        <item row="1" column="2">
         <spacer name="horizontalSpacer_2">
@@ -90,7 +69,7 @@
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>171</width>
+           <width>301</width>
            <height>20</height>
           </size>
          </property>
@@ -111,18 +90,83 @@
        </item>
       </layout>
      </widget>
-     <widget class="OnlineMainMenu" name="mainMenuPage"/>
-     <widget class="GameScreen" name="gamePage"/>
+     <widget class="QWidget" name="preparingPage">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="tTitleLabel" name="titleLabel">
+         <property name="text">
+          <string>Join Private Game</string>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="subtitleLabel">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>LET THE BATTLE BEGIN</string>
+         </property>
+         <property name="margin">
+          <number>9</number>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="BattlePlayersWidget" name="battlePlayers" native="true"/>
+       </item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QPushButton" name="readyButton">
+         <property name="text">
+          <string>Ready!</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>GameScreen</class>
-   <extends>QWidget</extends>
-   <header>screens/gamescreen.h</header>
-   <container>1</container>
+   <class>tTitleLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">ttitlelabel.h</header>
+   <slots>
+    <signal>backButtonClicked()</signal>
+   </slots>
   </customwidget>
   <customwidget>
    <class>tCircularSpinner</class>
@@ -131,9 +175,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>OnlineMainMenu</class>
+   <class>BattlePlayersWidget</class>
    <extends>QWidget</extends>
-   <header>online/onlinemainmenu.h</header>
+   <header>online/battleplayerswidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

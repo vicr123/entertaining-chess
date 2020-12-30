@@ -21,6 +21,7 @@
 #define ONLINEMAINMENU_H
 
 #include <QWidget>
+#include "game/gameengine.h"
 
 namespace Ui {
     class OnlineMainMenu;
@@ -43,6 +44,9 @@ class OnlineMainMenu : public QWidget {
         void on_createPrivateButton_clicked();
 
         void on_joinPrivateButton_clicked();
+
+    signals:
+        void startGame(GameEngine* engine);
 
     private:
         Ui::OnlineMainMenu* ui;

@@ -25,6 +25,10 @@
 #include <online/onlineapi.h>
 #include <online/onlinecontroller.h>
 #include <online/onlinewebsocket.h>
+#include <questionoverlay.h>
+#include "game/gameengine.h"
+#include "game/MoveEngines/humanmoveengine.h"
+#include "game/MoveEngines/onlinemoveengine.h"
 
 struct CreatePrivateGameScreenPrivate {
     QByteArray gameData;
@@ -33,6 +37,7 @@ struct CreatePrivateGameScreenPrivate {
     QString username;
 
     bool isReady = false;
+    bool isPlayerWhite;
 };
 
 CreatePrivateGameScreen::CreatePrivateGameScreen(QWidget* parent) :
@@ -45,7 +50,9 @@ CreatePrivateGameScreen::CreatePrivateGameScreen(QWidget* parent) :
     ui->titleLabel->setBackButtonShown(true);
     ui->mainWidget->setFixedWidth(SC_DPI(600));
     ui->joiningWidget->setFixedWidth(SC_DPI(600));
+    ui->challengerWidget->setFixedWidth(SC_DPI(600));
     ui->joiningWidget->setVisible(false);
+    ui->challengerWidget->setVisible(false);
     PauseOverlay::overlayForWindow(parent)->pushOverlayWidget(this);
 
 
@@ -71,22 +78,49 @@ CreatePrivateGameScreen::CreatePrivateGameScreen(QWidget* parent) :
             d->isReady = true;
             ui->readyButton->setText(tr("Cancel"));
             ui->gameSettingsWidget->setEnabled(false);
+            d->isPlayerWhite = object.value("playerIsWhite").toBool();
 
-            if (object.value("playerIsWhite").toBool()) {
+            if (d->isPlayerWhite) {
                 ui->battlePlayers->setWhiteSide(d->profilePicture, d->username);
             } else {
                 ui->battlePlayers->setBlackSide(d->profilePicture, d->username);
             }
 
+
             ui->joinCode->setText(object.value("code").toString());
             ui->joiningWidget->setVisible(true);
-        } else if (type == "matchmakingCancelled") {
+        } else if (type == "matchmakingCancelled" || type == "peerDisconnected") {
             d->isReady = false;
             ui->readyButton->setText(tr("Ready!"));
             ui->gameSettingsWidget->setEnabled(true);
             ui->battlePlayers->clearWhiteSide();
             ui->battlePlayers->clearBlackSide();
             ui->joiningWidget->setVisible(false);
+            ui->challengerWidget->setVisible(false);
+        } else if (type == "peerConnected") {
+            QString peerUsername = object.value("username").toString();
+            int pictureSize = SC_DPI(64);
+            OnlineApi::instance()->profilePicture(object.value("picture").toString(), pictureSize)->then([ = ](QImage image) {
+                if (d->isPlayerWhite) {
+                    ui->battlePlayers->setBlackSide(image, peerUsername);
+                } else {
+                    ui->battlePlayers->setWhiteSide(image, peerUsername);
+                }
+            });
+
+            OnlineController::instance()->ws()->sendJsonO({
+                {"type", "gameDetails"},
+                {"isPlayerWhite", !d->isPlayerWhite}
+            });
+
+            ui->joiningWidget->setVisible(false);
+            ui->challengerWidget->setVisible(true);
+            ui->challengerMessage->setText(tr("You'll be facing off with %1.").arg(peerUsername));
+            ui->startButton->setEnabled(false);
+        } else if (type == "peerReady") {
+            ui->startButton->setEnabled(true);
+        } else if (type == "peerNotReady") {
+            ui->startButton->setEnabled(false);
         }
     });
 }
@@ -159,4 +193,25 @@ void CreatePrivateGameScreen::on_readyButton_clicked() {
         });
     }
 
+}
+
+void CreatePrivateGameScreen::on_startButton_clicked() {
+    OnlineController::instance()->ws()->sendJsonO({
+        {"type", "startGame"}
+    });
+
+    //Start the game!
+    GameEngine* engine;
+    if (d->isPlayerWhite) {
+        engine = new GameEngine(new HumanMoveEngine, new OnlineMoveEngine);
+    } else {
+        engine = new GameEngine(new OnlineMoveEngine, new HumanMoveEngine);
+    }
+    //TODO: Load a saved game
+    engine->startGame();
+
+    emit startGame(engine);
+    PauseOverlay::overlayForWindow(this)->popOverlayWidget([ = ] {
+//                emit done();
+    });
 }

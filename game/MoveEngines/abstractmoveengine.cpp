@@ -21,6 +21,7 @@
 
 struct AbstractMoveEnginePrivate {
     GameEngine* engine;
+    bool isWhite;
 };
 
 AbstractMoveEngine::AbstractMoveEngine(QObject* parent) : QObject(parent) {
@@ -37,4 +38,12 @@ void AbstractMoveEngine::setGameEngine(GameEngine* engine) {
 
 GameEngine* AbstractMoveEngine::gameEngine() {
     return d->engine;
+}
+
+void AbstractMoveEngine::setIsWhite(bool isWhite) {
+    d->isWhite = isWhite;
+}
+
+bool AbstractMoveEngine::isWhite() {
+    return d->isWhite;
 }

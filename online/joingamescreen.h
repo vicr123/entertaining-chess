@@ -17,30 +17,39 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * *************************************/
-#ifndef ONLINESCREEN_H
-#define ONLINESCREEN_H
+#ifndef JOINGAMESCREEN_H
+#define JOINGAMESCREEN_H
 
 #include <QWidget>
 
 namespace Ui {
-    class OnlineScreen;
+    class JoinGameScreen;
 }
 
 class GameEngine;
-class OnlineScreen : public QWidget {
+struct JoinGameScreenPrivate;
+class JoinGameScreen : public QWidget {
         Q_OBJECT
 
     public:
-        explicit OnlineScreen(QWidget* parent = nullptr);
-        ~OnlineScreen();
+        explicit JoinGameScreen(QString gameCode, QWidget* parent = nullptr);
+        ~JoinGameScreen();
+
+    private slots:
+        void on_titleLabel_backButtonClicked();
+
+        void on_readyButton_clicked();
 
     signals:
-        void quitOnline();
+        void done();
+        void startGame(GameEngine* engine);
 
     private:
-        Ui::OnlineScreen* ui;
+        JoinGameScreenPrivate* d;
+        Ui::JoinGameScreen* ui;
 
-        void startGame(GameEngine* engine);
+        void close();
+        void switchToStaging();
 };
 
-#endif // ONLINESCREEN_H
+#endif // JOINGAMESCREEN_H

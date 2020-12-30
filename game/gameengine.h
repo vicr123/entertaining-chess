@@ -115,7 +115,7 @@ class GameEngine : public QObject {
         static QString turnDescription(bool isWhiteMove, MoveResults results);
 
     signals:
-        void moveIssued(int from, int to, bool isPlayer1);
+        void moveIssued(int from, int to, Piece promoteTo, bool isWhiteMove);
         void animatePiece(int from, int to, Piece piece);
         void endOfGame(GameResult result);
 

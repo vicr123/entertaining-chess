@@ -86,7 +86,9 @@ struct GameEnginePrivate {
 GameEngine::GameEngine(AbstractMoveEngine* player1, AbstractMoveEngine* player2, QObject* parent) : QObject(parent) {
     d = new GameEnginePrivate();
     d->player1 = player1;
+    d->player1->setIsWhite(true);
     d->player2 = player2;
+    d->player2->setIsWhite(false);
 
     d->boardLayout = {
         10,  8,  9, 11, 12,  9,  8, 10,
@@ -281,7 +283,7 @@ void GameEngine::issueMove(int from, int to, Piece promoteTo) {
     }
 
     d->previousMoves.append(results);
-    emit moveIssued(from, to, d->isPlayer1Turn);
+    emit moveIssued(from, to, promoteTo, d->isPlayer1Turn);
 
     d->isPlayer1Turn = !d->isPlayer1Turn;
 
