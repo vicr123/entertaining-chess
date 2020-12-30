@@ -402,7 +402,7 @@ bool GameEngine::isValidMove(int from, int to, QList<quint8> boardLayout, bool i
                 //Advance two squares if on rank 2
                 bool canAdvanceTwoSquares = fromPoint.y() == 6;
                 if (fromPoint.x() == toPoint.x() && fromPoint.y() == toPoint.y() + 1) return true; //Pawn can move by one
-                if (fromPoint.x() == toPoint.x() && fromPoint.y() == toPoint.y() + 2 && canAdvanceTwoSquares) return true; //Pawn can move by two
+                if (fromPoint.x() == toPoint.x() && fromPoint.y() == toPoint.y() + 2 && canAdvanceTwoSquares && pieceAt(from - 8) == Piece::Empty) return true; //Pawn can move by two
                 return false; //Cannot move any other way otherwise
             } else {
                 if (fromPoint.x() != toPoint.x() - 1 && fromPoint.x() != toPoint.x() + 1) return false; //Pawn can't move horizontally, unless taking another piece
@@ -417,7 +417,7 @@ bool GameEngine::isValidMove(int from, int to, QList<quint8> boardLayout, bool i
                 //Advance two squares if on rank 7
                 bool canAdvanceTwoSquares = fromPoint.y() == 1;
                 if (fromPoint.x() == toPoint.x() && fromPoint.y() == toPoint.y() - 1) return true; //Pawn can move by one
-                if (fromPoint.x() == toPoint.x() && fromPoint.y() == toPoint.y() - 2 && canAdvanceTwoSquares) return true; //Pawn can move by two
+                if (fromPoint.x() == toPoint.x() && fromPoint.y() == toPoint.y() - 2 && canAdvanceTwoSquares && pieceAt(from + 8) == Piece::Empty) return true; //Pawn can move by two
                 return false; //Cannot move any other way otherwise
             } else {
                 if (fromPoint.x() != toPoint.x() - 1 && fromPoint.x() != toPoint.x() + 1) return false; //Pawn can't move horizontally, unless taking another piece
