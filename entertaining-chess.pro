@@ -1,4 +1,5 @@
 QT       += core gui svg network websockets
+SHARE_APP_NAME = entertaining-chess
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
