@@ -5,9 +5,14 @@
         <file>assets/black-knight.svg</file>
         <file>assets/black-pawn.svg</file>
         <file>assets/black-queen.svg</file>
-        <file>assets/black-rook.svg</file>
         <file>assets/white-king.svg</file>
         <file>assets/crossed-swords.svg</file>
         <file>assets/open-space.svg</file>
+        <file>assets/white-bishop.svg</file>
+        <file>assets/white-pawn.svg</file>
+        <file>assets/white-knight.svg</file>
+        <file>assets/white-queen.svg</file>
+        <file>assets/black-rook.svg</file>
+        <file>assets/white-rook.svg</file>
     </qresource>
 </RCC>

@@ -7,13 +7,13 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="32"
-   height="32"
-   viewBox="0 0 8.4666665 8.4666669"
+   width="512"
+   height="512"
+   viewBox="0 0 135.46665 135.46665"
    version="1.1"
    id="svg8"
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
-   sodipodi:docname="black-king.svg">
+   sodipodi:docname="king_black.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -21,32 +21,28 @@
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
-     inkscape:pageopacity="0.0"
+     inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="31.678384"
-     inkscape:cx="17.81461"
-     inkscape:cy="15.607824"
-     inkscape:document-units="mm"
+     inkscape:zoom="1.979899"
+     inkscape:cx="223.23789"
+     inkscape:cy="201.69172"
+     inkscape:document-units="px"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="true"
      units="px"
-     inkscape:window-width="2560"
-     inkscape:window-height="1380"
+     inkscape:pagecheckerboard="true"
+     gridtolerance="10"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
      inkscape:window-x="0"
-     inkscape:window-y="24"
+     inkscape:window-y="27"
      inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
-       id="grid833"
+       id="grid18"
+       dotted="false"
        empspacing="4" />
-    <inkscape:grid
-       type="xygrid"
-       id="grid835"
-       empspacing="1"
-       originy="0.13229167"
-       originx="0.13229167"
-       dotted="true" />
   </sodipodi:namedview>
   <metadata
      id="metadata5">
@@ -57,6 +53,8 @@
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
         <dc:title></dc:title>
+        <cc:license
+           rdf:resource="" />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -64,18 +62,16 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <rect
-       style="opacity:1;fill:#000007;fill-opacity:1;stroke:none;stroke-width:0.264999;stroke-linecap:round;stroke-linejoin:round"
-       id="rect873"
-       width="6.3499999"
-       height="0.52916664"
-       x="1.0583333"
-       y="6.8791666"
-       ry="0" />
     <path
-       id="path1090"
-       style="opacity:1;fill:#000007;fill-opacity:1;stroke:none;stroke-width:1.00157;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
-       d="M 15 4 L 15 5 L 14 5 L 14 7 L 15 7 L 15 8.0625 A 7.9999995 7.9999995 0 0 0 8 16 A 7.9999995 7.9999995 0 0 0 16 24 A 7.9999995 7.9999995 0 0 0 24 16 A 7.9999995 7.9999995 0 0 0 17 8.0644531 L 17 7 L 18 7 L 18 5 L 17 5 L 17 4 L 15 4 z M 7.359375 13.484375 A 7.9999994 7.9999994 0 0 0 4 20 A 7.9999994 7.9999994 0 0 0 5.0722656 24 L 11.878906 24 A 8.9999993 8.9999993 0 0 1 7 16 A 8.9999993 8.9999993 0 0 1 7.359375 13.484375 z M 24.642578 13.486328 A 8.9999993 8.9999993 0 0 1 25 16 A 8.9999993 8.9999993 0 0 1 20.126953 24 L 26.929688 24 A 7.9999994 7.9999994 0 0 0 28 20 A 7.9999994 7.9999994 0 0 0 24.642578 13.486328 z "
-       transform="scale(0.26458333)" />
+       style="fill:#1e1e1e;fill-opacity:1;stroke:#000000;stroke-width:2.38125;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:6.3;stroke-dasharray:none;stroke-opacity:1"
+       d="m 27.516663,126.99998 h 80.433327 c 0,-12.69999 -6.35,-16.93333 -14.816668,-16.93333 0,-4.23333 -4.233333,-10.583329 -12.699999,-10.583329 L 78.316657,48.683327 86.783323,46.56666 78.316657,44.449994 88.899989,42.333327 78.316657,40.216661 88.899989,21.166664 H 46.566661 l 10.583332,19.049997 -10.583332,2.116666 10.583332,2.116667 -8.466666,2.116666 8.466666,2.116667 -2.116666,50.799994 c -8.466665,0 -12.699999,6.349999 -12.699999,10.583329 -8.466666,0 -14.816665,4.23334 -14.816665,16.93333 z"
+       id="path38"
+       sodipodi:nodetypes="ccccccccccccccccccc" />
+    <path
+       id="path1880"
+       style="fill:#1e1e1e;stroke:#000000;stroke-width:9;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
+       d="m 248,12 v 16 h -16 v 16 h 16 L 248,59.427734 200,80 H 312 L 264,59.427734 264,44 h 16 V 28 H 264 V 12 Z"
+       transform="scale(0.2645833)"
+       sodipodi:nodetypes="ccccccccccccccc" />
   </g>
 </svg>

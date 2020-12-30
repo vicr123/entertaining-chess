@@ -188,34 +188,34 @@ void GameRenderer::paintEvent(QPaintEvent* event) {
         painter.fillRect(QRect(d->currentFocus % 8, d->currentFocus / 8, 1, 1), QColor(0, 200, 255));
     }
 
-    //        const QMap<GameEngine::Piece, QString> pieceIcons = {
-    //            {GameEngine::WhitePawn, "black-pawn"},
-    //            {GameEngine::WhiteKnight, "black-knight"},
-    //            {GameEngine::WhiteBishop, "black-bishop"},
-    //            {GameEngine::WhiteRook, "black-rook"},
-    //            {GameEngine::WhiteQueen, "black-queen"},
-    //            {GameEngine::WhiteKing, "white-king"},
-    //            {GameEngine::BlackPawn, "black-pawn"},
-    //            {GameEngine::BlackKnight, "black-knight"},
-    //            {GameEngine::BlackBishop, "black-bishop"},
-    //            {GameEngine::BlackRook, "black-rook"},
-    //            {GameEngine::BlackQueen, "black-queen"},
-    //            {GameEngine::BlackKing, "black-king"}
-    //        };
     const QMap<GameEngine::Piece, QString> pieceIcons = {
-        {GameEngine::WhitePawn, QChar(0x2659)},
-        {GameEngine::WhiteKnight, QChar(0x2658)},
-        {GameEngine::WhiteBishop, QChar(0x2657)},
-        {GameEngine::WhiteRook, QChar(0x2656)},
-        {GameEngine::WhiteQueen, QChar(0x2655)},
-        {GameEngine::WhiteKing, QChar(0x2654)},
-        {GameEngine::BlackPawn, QChar(0x265F)},
-        {GameEngine::BlackKnight, QChar(0x265E)},
-        {GameEngine::BlackBishop, QChar(0x265D)},
-        {GameEngine::BlackRook, QChar(0x265C)},
-        {GameEngine::BlackQueen, QChar(0x265B)},
-        {GameEngine::BlackKing, QChar(0x265A)}
+        {GameEngine::WhitePawn, "white-pawn"},
+        {GameEngine::WhiteKnight, "white-knight"},
+        {GameEngine::WhiteBishop, "white-bishop"},
+        {GameEngine::WhiteRook, "white-rook"},
+        {GameEngine::WhiteQueen, "white-queen"},
+        {GameEngine::WhiteKing, "white-king"},
+        {GameEngine::BlackPawn, "black-pawn"},
+        {GameEngine::BlackKnight, "black-knight"},
+        {GameEngine::BlackBishop, "black-bishop"},
+        {GameEngine::BlackRook, "black-rook"},
+        {GameEngine::BlackQueen, "black-queen"},
+        {GameEngine::BlackKing, "black-king"}
     };
+//    const QMap<GameEngine::Piece, QString> pieceIcons = {
+//        {GameEngine::WhitePawn, QChar(0x2659)},
+//        {GameEngine::WhiteKnight, QChar(0x2658)},
+//        {GameEngine::WhiteBishop, QChar(0x2657)},
+//        {GameEngine::WhiteRook, QChar(0x2656)},
+//        {GameEngine::WhiteQueen, QChar(0x2655)},
+//        {GameEngine::WhiteKing, QChar(0x2654)},
+//        {GameEngine::BlackPawn, QChar(0x265F)},
+//        {GameEngine::BlackKnight, QChar(0x265E)},
+//        {GameEngine::BlackBishop, QChar(0x265D)},
+//        {GameEngine::BlackRook, QChar(0x265C)},
+//        {GameEngine::BlackQueen, QChar(0x265B)},
+//        {GameEngine::BlackKing, QChar(0x265A)}
+//    };
 
     //Draw the chess pieces
     QFont font = painter.font();
@@ -230,9 +230,9 @@ void GameRenderer::paintEvent(QPaintEvent* event) {
         GameEngine::Piece piece = d->gameEngine->pieceAt(i);
         if (piece == GameEngine::Empty) continue;
 
-        painter.drawText(rect, Qt::AlignCenter, pieceIcons.value(piece));
-//        QSvgRenderer renderer(QStringLiteral(":/assets/%1.svg").arg(pieceIcons.value(piece)));
-//        renderer.render(&painter, QRect(i % 8, i / 8, 1, 1));
+        // painter.drawText(rect, Qt::AlignCenter, pieceIcons.value(piece));
+        QSvgRenderer renderer(QStringLiteral(":/assets/%1.svg").arg(pieceIcons.value(piece)));
+        renderer.render(&painter, QRect(i % 8, i / 8, 1, 1));
 
         if ((piece == GameEngine::WhiteKing && whiteCheck) || (piece == GameEngine::BlackKing && blackCheck)) {
             QColor checkColor(100, 0, 0);
@@ -246,7 +246,8 @@ void GameRenderer::paintEvent(QPaintEvent* event) {
     //Draw animating pieces
     for (AnimatedPiece* anim : d->animations) {
         QRectF rect(anim->currentLocation, QSizeF(1, 1));
-        painter.drawText(rect, Qt::AlignCenter, pieceIcons.value(anim->piece));
+        QSvgRenderer renderer(QStringLiteral(":/assets/%1.svg").arg(pieceIcons.value(anim->piece)));
+        renderer.render(&painter, rect);
     }
 
     //Draw the available moves
