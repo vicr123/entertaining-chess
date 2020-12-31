@@ -104,6 +104,16 @@
         <source>You&apos;ll be facing off with %1.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../online/createprivategamescreen.cpp" line="170"/>
+        <source>Corrupt File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../online/createprivategamescreen.cpp" line="171"/>
+        <source>Sorry, that file is corrupt and needs to be deleted.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EndgameScreen</name>
@@ -116,102 +126,102 @@
 <context>
     <name>GameEngine</name>
     <message>
-        <location filename="../game/gameengine.cpp" line="712"/>
+        <location filename="../game/gameengine.cpp" line="718"/>
         <source>Empty Space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="713"/>
+        <location filename="../game/gameengine.cpp" line="719"/>
         <source>White Pawn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="714"/>
+        <location filename="../game/gameengine.cpp" line="720"/>
         <source>White Knight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="715"/>
+        <location filename="../game/gameengine.cpp" line="721"/>
         <source>White Bishop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="716"/>
+        <location filename="../game/gameengine.cpp" line="722"/>
         <source>White Rook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="717"/>
+        <location filename="../game/gameengine.cpp" line="723"/>
         <source>White Queen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="718"/>
+        <location filename="../game/gameengine.cpp" line="724"/>
         <source>White King</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="719"/>
+        <location filename="../game/gameengine.cpp" line="725"/>
         <source>Black Pawn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="720"/>
+        <location filename="../game/gameengine.cpp" line="726"/>
         <source>Black Knight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="721"/>
+        <location filename="../game/gameengine.cpp" line="727"/>
         <source>Black Bishop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="722"/>
+        <location filename="../game/gameengine.cpp" line="728"/>
         <source>Black Rook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="723"/>
+        <location filename="../game/gameengine.cpp" line="729"/>
         <source>Black Queen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="724"/>
+        <location filename="../game/gameengine.cpp" line="730"/>
         <source>Black King</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="747"/>
+        <location filename="../game/gameengine.cpp" line="753"/>
         <source>%1 moves %2 -&gt; %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="749"/>
+        <location filename="../game/gameengine.cpp" line="755"/>
         <source>%1 moves from %2 -&gt; %3 capturing a %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="754"/>
+        <location filename="../game/gameengine.cpp" line="760"/>
         <source>White castles kingside</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="756"/>
+        <location filename="../game/gameengine.cpp" line="762"/>
         <source>Black castles kingside</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="760"/>
+        <location filename="../game/gameengine.cpp" line="766"/>
         <source>White castles queenside</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="762"/>
+        <location filename="../game/gameengine.cpp" line="768"/>
         <source>Black castles queenside</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="765"/>
+        <location filename="../game/gameengine.cpp" line="771"/>
         <source>Beginning of game</source>
         <translation type="unfinished"></translation>
     </message>
@@ -277,12 +287,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/joingamescreen.cpp" line="96"/>
+        <location filename="../online/joingamescreen.cpp" line="93"/>
+        <source>Game Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../online/joingamescreen.cpp" line="94"/>
+        <source>The game board could not be loaded. Try starting the game again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../online/joingamescreen.cpp" line="116"/>
         <source>Invalid Game Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/joingamescreen.cpp" line="97"/>
+        <location filename="../online/joingamescreen.cpp" line="117"/>
         <source>Sorry, that game code doesn&apos;t point to a game. Check the game code and try again.</source>
         <translation type="unfinished"></translation>
     </message>

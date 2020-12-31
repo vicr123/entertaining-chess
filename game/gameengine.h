@@ -82,6 +82,7 @@ class GameEngine : public QObject {
         void startGame();
         void saveGame(QDataStream* data);
         bool loadGame(QDataStream* data);
+        static bool isGameCorrupted(QByteArray file);
 
         QStack<MoveResults> previousMoves();
 

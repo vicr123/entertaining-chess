@@ -151,14 +151,7 @@ void CreatePrivateGameScreen::close() {
 }
 
 void CreatePrivateGameScreen::on_existingGameButton_clicked() {
-    LoadOverlay* load = new LoadOverlay(this);
-    connect(load, &LoadOverlay::loadData, this, [ = ](QDataStream * stream) {
-        QByteArray gameData = stream->device()->readAll();
-        d->gameData = gameData;
-        ui->existingGameButton->setChecked(true);
-        ui->newGameButton->setChecked(false);
-    });
-    connect(load, &LoadOverlay::canceled, this, [ = ] {
+    auto loadCancelledHandler = [ = ] {
         if (d->gameData.isEmpty()) {
             ui->existingGameButton->setChecked(false);
             ui->newGameButton->setChecked(true);
@@ -166,7 +159,28 @@ void CreatePrivateGameScreen::on_existingGameButton_clicked() {
             ui->existingGameButton->setChecked(true);
             ui->newGameButton->setChecked(false);
         }
+    };
+
+    LoadOverlay* load = new LoadOverlay(this);
+    connect(load, &LoadOverlay::loadData, this, [ = ](QDataStream * stream) {
+        QByteArray gameData = stream->device()->readAll();
+        if (GameEngine::isGameCorrupted(gameData)) {
+            QuestionOverlay* question = new QuestionOverlay(this);
+            question->setIcon(QMessageBox::Critical);
+            question->setTitle(tr("Corrupt File"));
+            question->setText(tr("Sorry, that file is corrupt and needs to be deleted."));
+            question->setButtons(QMessageBox::Ok);
+            connect(question, &QuestionOverlay::accepted, question, &QuestionOverlay::deleteLater);
+            connect(question, &QuestionOverlay::rejected, question, &QuestionOverlay::deleteLater);
+
+            loadCancelledHandler();
+        } else {
+            d->gameData = gameData;
+            ui->existingGameButton->setChecked(true);
+            ui->newGameButton->setChecked(false);
+        }
     });
+    connect(load, &LoadOverlay::canceled, this, loadCancelledHandler);
     load->load();
 }
 

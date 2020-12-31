@@ -237,6 +237,12 @@ bool GameEngine::loadGame(QDataStream* data) {
     return true;
 }
 
+bool GameEngine::isGameCorrupted(QByteArray file) {
+    GameEnginePtr engine(new GameEngine(new HumanMoveEngine, new HumanMoveEngine));
+    QDataStream dataStream(&file, QIODevice::ReadOnly);
+    return !engine->loadGame(&dataStream);
+}
+
 QStack<GameEngine::MoveResults> GameEngine::previousMoves() {
     return d->previousMoves;
 }

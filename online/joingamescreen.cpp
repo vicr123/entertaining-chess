@@ -78,6 +78,26 @@ JoinGameScreen::JoinGameScreen(QString gameCode, QWidget* parent) :
             QJsonValue savedGame = object.value("savedGame");
             if (savedGame.type() == QJsonValue::String) {
                 d->gameData = QByteArray::fromBase64(savedGame.toString().toUtf8());
+
+                //Ensure this game data is not corrupt
+                if (GameEngine::isGameCorrupted(d->gameData)) {
+                    PauseOverlay::overlayForWindow(this)->popOverlayWidget([ = ] {
+                        //Disconnect the peer and warn the user
+                        OnlineController::instance()->ws()->sendJsonO({
+                            {"type", "disconnectPeer"},
+                            {"reason", "boardCorruption"}
+                        });
+
+                        QuestionOverlay* question = new QuestionOverlay(this);
+                        question->setIcon(QMessageBox::Critical);
+                        question->setTitle(tr("Game Error"));
+                        question->setText(tr("The game board could not be loaded. Try starting the game again."));
+                        question->setButtons(QMessageBox::Ok);
+                        connect(question, &QuestionOverlay::accepted, question, &QuestionOverlay::deleteLater);
+                        connect(question, &QuestionOverlay::rejected, question, &QuestionOverlay::deleteLater);
+                        emit done();
+                    });
+                }
             }
 
             this->switchToStaging();
