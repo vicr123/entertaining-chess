@@ -41,6 +41,10 @@ class OnlineController : public QObject {
         void connectToOnline();
         void disconnectFromOnline();
 
+        bool isOnline();
+        bool isHost();
+        bool havePeer();
+
         OnlineWebSocket* ws();
 
     signals:

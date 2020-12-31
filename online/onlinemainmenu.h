@@ -46,7 +46,7 @@ class OnlineMainMenu : public QWidget {
         void on_joinPrivateButton_clicked();
 
     signals:
-        void startGame(GameEngine* engine);
+        void startGame(GameEnginePtr engine);
 
     private:
         Ui::OnlineMainMenu* ui;

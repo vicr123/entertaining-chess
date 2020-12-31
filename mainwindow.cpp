@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget* parent)
 
     OnlineController::instance()->setMainWindow(this);
 
-    connect(ui->mainScreen, &MainScreen::startGame, this, [ = ](GameEngine * engine) {
+    connect(ui->mainScreen, &MainScreen::startGame, this, [ = ](GameEnginePtr engine) {
         ui->gameScreen->setGameEngine(engine);
         ui->stackedWidget->setCurrentWidget(ui->gameScreen);
     });

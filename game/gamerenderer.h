@@ -21,8 +21,8 @@
 #define GAMERENDERER_H
 
 #include <QWidget>
+#include "gameengine.h"
 
-struct GameEngine;
 struct GameRendererPrivate;
 class GameRenderer : public QWidget {
         Q_OBJECT
@@ -30,8 +30,8 @@ class GameRenderer : public QWidget {
         explicit GameRenderer(QWidget* parent = nullptr);
         ~GameRenderer();
 
-        void setGameEngine(GameEngine* engine);
-        GameEngine* gameEngine();
+        void setGameEngine(GameEnginePtr engine);
+        GameEnginePtr gameEngine();
 
         void setFixedGameState(int turn);
 

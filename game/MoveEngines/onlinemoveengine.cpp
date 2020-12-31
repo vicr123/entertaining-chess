@@ -40,7 +40,7 @@ OnlineMoveEngine::OnlineMoveEngine(QObject* parent) : AbstractMoveEngine(parent)
         }
     });
     QTimer::singleShot(0, this, [ = ] {
-        connect(gameEngine(), &GameEngine::moveIssued, this, [ = ](int from, int to, GameEngine::Piece promoteTo, bool isWhiteMove) {
+        connect(gameEngine().data(), &GameEngine::moveIssued, this, [ = ](int from, int to, GameEngine::Piece promoteTo, bool isWhiteMove) {
             if (!isWhiteMove == isWhite()) {
                 OnlineController::instance()->ws()->sendJsonO({
                     {"type", "pieceMoved"},

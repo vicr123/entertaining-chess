@@ -21,11 +21,13 @@
 #define ONLINESCREEN_H
 
 #include <QWidget>
+#include "game/gameengine.h"
 
 namespace Ui {
     class OnlineScreen;
 }
 
+struct OnlineScreenPrivate;
 class GameEngine;
 class OnlineScreen : public QWidget {
         Q_OBJECT
@@ -38,9 +40,10 @@ class OnlineScreen : public QWidget {
         void quitOnline();
 
     private:
+        OnlineScreenPrivate* d;
         Ui::OnlineScreen* ui;
 
-        void startGame(GameEngine* engine);
+        void startGame(GameEnginePtr engine);
 };
 
 #endif // ONLINESCREEN_H

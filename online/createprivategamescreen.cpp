@@ -201,17 +201,17 @@ void CreatePrivateGameScreen::on_startButton_clicked() {
     });
 
     //Start the game!
-    GameEngine* engine;
+    GameEnginePtr engine;
     if (d->isPlayerWhite) {
-        engine = new GameEngine(new HumanMoveEngine, new OnlineMoveEngine);
+        engine.reset(new GameEngine(new HumanMoveEngine, new OnlineMoveEngine));
     } else {
-        engine = new GameEngine(new OnlineMoveEngine, new HumanMoveEngine);
+        engine.reset(new GameEngine(new OnlineMoveEngine, new HumanMoveEngine));
     }
     //TODO: Load a saved game
     engine->startGame();
 
     emit startGame(engine);
     PauseOverlay::overlayForWindow(this)->popOverlayWidget([ = ] {
-//                emit done();
+        emit done();
     });
 }

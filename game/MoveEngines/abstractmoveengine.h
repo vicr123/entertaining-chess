@@ -21,6 +21,7 @@
 #define ABSTRACTMOVEENGINE_H
 
 #include <QObject>
+#include "game/gameengine.h"
 
 class GameEngine;
 struct AbstractMoveEnginePrivate;
@@ -30,8 +31,8 @@ class AbstractMoveEngine : public QObject {
         explicit AbstractMoveEngine(QObject* parent = nullptr);
         ~AbstractMoveEngine();
 
-        void setGameEngine(GameEngine* engine);
-        GameEngine* gameEngine();
+        void setGameEngine(GameEnginePtr engine);
+        GameEnginePtr gameEngine();
 
         void setIsWhite(bool isWhite);
         bool isWhite();

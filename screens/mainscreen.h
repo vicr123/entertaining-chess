@@ -44,7 +44,7 @@ class MainScreen : public QWidget {
         void on_playOnlineButton_clicked();
 
     signals:
-        void startGame(GameEngine* engine);
+        void startGame(GameEnginePtr engine);
 
     private:
         Ui::MainScreen* ui;

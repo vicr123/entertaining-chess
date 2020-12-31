@@ -21,12 +21,12 @@
 #define GAMESCREEN_H
 
 #include <QWidget>
+#include "game/gameengine.h"
 
 namespace Ui {
     class GameScreen;
 }
 
-struct GameEngine;
 class GameScreen : public QWidget {
         Q_OBJECT
 
@@ -34,7 +34,7 @@ class GameScreen : public QWidget {
         explicit GameScreen(QWidget* parent = nullptr);
         ~GameScreen();
 
-        void setGameEngine(GameEngine* engine);
+        void setGameEngine(GameEnginePtr engine);
 
     signals:
         void returnToMainMenu();

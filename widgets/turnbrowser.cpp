@@ -26,7 +26,7 @@
 #include <QKeyEvent>
 
 struct TurnBrowserPrivate {
-    GameEngine* engine;
+    GameEnginePtr engine;
     QStringList entries;
     int turn;
 
@@ -54,7 +54,7 @@ TurnBrowser::~TurnBrowser() {
     delete ui;
 }
 
-void TurnBrowser::setEngine(GameEngine* engine) {
+void TurnBrowser::setEngine(GameEnginePtr engine) {
     d->engine = engine;
 
     bool isWhiteTurn = false;

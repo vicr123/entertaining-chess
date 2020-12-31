@@ -21,6 +21,7 @@
 #define CREATEPRIVATEGAMESCREEN_H
 
 #include <QWidget>
+#include "game/gameengine.h"
 
 namespace Ui {
     class CreatePrivateGameScreen;
@@ -48,7 +49,7 @@ class CreatePrivateGameScreen : public QWidget {
 
     signals:
         void done();
-        void startGame(GameEngine* engine);
+        void startGame(GameEnginePtr engine);
 
     private:
         CreatePrivateGameScreenPrivate* d;

@@ -20,14 +20,24 @@
 #include "onlinescreen.h"
 #include "ui_onlinescreen.h"
 
+#include <QJsonObject>
+#include <online/onlinewebsocket.h>
 #include "online/onlinecontroller.h"
+
+struct OnlineScreenPrivate {
+    GameEnginePtr engine = nullptr;
+};
 
 OnlineScreen::OnlineScreen(QWidget* parent) :
     QWidget(parent),
     ui(new Ui::OnlineScreen) {
     ui->setupUi(this);
 
+    d = new OnlineScreenPrivate();
+
     connect(OnlineController::instance(), &OnlineController::onlineStateChanged, this, [ = ](OnlineController::OnlineState state) {
+        //Don't do anything during the endgame
+        if (d->engine && !d->engine->isMoveAvailable()) return;
         switch (state) {
             case OnlineController::Connecting:
                 ui->stackedWidget->setCurrentWidget(ui->connectingPage);
@@ -39,13 +49,26 @@ OnlineScreen::OnlineScreen(QWidget* parent) :
     });
 
     connect(ui->mainMenuPage, &OnlineMainMenu::startGame, this, &OnlineScreen::startGame);
+    connect(ui->gamePage, &GameScreen::returnToMainMenu, this, [ = ] {
+        if (OnlineController::instance()->havePeer()) {
+            //Disconnect the peer
+            OnlineController::instance()->ws()->sendJsonO({
+                {"type", "disconnectPeer"},
+                {"reason", "userForfeit"}
+            });
+        }
+
+        ui->stackedWidget->setCurrentWidget(ui->mainMenuPage);
+    });
 }
 
 OnlineScreen::~OnlineScreen() {
+    delete d;
     delete ui;
 }
 
-void OnlineScreen::startGame(GameEngine* engine) {
+void OnlineScreen::startGame(GameEnginePtr engine) {
+    d->engine = engine;
     ui->gamePage->setGameEngine(engine);
     ui->stackedWidget->setCurrentWidget(ui->gamePage);
 }

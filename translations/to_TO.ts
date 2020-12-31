@@ -116,102 +116,102 @@
 <context>
     <name>GameEngine</name>
     <message>
-        <location filename="../game/gameengine.cpp" line="695"/>
+        <location filename="../game/gameengine.cpp" line="704"/>
         <source>Empty Space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="696"/>
+        <location filename="../game/gameengine.cpp" line="705"/>
         <source>White Pawn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="697"/>
+        <location filename="../game/gameengine.cpp" line="706"/>
         <source>White Knight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="698"/>
+        <location filename="../game/gameengine.cpp" line="707"/>
         <source>White Bishop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="699"/>
+        <location filename="../game/gameengine.cpp" line="708"/>
         <source>White Rook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="700"/>
+        <location filename="../game/gameengine.cpp" line="709"/>
         <source>White Queen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="701"/>
+        <location filename="../game/gameengine.cpp" line="710"/>
         <source>White King</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="702"/>
+        <location filename="../game/gameengine.cpp" line="711"/>
         <source>Black Pawn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="703"/>
+        <location filename="../game/gameengine.cpp" line="712"/>
         <source>Black Knight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="704"/>
+        <location filename="../game/gameengine.cpp" line="713"/>
         <source>Black Bishop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="705"/>
+        <location filename="../game/gameengine.cpp" line="714"/>
         <source>Black Rook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="706"/>
+        <location filename="../game/gameengine.cpp" line="715"/>
         <source>Black Queen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="707"/>
+        <location filename="../game/gameengine.cpp" line="716"/>
         <source>Black King</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="730"/>
+        <location filename="../game/gameengine.cpp" line="739"/>
         <source>%1 moves %2 -&gt; %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="732"/>
+        <location filename="../game/gameengine.cpp" line="741"/>
         <source>%1 moves from %2 -&gt; %3 capturing a %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="737"/>
+        <location filename="../game/gameengine.cpp" line="746"/>
         <source>White castles kingside</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="739"/>
+        <location filename="../game/gameengine.cpp" line="748"/>
         <source>Black castles kingside</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="743"/>
+        <location filename="../game/gameengine.cpp" line="752"/>
         <source>White castles queenside</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="745"/>
+        <location filename="../game/gameengine.cpp" line="754"/>
         <source>Black castles queenside</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="748"/>
+        <location filename="../game/gameengine.cpp" line="757"/>
         <source>Beginning of game</source>
         <translation type="unfinished"></translation>
     </message>
@@ -361,24 +361,34 @@
 <context>
     <name>OnlineController</name>
     <message>
-        <location filename="../online/onlinecontroller.cpp" line="58"/>
+        <location filename="../online/onlinecontroller.cpp" line="63"/>
         <source>You&apos;ve been disconnected because the server is about to undergo maintenance.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/onlinecontroller.cpp" line="61"/>
+        <location filename="../online/onlinecontroller.cpp" line="66"/>
         <source>You&apos;ve been disconnected from the server because there was a communication error.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/onlinecontroller.cpp" line="71"/>
+        <location filename="../online/onlinecontroller.cpp" line="76"/>
         <source>You&apos;ve been disconnected from the server.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/onlinecontroller.cpp" line="79"/>
-        <location filename="../online/onlinecontroller.cpp" line="108"/>
+        <location filename="../online/onlinecontroller.cpp" line="85"/>
+        <location filename="../online/onlinecontroller.cpp" line="144"/>
         <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../online/onlinecontroller.cpp" line="118"/>
+        <source>Disconnected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../online/onlinecontroller.cpp" line="119"/>
+        <source>Your opponent has left the match.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

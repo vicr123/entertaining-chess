@@ -62,7 +62,7 @@ void MainScreen::on_loadButton_clicked() {
 
     LoadOverlay* load = new LoadOverlay(this);
     connect(load, &LoadOverlay::loadData, this, [ = ](QDataStream * stream) {
-        GameEngine* engine = new GameEngine(new HumanMoveEngine(), new HumanMoveEngine());
+        GameEnginePtr engine(new GameEngine(new HumanMoveEngine(), new HumanMoveEngine()));
         if (!engine->loadGame(stream)) {
             QuestionOverlay* question = new QuestionOverlay(this);
             question->setIcon(QMessageBox::Critical);
@@ -79,7 +79,7 @@ void MainScreen::on_loadButton_clicked() {
 }
 
 void MainScreen::on_playButton_clicked() {
-    GameEngine* engine = new GameEngine(new HumanMoveEngine(), new HumanMoveEngine());
+    GameEnginePtr engine(new GameEngine(new HumanMoveEngine(), new HumanMoveEngine()));
     engine->startGame();
     emit startGame(engine);
 }

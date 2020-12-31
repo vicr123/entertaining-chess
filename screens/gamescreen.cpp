@@ -43,9 +43,9 @@ GameScreen::~GameScreen() {
     delete ui;
 }
 
-void GameScreen::setGameEngine(GameEngine* engine) {
+void GameScreen::setGameEngine(GameEnginePtr engine) {
     ui->gameRenderer->setGameEngine(engine);
-    connect(engine, &GameEngine::endOfGame, this, [ = ](GameEngine::GameResult result) {
+    connect(engine.data(), &GameEngine::endOfGame, this, [ = ](GameEngine::GameResult result) {
         EndgameScreen* endgameScreen = new EndgameScreen();
         switch (result) {
             case GameEngine::WhiteWins:

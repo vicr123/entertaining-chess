@@ -21,6 +21,7 @@
 #define JOINGAMESCREEN_H
 
 #include <QWidget>
+#include "game/gameengine.h"
 
 namespace Ui {
     class JoinGameScreen;
@@ -42,7 +43,7 @@ class JoinGameScreen : public QWidget {
 
     signals:
         void done();
-        void startGame(GameEngine* engine);
+        void startGame(GameEnginePtr engine);
 
     private:
         JoinGameScreenPrivate* d;

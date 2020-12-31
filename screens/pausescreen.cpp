@@ -27,10 +27,10 @@
 #include "game/gameengine.h"
 
 struct PauseScreenPrivate {
-    GameEngine* engine;
+    GameEnginePtr engine;
 };
 
-PauseScreen::PauseScreen(GameEngine* engine, QWidget* parent) :
+PauseScreen::PauseScreen(GameEnginePtr engine, QWidget* parent) :
     QWidget(parent),
     ui(new Ui::PauseScreen) {
     ui->setupUi(this);

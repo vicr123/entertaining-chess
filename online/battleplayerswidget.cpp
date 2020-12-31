@@ -30,7 +30,7 @@ BattlePlayersWidget::BattlePlayersWidget(QWidget* parent) :
 
     ui->mainLayout->setHorizontalSpacing(SC_DPI(20));
 
-    ui->crossedSwordsIcon->setPixmap(QIcon(":/assets/crossed-swords.svg").pixmap(SC_DPI_T(QSize(16, 16), QSize)));
+    ui->crossedSwordsIcon->setPixmap(QIcon(":/assets/crossed-swords.svg").pixmap(SC_DPI_T(QSize(32, 32), QSize)));
     clearWhiteSide();
     clearBlackSide();
 }

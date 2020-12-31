@@ -23,6 +23,9 @@
 #include <QStack>
 #include <QMap>
 #include <QDataStream>
+#include <QJsonObject>
+#include <online/onlinewebsocket.h>
+#include "online/onlinecontroller.h"
 #include "MoveEngines/abstractmoveengine.h"
 #include "MoveEngines/humanmoveengine.h"
 
@@ -101,8 +104,8 @@ GameEngine::GameEngine(AbstractMoveEngine* player1, AbstractMoveEngine* player2,
         4,  2,  3,  5,  6,  3,  2,  4
     };
 
-    player1->setGameEngine(this);
-    player2->setGameEngine(this);
+    player1->setGameEngine(GameEnginePtr(this));
+    player2->setGameEngine(GameEnginePtr(this));
 }
 
 GameEngine::~GameEngine() {
@@ -295,6 +298,12 @@ void GameEngine::issueMove(int from, int to, Piece promoteTo) {
         }
     } else {
         //End of game!
+        if (OnlineController::instance()->isOnline() && OnlineController::instance()->isHost()) {
+            //Disconnect the peer
+            OnlineController::instance()->ws()->sendJsonO({
+                {"type", "disconnectPeer"}
+            });
+        }
         if (isCheck()) {
             if (isWhiteTurn()) {
                 emit endOfGame(BlackWins);

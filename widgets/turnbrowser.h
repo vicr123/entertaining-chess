@@ -21,6 +21,7 @@
 #define TURNBROWSER_H
 
 #include <QWidget>
+#include "game/gameengine.h"
 
 namespace Ui {
     class TurnBrowser;
@@ -37,7 +38,7 @@ class TurnBrowser : public QWidget {
 
         QSize sizeHint() const;
 
-        void setEngine(GameEngine* engine);
+        void setEngine(GameEnginePtr engine);
 
         void nextTurn();
         void previousTurn();

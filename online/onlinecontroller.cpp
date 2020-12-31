@@ -27,6 +27,10 @@
 struct OnlineControllerPrivate {
     QWidget* mainWindow;
     OnlineWebSocket* ws;
+
+    bool isOnline = false;
+    bool isHost = false;
+    bool havePeer = false;
 };
 
 OnlineController::OnlineController(QObject* parent) : QObject(parent) {
@@ -44,6 +48,7 @@ void OnlineController::setMainWindow(QWidget* mainWindow) {
 
 void OnlineController::connectToOnline() {
     emit onlineStateChanged(Connecting);
+    d->isOnline = true;
     emit isOnlineChanged(true);
     OnlineApi::instance()->play("EntertainingChess", "1.0", d->mainWindow)->then([ = ](OnlineWebSocket * ws) {
         emit onlineStateChanged(Idle);
@@ -72,6 +77,7 @@ void OnlineController::connectToOnline() {
             }
 
             if (error.isEmpty()) {
+                d->isOnline = false;
                 emit isOnlineChanged(false);
             } else {
                 QuestionOverlay* question = new QuestionOverlay(d->mainWindow);
@@ -82,6 +88,7 @@ void OnlineController::connectToOnline() {
 
                 auto handler = [ = ] {
                     question->deleteLater();
+                    d->isOnline = false;
                     emit isOnlineChanged(false);
                 };
 
@@ -94,11 +101,40 @@ void OnlineController::connectToOnline() {
             }
         });
 
+        connect(ws, &OnlineWebSocket::jsonMessageReceived, this, [ = ](QJsonDocument json) {
+            QJsonObject object = json.object();
+            QString type = object.value("type").toString();
+            if (type == "peerConnected") {
+                d->isHost = object.value("isHost").toBool();
+                d->havePeer = true;
+            } else if (type == "peerDisconnected") {
+                d->havePeer = false;
+                emit onlineStateChanged(Idle);
+
+                QString reason = object.value("reason").toString();
+                if (reason == "userForfeit") {
+                    QuestionOverlay* question = new QuestionOverlay(d->mainWindow);
+                    question->setIcon(QMessageBox::Information);
+                    question->setTitle(tr("Disconnected"));
+                    question->setText(tr("Your opponent has left the match."));
+                    question->setButtons(QMessageBox::Ok);
+
+                    auto handler = [ = ] {
+
+                    };
+
+                    connect(question, &QuestionOverlay::accepted, this, handler);
+                    connect(question, &QuestionOverlay::rejected, this, handler);
+                }
+            }
+        });
+
         //TODO: Decode Discord Join Secret
     })->error([ = ](QString error) {
         //TODO: Clear Discord join secret
 
         if (error == "disconnect") {
+            d->isOnline = false;
             emit isOnlineChanged(false);
             return;
         }
@@ -111,6 +147,7 @@ void OnlineController::connectToOnline() {
 
         auto handler = [ = ] {
             question->deleteLater();
+            d->isOnline = false;
             emit isOnlineChanged(false);
         };
 
@@ -121,6 +158,18 @@ void OnlineController::connectToOnline() {
 
 void OnlineController::disconnectFromOnline() {
     d->ws->close();
+}
+
+bool OnlineController::isOnline() {
+    return d->isOnline;
+}
+
+bool OnlineController::isHost() {
+    return d->isHost;
+}
+
+bool OnlineController::havePeer() {
+    return d->havePeer;
 }
 
 OnlineWebSocket* OnlineController::ws() {

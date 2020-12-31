@@ -21,6 +21,7 @@
 #define PAUSESCREEN_H
 
 #include <QWidget>
+#include "game/gameengine.h"
 
 namespace Ui {
     class PauseScreen;
@@ -32,7 +33,7 @@ class PauseScreen : public QWidget {
         Q_OBJECT
 
     public:
-        explicit PauseScreen(GameEngine* engine, QWidget* parent = nullptr);
+        explicit PauseScreen(GameEnginePtr engine, QWidget* parent = nullptr);
         ~PauseScreen();
 
         void previousScreen();

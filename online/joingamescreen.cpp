@@ -92,26 +92,26 @@ JoinGameScreen::JoinGameScreen(QString gameCode, QWidget* parent) :
                 question->setButtons(QMessageBox::Ok);
                 connect(question, &QuestionOverlay::accepted, question, &QuestionOverlay::deleteLater);
                 connect(question, &QuestionOverlay::rejected, question, &QuestionOverlay::deleteLater);
-//                emit done();
+                emit done();
             });
         } else if (type == "peerDisconnected") {
             PauseOverlay::overlayForWindow(this)->popOverlayWidget([ = ] {
-//                emit done();
+                emit done();
             });
         } else if (type == "startGame") {
             //Start the game!
-            GameEngine* engine;
+            GameEnginePtr engine;
             if (d->isPlayerWhite) {
-                engine = new GameEngine(new HumanMoveEngine, new OnlineMoveEngine);
+                engine.reset(new GameEngine(new HumanMoveEngine, new OnlineMoveEngine));
             } else {
-                engine = new GameEngine(new OnlineMoveEngine, new HumanMoveEngine);
+                engine.reset(new GameEngine(new OnlineMoveEngine, new HumanMoveEngine));
             }
             //TODO: Load a saved game
             engine->startGame();
 
             emit startGame(engine);
             PauseOverlay::overlayForWindow(this)->popOverlayWidget([ = ] {
-//                emit done();
+                emit done();
             });
         }
     });

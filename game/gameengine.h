@@ -22,6 +22,7 @@
 
 #include <QObject>
 #include <QStack>
+#include <QSharedPointer>
 
 class AbstractMoveEngine;
 struct GameEnginePrivate;
@@ -122,5 +123,7 @@ class GameEngine : public QObject {
     private:
         GameEnginePrivate* d;
 };
+
+typedef QSharedPointer<GameEngine> GameEnginePtr;
 
 #endif // GAMEENGINE_H

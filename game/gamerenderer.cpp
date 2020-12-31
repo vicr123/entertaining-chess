@@ -35,7 +35,7 @@ struct AnimatedPiece {
 };
 
 struct GameRendererPrivate {
-    GameEngine* gameEngine;
+    GameEnginePtr gameEngine;
 
     int currentFocus = -1;
     int currentSelection = -1;
@@ -57,18 +57,18 @@ GameRenderer::~GameRenderer() {
     delete d;
 }
 
-void GameRenderer::setGameEngine(GameEngine* engine) {
-    if (d->gameEngine != nullptr) d->gameEngine->deleteLater();
+void GameRenderer::setGameEngine(GameEnginePtr engine) {
+    if (d->gameEngine != nullptr) d->gameEngine->disconnect(this);
 
     d->currentFocus = -1;
     d->currentSelection = -1;
     d->availableMoves.clear();
 
     d->gameEngine = engine;
-    connect(engine, &GameEngine::moveIssued, this, [ = ] {
+    connect(engine.data(), &GameEngine::moveIssued, this, [ = ] {
         this->update();
     });
-    connect(engine, &GameEngine::animatePiece, this, [ = ](int from, int to, GameEngine::Piece piece) {
+    connect(engine.data(), &GameEngine::animatePiece, this, [ = ](int from, int to, GameEngine::Piece piece) {
         AnimatedPiece* ap = new AnimatedPiece();
         ap->piece = piece;
 
@@ -93,7 +93,7 @@ void GameRenderer::setGameEngine(GameEngine* engine) {
     });
 }
 
-GameEngine* GameRenderer::gameEngine() {
+GameEnginePtr GameRenderer::gameEngine() {
     return d->gameEngine;
 }
 

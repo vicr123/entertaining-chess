@@ -20,7 +20,7 @@
 #include "abstractmoveengine.h"
 
 struct AbstractMoveEnginePrivate {
-    GameEngine* engine;
+    GameEnginePtr engine;
     bool isWhite;
 };
 
@@ -32,11 +32,11 @@ AbstractMoveEngine::~AbstractMoveEngine() {
     delete d;
 }
 
-void AbstractMoveEngine::setGameEngine(GameEngine* engine) {
+void AbstractMoveEngine::setGameEngine(GameEnginePtr engine) {
     d->engine = engine;
 }
 
-GameEngine* AbstractMoveEngine::gameEngine() {
+GameEnginePtr AbstractMoveEngine::gameEngine() {
     return d->engine;
 }
 
