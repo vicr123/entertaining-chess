@@ -25,8 +25,16 @@
 #include "game/gameengine.h"
 #include <QJsonObject>
 
+struct OnlineMoveEnginePrivate {
+    bool active = true;
+};
+
 OnlineMoveEngine::OnlineMoveEngine(QObject* parent) : AbstractMoveEngine(parent) {
+    d = new OnlineMoveEnginePrivate();
+
     connect(OnlineController::instance()->ws(), &OnlineWebSocket::jsonMessageReceived, this, [ = ](QJsonDocument message) {
+        if (!d->active) return;
+
         QJsonObject object = message.object();
         QString type = object.value("type").toString();
         if (type == "pieceMoved") {
@@ -37,10 +45,14 @@ OnlineMoveEngine::OnlineMoveEngine(QObject* parent) : AbstractMoveEngine(parent)
 
                 gameEngine()->issueMove(from, to, promoteTo);
             }
+        } else if (type == "peerDisconnected") {
+            d->active = false;
         }
     });
     QTimer::singleShot(0, this, [ = ] {
         connect(gameEngine().data(), &GameEngine::moveIssued, this, [ = ](int from, int to, GameEngine::Piece promoteTo, bool isWhiteMove) {
+            if (!d->active) return;
+
             if (!isWhiteMove == isWhite()) {
                 OnlineController::instance()->ws()->sendJsonO({
                     {"type", "pieceMoved"},
@@ -51,6 +63,10 @@ OnlineMoveEngine::OnlineMoveEngine(QObject* parent) : AbstractMoveEngine(parent)
             }
         });
     });
+}
+
+OnlineMoveEngine::~OnlineMoveEngine() {
+    delete d;
 }
 
 void OnlineMoveEngine::startTurn() {

@@ -100,7 +100,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.cpp" line="118"/>
+        <location filename="../online/createprivategamescreen.cpp" line="124"/>
         <source>You&apos;ll be facing off with %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -277,12 +277,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/joingamescreen.cpp" line="90"/>
+        <location filename="../online/joingamescreen.cpp" line="96"/>
         <source>Invalid Game Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/joingamescreen.cpp" line="91"/>
+        <location filename="../online/joingamescreen.cpp" line="97"/>
         <source>Sorry, that game code doesn&apos;t point to a game. Check the game code and try again.</source>
         <translation type="unfinished"></translation>
     </message>

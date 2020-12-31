@@ -108,9 +108,15 @@ CreatePrivateGameScreen::CreatePrivateGameScreen(QWidget* parent) :
                 }
             });
 
+            QJsonValue savedGame;
+            if (!d->gameData.isEmpty()) {
+                savedGame = QString(d->gameData.toBase64());
+            }
+
             OnlineController::instance()->ws()->sendJsonO({
                 {"type", "gameDetails"},
-                {"isPlayerWhite", !d->isPlayerWhite}
+                {"isPlayerWhite", !d->isPlayerWhite},
+                {"savedGame", savedGame}
             });
 
             ui->joiningWidget->setVisible(false);
@@ -207,8 +213,13 @@ void CreatePrivateGameScreen::on_startButton_clicked() {
     } else {
         engine.reset(new GameEngine(new OnlineMoveEngine, new HumanMoveEngine));
     }
-    //TODO: Load a saved game
-    engine->startGame();
+
+    if (!d->gameData.isEmpty()) {
+        QDataStream dataStream(&d->gameData, QIODevice::ReadOnly);
+        engine->loadGame(&dataStream);
+    } else {
+        engine->startGame();
+    }
 
     emit startGame(engine);
     PauseOverlay::overlayForWindow(this)->popOverlayWidget([ = ] {

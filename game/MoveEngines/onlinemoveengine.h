@@ -22,13 +22,17 @@
 
 #include "abstractmoveengine.h"
 
+struct OnlineMoveEnginePrivate;
 class OnlineMoveEngine : public AbstractMoveEngine {
         Q_OBJECT
     public:
         explicit OnlineMoveEngine(QObject* parent = nullptr);
+        ~OnlineMoveEngine();
 
     signals:
 
+    private:
+        OnlineMoveEnginePrivate* d;
 
         // AbstractMoveEngine interface
     public:

@@ -138,13 +138,15 @@ void GameRenderer::select() {
                 //Perform the move
                 if ((d->gameEngine->pieceAt(d->currentSelection) == GameEngine::WhitePawn && d->currentFocus <= 7) || (d->gameEngine->pieceAt(d->currentSelection) == GameEngine::BlackPawn && d->currentFocus >= 56)) {
                     //White promotion!
+                    int from = d->currentSelection;
+                    int to = d->currentFocus;
                     PromoteScreen* promoteScreen = new PromoteScreen(d->gameEngine->isWhiteTurn());
                     connect(promoteScreen, &PromoteScreen::dismiss, this, [ = ] {
                         PauseOverlay::overlayForWindow(this)->popOverlayWidget();
                     });
                     connect(promoteScreen, &PromoteScreen::promote, this, [ = ](GameEngine::Piece piece) {
                         PauseOverlay::overlayForWindow(this)->popOverlayWidget();
-                        d->gameEngine->issueMove(d->currentSelection, d->currentFocus, piece);
+                        d->gameEngine->issueMove(from, to, piece);
                         d->currentSelection = -1;
                         d->availableMoves.clear();
                     });

@@ -36,6 +36,7 @@ struct JoinGameScreenPrivate {
 
     QImage peerProfilePicture;
     QString peerUsername;
+    QByteArray gameData;
     bool isPlayerWhite;
     bool isInformationAvailable = false;
 };
@@ -74,6 +75,11 @@ JoinGameScreen::JoinGameScreen(QString gameCode, QWidget* parent) :
             d->isPlayerWhite = object.value("isPlayerWhite").toBool();
             d->isInformationAvailable = true;
 
+            QJsonValue savedGame = object.value("savedGame");
+            if (savedGame.type() == QJsonValue::String) {
+                d->gameData = QByteArray::fromBase64(savedGame.toString().toUtf8());
+            }
+
             this->switchToStaging();
         } else if (type == "peerConnected") {
             int pictureSize = SC_DPI(64);
@@ -106,8 +112,13 @@ JoinGameScreen::JoinGameScreen(QString gameCode, QWidget* parent) :
             } else {
                 engine.reset(new GameEngine(new OnlineMoveEngine, new HumanMoveEngine));
             }
-            //TODO: Load a saved game
-            engine->startGame();
+
+            if (!d->gameData.isEmpty()) {
+                QDataStream dataStream(&d->gameData, QIODevice::ReadOnly);
+                engine->loadGame(&dataStream);
+            } else {
+                engine->startGame();
+            }
 
             emit startGame(engine);
             PauseOverlay::overlayForWindow(this)->popOverlayWidget([ = ] {
