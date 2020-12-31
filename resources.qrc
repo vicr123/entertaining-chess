@@ -14,5 +14,7 @@
         <file>assets/white-queen.svg</file>
         <file>assets/black-rook.svg</file>
         <file>assets/white-rook.svg</file>
+        <file>assets/background.svg</file>
+        <file>assets/background.png</file>
     </qresource>
 </RCC>

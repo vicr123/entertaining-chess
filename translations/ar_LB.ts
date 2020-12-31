@@ -340,12 +340,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/mainscreen.cpp" line="43"/>
+        <location filename="../screens/mainscreen.cpp" line="50"/>
         <source>Select</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/mainscreen.cpp" line="44"/>
+        <location filename="../screens/mainscreen.cpp" line="51"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>

@@ -27,6 +27,7 @@ namespace Ui {
     class MainScreen;
 }
 
+struct MainScreenPrivate;
 class MainScreen : public QWidget {
         Q_OBJECT
 
@@ -48,6 +49,12 @@ class MainScreen : public QWidget {
 
     private:
         Ui::MainScreen* ui;
+        MainScreenPrivate* d;
+
+        // QWidget interface
+    protected:
+        void paintEvent(QPaintEvent* event);
+        void resizeEvent(QResizeEvent* event);
 };
 
 #endif // MAINSCREEN_H

@@ -29,11 +29,18 @@
 #include <online/logindialog.h>
 #include <online/onlineapi.h>
 #include "online/onlinecontroller.h"
+#include <QPainter>
+#include <QSvgRenderer>
+
+struct MainScreenPrivate {
+    QPixmap backgroundImage;
+};
 
 MainScreen::MainScreen(QWidget* parent) :
     QWidget(parent),
     ui(new Ui::MainScreen) {
     ui->setupUi(this);
+    d = new MainScreenPrivate();
 
     ui->spacer1->changeSize(0, SC_DPI(200), QSizePolicy::Preferred, QSizePolicy::Fixed);
     ui->topBarrier->setBounceWidget(ui->playButton);
@@ -50,6 +57,7 @@ MainScreen::MainScreen(QWidget* parent) :
 }
 
 MainScreen::~MainScreen() {
+    delete d;
     delete ui;
 }
 
@@ -92,4 +100,34 @@ void MainScreen::on_playOnlineButton_clicked() {
     } else {
 
     }
+}
+
+
+void MainScreen::paintEvent(QPaintEvent* event) {
+    QPainter painter(this);
+//    QSvgRenderer renderer(QStringLiteral(":/assets/background.svg"));
+
+    QRect geometry;
+    geometry.setSize(d->backgroundImage.size());
+    geometry.moveCenter(QPoint(this->width() / 2, this->height() / 2));
+//    renderer.render(&painter, geometry);
+    painter.drawPixmap(geometry, d->backgroundImage);
+
+    QLinearGradient grad(QPoint(0, this->height()), QPoint(0, this->height() - SC_DPI(50)));
+    grad.setColorAt(0, QColor(0, 0, 0, 127));
+    grad.setColorAt(1, QColor(0, 0, 0, 0));
+
+    painter.setBrush(grad);
+    painter.setPen(Qt::transparent);
+    painter.drawRect(0, 0, this->width(), this->height());
+}
+
+
+void MainScreen::resizeEvent(QResizeEvent* event) {
+    QPixmap image(":/assets/background.png");
+
+    QSize size = image.size();
+    size.scale(this->size(), Qt::KeepAspectRatioByExpanding);
+
+    d->backgroundImage = image.scaled(size);
 }
