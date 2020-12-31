@@ -640,6 +640,14 @@ bool GameEngine::isHumanTurn() {
     return qobject_cast<HumanMoveEngine*>(engineForCurrentTurn()) != 0;
 }
 
+bool GameEngine::isWhiteHuman() {
+    return qobject_cast<HumanMoveEngine*>(d->player1) != 0;
+}
+
+bool GameEngine::isBlackHuman() {
+    return qobject_cast<HumanMoveEngine*>(d->player2) != 0;
+}
+
 bool GameEngine::isWhiteTurn() {
     return engineForCurrentTurn() == d->player1;
 }

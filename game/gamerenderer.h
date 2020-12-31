@@ -44,11 +44,15 @@ class GameRenderer : public QWidget {
     private:
         GameRendererPrivate* d;
 
+        void updateBoardRotation();
+        bool shouldRotateToWhite();
+
         // QWidget interface
     protected:
         void mousePressEvent(QMouseEvent* event);
         void mouseReleaseEvent(QMouseEvent* event);
         void mouseMoveEvent(QMouseEvent* event);
+        void leaveEvent(QEvent* event);
         void paintEvent(QPaintEvent* event);
 };
 

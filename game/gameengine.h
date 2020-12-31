@@ -98,6 +98,8 @@ class GameEngine : public QObject {
 
         AbstractMoveEngine* engineForCurrentTurn();
         bool isHumanTurn();
+        bool isWhiteHuman();
+        bool isBlackHuman();
         bool isWhiteTurn();
         bool isCheck();
         bool isCheck(bool isWhiteCheck, QList<quint8> boardLayout);

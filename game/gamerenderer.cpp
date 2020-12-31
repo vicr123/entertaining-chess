@@ -43,6 +43,8 @@ struct GameRendererPrivate {
 
     int fixedGameStateTurn = -1;
 
+    tVariantAnimation* boardRotation;
+
     QList<AnimatedPiece*> animations;
     QList<int> animationsTo;
 };
@@ -51,6 +53,14 @@ GameRenderer::GameRenderer(QWidget* parent) : QWidget(parent) {
     d = new GameRendererPrivate();
 
     this->setMouseTracking(true);
+
+    d->boardRotation = new tVariantAnimation(this);
+    d->boardRotation->setDuration(1000);
+    d->boardRotation->setEasingCurve(QEasingCurve::InOutCubic);
+    connect(d->boardRotation, &tVariantAnimation::valueChanged, this, [ = ] {
+        this->update();
+    });
+    d->boardRotation->start();
 }
 
 GameRenderer::~GameRenderer() {
@@ -67,6 +77,7 @@ void GameRenderer::setGameEngine(GameEnginePtr engine) {
     d->gameEngine = engine;
     connect(engine.data(), &GameEngine::moveIssued, this, [ = ] {
         this->update();
+        updateBoardRotation();
     });
     connect(engine.data(), &GameEngine::animatePiece, this, [ = ](int from, int to, GameEngine::Piece piece) {
         AnimatedPiece* ap = new AnimatedPiece();
@@ -88,9 +99,16 @@ void GameRenderer::setGameEngine(GameEnginePtr engine) {
             d->animationsTo.removeOne(to);
             d->animations.removeOne(ap);
             delete ap;
+
+            updateBoardRotation();
         });
         anim->start();
     });
+
+    int boardRotation = this->shouldRotateToWhite() ? 0 : 180;
+    d->boardRotation->setStartValue(boardRotation);
+    d->boardRotation->setEndValue(boardRotation);
+    this->update();
 }
 
 GameEnginePtr GameRenderer::gameEngine() {
@@ -153,10 +171,39 @@ void GameRenderer::select() {
     this->update();
 }
 
+void GameRenderer::updateBoardRotation() {
+    //Make sure no pieces are animating
+    if (!d->animationsTo.isEmpty()) return;
+
+
+    int currentRotation = d->boardRotation->currentValue().toInt() % 360;
+    int boardRotation = this->shouldRotateToWhite() ? 360 : 180;
+
+    if (currentRotation == boardRotation % 360) return; //Don't need to animate anything
+
+    d->boardRotation->setStartValue(currentRotation);
+    d->boardRotation->setEndValue(boardRotation);
+    d->boardRotation->start();
+}
+
+bool GameRenderer::shouldRotateToWhite() {
+    if (d->gameEngine->isWhiteHuman() && d->gameEngine->isBlackHuman()) {
+        return d->gameEngine->isWhiteTurn();
+    } else if (d->gameEngine->isWhiteHuman()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 void GameRenderer::paintEvent(QPaintEvent* event) {
     if (d->fixedGameStateTurn != -1) d->gameEngine->setFixedGameState(d->fixedGameStateTurn);
 
-    QPainter painter(this);
+    QPixmap pixmap(this->width(), this->height());
+    pixmap.fill(this->palette().color(QPalette::Window));
+
+    QPainter painter(&pixmap);
+    painter.setRenderHint(QPainter::Antialiasing);
     painter.setWindow(QRect(0, 0, 8, 8));
     painter.setViewport(this->viewport());
 
@@ -184,7 +231,7 @@ void GameRenderer::paintEvent(QPaintEvent* event) {
     if (d->currentSelection != -1) {
         painter.fillRect(QRect(d->currentSelection % 8, d->currentSelection / 8, 1, 1), QColor(0, 200, 0));
     }
-    if (d->currentFocus != -1) {
+    if (d->currentFocus != -1 && d->gameEngine->isHumanTurn()) {
         painter.fillRect(QRect(d->currentFocus % 8, d->currentFocus / 8, 1, 1), QColor(0, 200, 255));
     }
 
@@ -230,9 +277,22 @@ void GameRenderer::paintEvent(QPaintEvent* event) {
         GameEngine::Piece piece = d->gameEngine->pieceAt(i);
         if (piece == GameEngine::Empty) continue;
 
-        // painter.drawText(rect, Qt::AlignCenter, pieceIcons.value(piece));
+        QPixmap piecePx(512, 512);
+        piecePx.fill(Qt::transparent);
+
+        QPainter piecePainter(&piecePx);
+        piecePainter.translate(256, 256);
+        piecePainter.rotate(-d->boardRotation->currentValue().toInt());
+
         QSvgRenderer renderer(QStringLiteral(":/assets/%1.svg").arg(pieceIcons.value(piece)));
-        renderer.render(&painter, QRect(i % 8, i / 8, 1, 1));
+        renderer.render(&piecePainter, QRect(-128, -128, 256, 256));
+
+        piecePainter.end();
+
+        QRectF pixmapRect;
+        pixmapRect.setSize(QSizeF(2, 2));
+        pixmapRect.moveCenter(QPointF(i % 8 + 0.5, i / 8 + 0.5));
+        painter.drawPixmap(pixmapRect, piecePx, QRectF(0, 0, 512, 512));
 
         if ((piece == GameEngine::WhiteKing && whiteCheck) || (piece == GameEngine::BlackKing && blackCheck)) {
             QColor checkColor(100, 0, 0);
@@ -246,8 +306,23 @@ void GameRenderer::paintEvent(QPaintEvent* event) {
     //Draw animating pieces
     for (AnimatedPiece* anim : d->animations) {
         QRectF rect(anim->currentLocation, QSizeF(1, 1));
+
+        QPixmap piecePx(512, 512);
+        piecePx.fill(Qt::transparent);
+
+        QPainter piecePainter(&piecePx);
+        piecePainter.translate(256, 256);
+        piecePainter.rotate(-d->boardRotation->currentValue().toInt());
+
         QSvgRenderer renderer(QStringLiteral(":/assets/%1.svg").arg(pieceIcons.value(anim->piece)));
-        renderer.render(&painter, rect);
+        renderer.render(&piecePainter, QRect(-128, -128, 256, 256));
+
+        piecePainter.end();
+
+        QRectF pixmapRect;
+        pixmapRect.setSize(QSizeF(2, 2));
+        pixmapRect.moveCenter(anim->currentLocation + QPointF(0.5, 0.5));
+        painter.drawPixmap(pixmapRect, piecePx, QRectF(0, 0, 512, 512));
     }
 
     //Draw the available moves
@@ -262,6 +337,13 @@ void GameRenderer::paintEvent(QPaintEvent* event) {
     }
 
     if (d->fixedGameStateTurn != -1) d->gameEngine->restoreFixedGameState();
+
+    painter.end();
+
+    QPainter windowPainter(this);
+    windowPainter.translate(this->width() / 2, this->height() / 2);
+    windowPainter.rotate(d->boardRotation->currentValue().toInt());
+    windowPainter.drawPixmap(-this->width() / 2, -this->height() / 2, pixmap);
 }
 
 void GameRenderer::mousePressEvent(QMouseEvent* event) {
@@ -287,6 +369,17 @@ void GameRenderer::mouseMoveEvent(QMouseEvent* event) {
         int x = transformedPos.x() / eighth;
         int y = transformedPos.y() / eighth;
         d->currentFocus = y * 8 + x;
+
+        int boardRotation = d->boardRotation->currentValue().toInt() % 360;
+        if (boardRotation > 90 && boardRotation < 270) {
+            //Consider the board flipped
+            d->currentFocus = 63 - d->currentFocus;
+        }
         this->update();
     }
+}
+
+void GameRenderer::leaveEvent(QEvent* event) {
+    d->currentFocus = -1;
+    this->update();
 }

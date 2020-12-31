@@ -116,102 +116,102 @@
 <context>
     <name>GameEngine</name>
     <message>
-        <location filename="../game/gameengine.cpp" line="704"/>
+        <location filename="../game/gameengine.cpp" line="712"/>
         <source>Empty Space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="705"/>
+        <location filename="../game/gameengine.cpp" line="713"/>
         <source>White Pawn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="706"/>
+        <location filename="../game/gameengine.cpp" line="714"/>
         <source>White Knight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="707"/>
+        <location filename="../game/gameengine.cpp" line="715"/>
         <source>White Bishop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="708"/>
+        <location filename="../game/gameengine.cpp" line="716"/>
         <source>White Rook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="709"/>
+        <location filename="../game/gameengine.cpp" line="717"/>
         <source>White Queen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="710"/>
+        <location filename="../game/gameengine.cpp" line="718"/>
         <source>White King</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="711"/>
+        <location filename="../game/gameengine.cpp" line="719"/>
         <source>Black Pawn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="712"/>
+        <location filename="../game/gameengine.cpp" line="720"/>
         <source>Black Knight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="713"/>
+        <location filename="../game/gameengine.cpp" line="721"/>
         <source>Black Bishop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="714"/>
+        <location filename="../game/gameengine.cpp" line="722"/>
         <source>Black Rook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="715"/>
+        <location filename="../game/gameengine.cpp" line="723"/>
         <source>Black Queen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="716"/>
+        <location filename="../game/gameengine.cpp" line="724"/>
         <source>Black King</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="739"/>
+        <location filename="../game/gameengine.cpp" line="747"/>
         <source>%1 moves %2 -&gt; %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="741"/>
+        <location filename="../game/gameengine.cpp" line="749"/>
         <source>%1 moves from %2 -&gt; %3 capturing a %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="746"/>
+        <location filename="../game/gameengine.cpp" line="754"/>
         <source>White castles kingside</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="748"/>
+        <location filename="../game/gameengine.cpp" line="756"/>
         <source>Black castles kingside</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="752"/>
+        <location filename="../game/gameengine.cpp" line="760"/>
         <source>White castles queenside</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="754"/>
+        <location filename="../game/gameengine.cpp" line="762"/>
         <source>Black castles queenside</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="757"/>
+        <location filename="../game/gameengine.cpp" line="765"/>
         <source>Beginning of game</source>
         <translation type="unfinished"></translation>
     </message>
