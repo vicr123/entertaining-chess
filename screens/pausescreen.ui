@@ -104,6 +104,13 @@
            </widget>
           </item>
           <item>
+           <widget class="FocusBarrier" name="focusBarrierTop">
+            <property name="text">
+             <string notr="true">PushButton</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <layout class="QVBoxLayout" name="verticalLayout_3">
             <property name="spacing">
              <number>0</number>
@@ -128,6 +135,13 @@
            <widget class="QPushButton" name="mainMenuButton">
             <property name="text">
              <string>Return to Main Menu</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="FocusBarrier" name="focusBarrierBottom">
+            <property name="text">
+             <string notr="true">PushButton</string>
             </property>
            </widget>
           </item>
@@ -173,7 +187,8 @@
       <string>...</string>
      </property>
      <property name="icon">
-      <iconset theme="arrow-right"/>
+      <iconset theme="arrow-right">
+       <normaloff>.</normaloff>.</iconset>
      </property>
     </widget>
    </item>
@@ -189,13 +204,19 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset theme="arrow-left"/>
+      <iconset theme="arrow-left">
+       <normaloff>.</normaloff>.</iconset>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>FocusBarrier</class>
+   <extends>QPushButton</extends>
+   <header location="global">focusbarrier.h</header>
+  </customwidget>
   <customwidget>
    <class>GamepadHud</class>
    <extends>QWidget</extends>
@@ -221,6 +242,13 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>focusBarrierTop</tabstop>
+  <tabstop>resumeButton</tabstop>
+  <tabstop>saveButton</tabstop>
+  <tabstop>mainMenuButton</tabstop>
+  <tabstop>focusBarrierBottom</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

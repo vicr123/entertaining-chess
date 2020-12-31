@@ -37,9 +37,15 @@ class GameRenderer : public QWidget {
 
         QRect viewport();
 
+        void moveSelection(Qt::Edge direction);
         void select();
 
+        bool canSelect();
+        bool canIssueMove();
+        bool canPutDown();
+
     signals:
+        void buttonsChanged();
 
     private:
         GameRendererPrivate* d;
@@ -52,8 +58,13 @@ class GameRenderer : public QWidget {
         void mousePressEvent(QMouseEvent* event);
         void mouseReleaseEvent(QMouseEvent* event);
         void mouseMoveEvent(QMouseEvent* event);
+        void keyPressEvent(QKeyEvent* event);
         void leaveEvent(QEvent* event);
         void paintEvent(QPaintEvent* event);
+
+        // QObject interface
+    public:
+        bool event(QEvent* event);
 };
 
 #endif // GAMERENDERER_H

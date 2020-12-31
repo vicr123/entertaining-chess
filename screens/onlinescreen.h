@@ -39,6 +39,9 @@ class OnlineScreen : public QWidget {
     signals:
         void quitOnline();
 
+    private slots:
+        void on_stackedWidget_currentChanged(int arg1);
+
     private:
         OnlineScreenPrivate* d;
         Ui::OnlineScreen* ui;

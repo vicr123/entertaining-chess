@@ -102,7 +102,11 @@
        <number>0</number>
       </property>
       <item row="0" column="0">
-       <widget class="GameRenderer" name="gameRenderer" native="true"/>
+       <widget class="GameRenderer" name="gameRenderer" native="true">
+        <property name="focusPolicy">
+         <enum>Qt::StrongFocus</enum>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

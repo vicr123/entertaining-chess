@@ -224,32 +224,47 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/gamescreen.cpp" line="52"/>
+        <location filename="../screens/gamescreen.cpp" line="51"/>
+        <source>Issue Move</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../screens/gamescreen.cpp" line="48"/>
+        <source>Select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../screens/gamescreen.cpp" line="46"/>
+        <source>Put Down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../screens/gamescreen.cpp" line="67"/>
         <source>White wins!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/gamescreen.cpp" line="53"/>
+        <location filename="../screens/gamescreen.cpp" line="68"/>
         <source>Black is in check and is unable to escape.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/gamescreen.cpp" line="56"/>
+        <location filename="../screens/gamescreen.cpp" line="71"/>
         <source>Black wins!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/gamescreen.cpp" line="57"/>
+        <location filename="../screens/gamescreen.cpp" line="72"/>
         <source>White is in check and is unable to escape.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/gamescreen.cpp" line="60"/>
+        <location filename="../screens/gamescreen.cpp" line="75"/>
         <source>Stalemate!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/gamescreen.cpp" line="61"/>
+        <location filename="../screens/gamescreen.cpp" line="76"/>
         <source>Add a spiffy description here!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -384,58 +399,58 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/onlinemainmenu.ui" line="54"/>
+        <location filename="../online/onlinemainmenu.ui" line="69"/>
         <source>Entertaining Chess</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/onlinemainmenu.ui" line="90"/>
+        <location filename="../online/onlinemainmenu.ui" line="105"/>
         <source>ENTERTAINING GAMES ONLINE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/onlinemainmenu.ui" line="102"/>
+        <location filename="../online/onlinemainmenu.ui" line="117"/>
         <source>Create Private Game</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/onlinemainmenu.ui" line="109"/>
+        <location filename="../online/onlinemainmenu.ui" line="124"/>
         <source>Join Private Game</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/onlinemainmenu.ui" line="123"/>
+        <location filename="../online/onlinemainmenu.ui" line="138"/>
         <source>Friends and Relations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/onlinemainmenu.ui" line="130"/>
+        <location filename="../online/onlinemainmenu.ui" line="145"/>
         <source>Account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/onlinemainmenu.ui" line="137"/>
-        <location filename="../online/onlinemainmenu.cpp" line="43"/>
+        <location filename="../online/onlinemainmenu.ui" line="152"/>
+        <location filename="../online/onlinemainmenu.cpp" line="45"/>
         <source>Main Menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/onlinemainmenu.cpp" line="42"/>
+        <location filename="../online/onlinemainmenu.cpp" line="44"/>
         <source>Select</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/onlinemainmenu.cpp" line="80"/>
+        <location filename="../online/onlinemainmenu.cpp" line="82"/>
         <source>What&apos;s the game code?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/onlinemainmenu.cpp" line="80"/>
+        <location filename="../online/onlinemainmenu.cpp" line="82"/>
         <source>Enter a valid game code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/onlinemainmenu.cpp" line="80"/>
+        <location filename="../online/onlinemainmenu.cpp" line="82"/>
         <source>Get this from your buddy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -462,33 +477,33 @@
     </message>
     <message>
         <location filename="../screens/pausescreen.ui" line="44"/>
-        <location filename="../screens/pausescreen.cpp" line="154"/>
+        <location filename="../screens/pausescreen.cpp" line="158"/>
         <source>Move History</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../screens/pausescreen.ui" line="102"/>
-        <location filename="../screens/pausescreen.cpp" line="151"/>
+        <location filename="../screens/pausescreen.cpp" line="155"/>
         <source>System</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/pausescreen.ui" line="114"/>
+        <location filename="../screens/pausescreen.ui" line="121"/>
         <source>Resume Game</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/pausescreen.ui" line="121"/>
+        <location filename="../screens/pausescreen.ui" line="128"/>
         <source>Save Game</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/pausescreen.ui" line="130"/>
+        <location filename="../screens/pausescreen.ui" line="137"/>
         <source>Return to Main Menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/pausescreen.ui" line="173"/>
+        <location filename="../screens/pausescreen.ui" line="187"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -521,23 +536,33 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/promotescreen.ui" line="60"/>
+        <location filename="../screens/promotescreen.ui" line="67"/>
         <source>Queen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/promotescreen.ui" line="67"/>
+        <location filename="../screens/promotescreen.ui" line="74"/>
         <source>Rook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/promotescreen.ui" line="74"/>
+        <location filename="../screens/promotescreen.ui" line="81"/>
         <source>Bishop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/promotescreen.ui" line="81"/>
+        <location filename="../screens/promotescreen.ui" line="88"/>
         <source>Knight</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../screens/promotescreen.cpp" line="39"/>
+        <source>Select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../screens/promotescreen.cpp" line="40"/>
+        <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

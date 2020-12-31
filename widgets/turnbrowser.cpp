@@ -148,6 +148,7 @@ bool TurnBrowser::event(QEvent* event) {
         } else if (keyEvent->key() == Qt::Key_Up) {
             previousTurn();
         }
+        return true;
     }
     return QWidget::event(event);
 }

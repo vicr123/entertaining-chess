@@ -39,6 +39,8 @@ OnlineMainMenu::OnlineMainMenu(QWidget* parent) :
     ui->bottomBarrier->setBounceWidget(ui->mainMenuButton);
     ui->mainMenuButton->setProperty("type", "destructive");
 
+    this->setFocusProxy(ui->createPrivateButton);
+
     ui->gamepadHud->setButtonText(QGamepadManager::ButtonA, tr("Select"));
     ui->gamepadHud->setButtonText(QGamepadManager::ButtonB, tr("Main Menu"));
 

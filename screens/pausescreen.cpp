@@ -76,10 +76,14 @@ PauseScreen::PauseScreen(GameEnginePtr engine, QWidget* parent) :
         ui->gameRewindRenderer->setFixedGameState(index);
     });
 
-    if (!engine->isMoveAvailable()) {
+    if (engine->isMoveAvailable()) {
+        ui->focusBarrierTop->setBounceWidget(ui->resumeButton);
+    } else {
         ui->resumeButton->setVisible(false);
         ui->saveButton->setVisible(false);
+        ui->focusBarrierTop->setBounceWidget(ui->mainMenuButton);
     }
+    ui->focusBarrierBottom->setBounceWidget(ui->mainMenuButton);
 
     this->setFocusProxy(ui->turnBrowser);
 }

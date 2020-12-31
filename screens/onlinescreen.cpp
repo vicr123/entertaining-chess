@@ -35,6 +35,8 @@ OnlineScreen::OnlineScreen(QWidget* parent) :
 
     d = new OnlineScreenPrivate();
 
+    this->setFocusProxy(ui->stackedWidget);
+
     connect(OnlineController::instance(), &OnlineController::onlineStateChanged, this, [ = ](OnlineController::OnlineState state) {
         //Don't do anything during the endgame
         if (d->engine && !d->engine->isMoveAvailable()) return;
@@ -71,4 +73,8 @@ void OnlineScreen::startGame(GameEnginePtr engine) {
     d->engine = engine;
     ui->gamePage->setGameEngine(engine);
     ui->stackedWidget->setCurrentWidget(ui->gamePage);
+}
+
+void OnlineScreen::on_stackedWidget_currentChanged(int arg1) {
+    ui->stackedWidget->widget(arg1)->setFocus();
 }

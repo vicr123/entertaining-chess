@@ -33,6 +33,19 @@ PromoteScreen::PromoteScreen(bool isWhiteTurn, QWidget* parent) :
 
     ui->titleLabel->setBackButtonShown(true);
     ui->mainWidget->setFixedWidth(SC_DPI(600));
+
+    this->setFocusProxy(ui->queenButton);
+
+    ui->gamepadHud->setButtonText(QGamepadManager::ButtonA, tr("Select"));
+    ui->gamepadHud->setButtonText(QGamepadManager::ButtonB, tr("Cancel"));
+
+    ui->gamepadHud->setButtonAction(QGamepadManager::ButtonA, GamepadHud::standardAction(GamepadHud::SelectAction));
+    ui->gamepadHud->setButtonAction(QGamepadManager::ButtonB, [ = ] {
+        emit dismiss();
+    });
+
+    ui->focusBarrierTop->setBounceWidget(ui->queenButton);
+    ui->focusBarrierBottom->setBounceWidget(ui->knightButton);
 }
 PromoteScreen::~PromoteScreen() {
     delete d;

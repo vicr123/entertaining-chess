@@ -37,6 +37,21 @@ GameScreen::GameScreen(QWidget* parent) :
     ui->gamepadHud->setButtonAction(QGamepadManager::ButtonStart, [ = ] {
         ui->menuButton->click();
     });
+
+    connect(ui->gameRenderer, &GameRenderer::buttonsChanged, this, [ = ] {
+        ui->gamepadHud->removeText(QGamepadManager::ButtonA);
+        ui->gamepadHud->removeText(QGamepadManager::ButtonB);
+
+        if (ui->gameRenderer->canPutDown()) {
+            ui->gamepadHud->setButtonText(QGamepadManager::ButtonB, tr("Put Down"));
+        } else {
+            ui->gamepadHud->setButtonText(QGamepadManager::ButtonA, tr("Select"));
+        }
+
+        if (ui->gameRenderer->canIssueMove()) ui->gamepadHud->setButtonText(QGamepadManager::ButtonA, tr("Issue Move"));
+    });
+
+    this->setFocusProxy(ui->gameRenderer);
 }
 
 GameScreen::~GameScreen() {

@@ -28,6 +28,7 @@
 #include "screens/promotescreen.h"
 #include <pauseoverlay.h>
 #include <terrorflash.h>
+#include <gamepadevent.h>
 
 struct AnimatedPiece {
     QPointF currentLocation;
@@ -127,6 +128,34 @@ QRect GameRenderer::viewport() {
     return viewport;
 }
 
+void GameRenderer::moveSelection(Qt::Edge direction) {
+    int boardRotation = d->boardRotation->currentValue().toInt() % 360;
+    bool boardFlipped = boardRotation > 90 && boardRotation < 270;
+
+    if (d->currentFocus == -1) d->currentFocus = 0;
+
+    int currentFocus = d->currentFocus;
+    switch (direction) {
+        case Qt::TopEdge:
+            currentFocus += boardFlipped ? 8 : -8;
+            break;
+        case Qt::BottomEdge:
+            currentFocus += boardFlipped ? -8 : 8;
+            break;
+        case Qt::LeftEdge:
+            if (currentFocus % 8 == (boardFlipped ? 7 : 0)) return;
+            currentFocus += boardFlipped ? 1 : -1;
+            break;
+        case Qt::RightEdge:
+            if (currentFocus % 8 == (boardFlipped ? 0 : 7)) return;
+            currentFocus += boardFlipped ? -1 : 1;
+            break;
+    }
+
+    if (currentFocus < 0 || currentFocus > 63) return;
+    d->currentFocus = currentFocus;
+}
+
 void GameRenderer::select() {
     if (d->gameEngine->isHumanTurn() && d->fixedGameStateTurn == -1) {
         if (d->currentSelection != -1) {
@@ -171,6 +200,22 @@ void GameRenderer::select() {
     }
 
     this->update();
+}
+
+bool GameRenderer::canSelect() {
+    for (int i = 0; i < 64; i++) {
+        if (d->gameEngine->isValidMove(d->currentFocus, i)) return true;
+    }
+    if (d->currentSelection == -1) return true;
+    return false;
+}
+
+bool GameRenderer::canIssueMove() {
+    return d->availableMoves.contains(d->currentFocus);
+}
+
+bool GameRenderer::canPutDown() {
+    return d->currentSelection != -1;
 }
 
 void GameRenderer::updateBoardRotation() {
@@ -363,8 +408,11 @@ void GameRenderer::mouseMoveEvent(QMouseEvent* event) {
         if (!viewport.contains(event->pos())) {
             d->currentFocus = -1;
             this->update();
+            emit buttonsChanged();
             return;
         }
+
+        int oldFocus = d->currentFocus;
 
         QPoint transformedPos = event->pos() - viewport.topLeft();
         int eighth = viewport.height() / 8;
@@ -378,10 +426,66 @@ void GameRenderer::mouseMoveEvent(QMouseEvent* event) {
             d->currentFocus = 63 - d->currentFocus;
         }
         this->update();
+
+        if (oldFocus != d->currentFocus) emit buttonsChanged();
     }
+}
+
+void GameRenderer::keyPressEvent(QKeyEvent* event) {
+    int oldFocus = d->currentFocus;
+
+    switch (event->key()) {
+        case Qt::Key_Up:
+            moveSelection(Qt::TopEdge);
+            break;
+        case Qt::Key_Down:
+            moveSelection(Qt::BottomEdge);
+            break;
+        case Qt::Key_Left:
+            moveSelection(Qt::LeftEdge);
+            break;
+        case Qt::Key_Right:
+            moveSelection(Qt::RightEdge);
+            break;
+        case Qt::Key_Enter:
+        case Qt::Key_Return:
+            select();
+            break;
+        default:
+            break;
+    }
+
+    emit buttonsChanged();
+
+    this->update();
 }
 
 void GameRenderer::leaveEvent(QEvent* event) {
     d->currentFocus = -1;
     this->update();
+}
+
+bool GameRenderer::event(QEvent* event) {
+    if (event->type() == GamepadEvent::type()) {
+        GamepadEvent* gamepad = static_cast<GamepadEvent*>(event);
+        if (d->currentFocus == 0) d->currentFocus = 0;
+
+        if (gamepad->buttonPressed()) {
+            if (gamepad->isButtonEvent()) {
+                switch (gamepad->button()) {
+                    case QGamepadManager::ButtonB:
+                        d->currentSelection = -1;
+                        d->availableMoves.clear();
+                        gamepad->accept();
+                        emit buttonsChanged();
+                        break;
+                    default:
+                        break;
+                }
+
+                this->update();
+            }
+        }
+    }
+    return QWidget::event(event);
 }
