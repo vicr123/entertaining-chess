@@ -55,15 +55,20 @@ void OnlineController::connectToOnline() {
         d->ws = ws;
 
         connect(ws, &OnlineWebSocket::disconnected, this, [ = ] {
-            QString error;
+            //Stop any music
+            MusicEngine::pauseBackgroundMusic();
+
+            QuestionOverlay::StandardDialog error;
             switch (ws->closeCode()) {
                 case QWebSocketProtocol::CloseCodeNormal:
-                    break;
+                    d->isOnline = false;
+                    emit isOnlineChanged(false);
+                    return;
                 case QWebSocketProtocol::CloseCodeGoingAway:
-                    error = tr("You've been disconnected because the server is about to undergo maintenance.");
+                    error = QuestionOverlay::ServerMaintenanceAboutToStart;
                     break;
                 case QWebSocketProtocol::CloseCodeProtocolError:
-                    error = tr("You've been disconnected from the server because there was a communication error.");
+                    error = QuestionOverlay::ServerProtocolError;
                     break;
                 case QWebSocketProtocol::CloseCodeDatatypeNotSupported:
                 case QWebSocketProtocol::CloseCodeReserved1004:
@@ -73,32 +78,20 @@ void OnlineController::connectToOnline() {
                 case QWebSocketProtocol::CloseCodeTooMuchData:
                 case QWebSocketProtocol::CloseCodeAbnormalDisconnection:
                 default:
-                    error = tr("You've been disconnected from the server.");
+                    error = QuestionOverlay::ServerDisconnected;
             }
 
-            if (error.isEmpty()) {
+            QuestionOverlay* question = new QuestionOverlay(d->mainWindow);
+            question->setStandardDialog(error);
+
+            auto handler = [ = ] {
+                question->deleteLater();
                 d->isOnline = false;
                 emit isOnlineChanged(false);
-            } else {
-                QuestionOverlay* question = new QuestionOverlay(d->mainWindow);
-                question->setIcon(QMessageBox::Critical);
-                question->setTitle(tr("Error"));
-                question->setText(error);
-                question->setButtons(QMessageBox::Ok);
+            };
 
-                auto handler = [ = ] {
-                    question->deleteLater();
-                    d->isOnline = false;
-                    emit isOnlineChanged(false);
-                };
-
-                connect(question, &QuestionOverlay::accepted, this, handler);
-                connect(question, &QuestionOverlay::rejected, this, handler);
-
-
-                //Stop any music
-                MusicEngine::pauseBackgroundMusic();
-            }
+            connect(question, &QuestionOverlay::accepted, this, handler);
+            connect(question, &QuestionOverlay::rejected, this, handler);
         });
 
         connect(ws, &OnlineWebSocket::jsonMessageReceived, this, [ = ](QJsonDocument json) {

@@ -166,10 +166,7 @@ void CreatePrivateGameScreen::on_existingGameButton_clicked() {
         QByteArray gameData = stream->device()->readAll();
         if (GameEngine::isGameCorrupted(gameData)) {
             QuestionOverlay* question = new QuestionOverlay(this);
-            question->setIcon(QMessageBox::Critical);
-            question->setTitle(tr("Corrupt File"));
-            question->setText(tr("Sorry, that file is corrupt and needs to be deleted."));
-            question->setButtons(QMessageBox::Ok);
+            question->setStandardDialog(QuestionOverlay::FileCorrupt);
             connect(question, &QuestionOverlay::accepted, question, &QuestionOverlay::deleteLater);
             connect(question, &QuestionOverlay::rejected, question, &QuestionOverlay::deleteLater);
 

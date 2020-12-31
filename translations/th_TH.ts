@@ -104,16 +104,6 @@
         <source>You&apos;ll be facing off with %1.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../online/createprivategamescreen.cpp" line="170"/>
-        <source>Corrupt File</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../online/createprivategamescreen.cpp" line="171"/>
-        <source>Sorry, that file is corrupt and needs to be deleted.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>EndgameScreen</name>
@@ -359,16 +349,6 @@
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../screens/mainscreen.cpp" line="69"/>
-        <source>Corrupt File</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../screens/mainscreen.cpp" line="70"/>
-        <source>Sorry, that file is corrupt and needs to be deleted.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -381,33 +361,17 @@
 <context>
     <name>OnlineController</name>
     <message>
-        <location filename="../online/onlinecontroller.cpp" line="63"/>
-        <source>You&apos;ve been disconnected because the server is about to undergo maintenance.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../online/onlinecontroller.cpp" line="66"/>
-        <source>You&apos;ve been disconnected from the server because there was a communication error.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../online/onlinecontroller.cpp" line="76"/>
-        <source>You&apos;ve been disconnected from the server.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../online/onlinecontroller.cpp" line="85"/>
-        <location filename="../online/onlinecontroller.cpp" line="144"/>
+        <location filename="../online/onlinecontroller.cpp" line="137"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/onlinecontroller.cpp" line="118"/>
+        <location filename="../online/onlinecontroller.cpp" line="111"/>
         <source>Disconnected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/onlinecontroller.cpp" line="119"/>
+        <location filename="../online/onlinecontroller.cpp" line="112"/>
         <source>Your opponent has left the match.</source>
         <translation type="unfinished"></translation>
     </message>

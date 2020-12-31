@@ -65,10 +65,7 @@ void MainScreen::on_loadButton_clicked() {
         GameEnginePtr engine(new GameEngine(new HumanMoveEngine(), new HumanMoveEngine()));
         if (!engine->loadGame(stream)) {
             QuestionOverlay* question = new QuestionOverlay(this);
-            question->setIcon(QMessageBox::Critical);
-            question->setTitle(tr("Corrupt File"));
-            question->setText(tr("Sorry, that file is corrupt and needs to be deleted."));
-            question->setButtons(QMessageBox::Ok);
+            question->setStandardDialog(QuestionOverlay::FileCorrupt);
             connect(question, &QuestionOverlay::accepted, question, &QuestionOverlay::deleteLater);
             connect(question, &QuestionOverlay::rejected, question, &QuestionOverlay::deleteLater);
         } else {
