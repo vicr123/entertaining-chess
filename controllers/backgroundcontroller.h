@@ -40,6 +40,7 @@ class BackgroundController : public QObject {
         BackgroundControllerPrivate* d;
 
         void forceUpdate();
+        void updateImage();
 
         // QObject interface
     public:

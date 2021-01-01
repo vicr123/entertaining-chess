@@ -15,5 +15,6 @@
         <file>assets/black-rook.svg</file>
         <file>assets/white-rook.svg</file>
         <file>assets/background.png</file>
+        <file>assets/background1.png</file>
     </qresource>
 </RCC>

@@ -46,6 +46,10 @@ BackgroundController::BackgroundController(QObject* parent) : QObject(parent) {
     connect(d->stageProgress, &tVariantAnimation::valueChanged, this, &BackgroundController::forceUpdate);
     connect(d->stageProgress, &tVariantAnimation::finished, this, [ = ] {
         d->stage++;
+        if (d->stage == 2) d->stage = 0;
+
+        updateImage();
+
         d->stageProgress->start();
     });
 
@@ -82,18 +86,31 @@ void BackgroundController::forceUpdate() {
     }
 }
 
+void BackgroundController::updateImage() {
+    QString filename;
+    switch (d->stage) {
+        case 0:
+            filename = ":/assets/background.png";
+            break;
+        case 1:
+            filename = ":/assets/background1.png";
+            break;
+    }
+
+    QPixmap image(filename);
+
+    QSize size = image.size();
+    QSize targetSize = d->mainWindow->size();
+    targetSize.setWidth(targetSize.width() + SC_DPI(300));
+    size.scale(targetSize, Qt::KeepAspectRatioByExpanding);
+
+    d->backgroundImage = image.scaled(size);
+}
 
 bool BackgroundController::eventFilter(QObject* watched, QEvent* event) {
     if (watched == d->mainWindow) {
         if (event->type() == QEvent::Resize) {
-            QPixmap image(":/assets/background.png");
-
-            QSize size = image.size();
-            QSize targetSize = d->mainWindow->size();
-            targetSize.setWidth(targetSize.width() + SC_DPI(300));
-            size.scale(targetSize, Qt::KeepAspectRatioByExpanding);
-
-            d->backgroundImage = image.scaled(size);
+            updateImage();
         }
     } else {
         if (event->type() == QEvent::Paint) {
