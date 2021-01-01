@@ -46,7 +46,7 @@ BackgroundController::BackgroundController(QObject* parent) : QObject(parent) {
     connect(d->stageProgress, &tVariantAnimation::valueChanged, this, &BackgroundController::forceUpdate);
     connect(d->stageProgress, &tVariantAnimation::finished, this, [ = ] {
         d->stage++;
-        if (d->stage == 2) d->stage = 0;
+        if (d->stage == 3) d->stage = 0;
 
         updateImage();
 
@@ -94,6 +94,9 @@ void BackgroundController::updateImage() {
             break;
         case 1:
             filename = ":/assets/background1.png";
+            break;
+        case 2:
+            filename = ":/assets/background2.png";
             break;
     }
 
