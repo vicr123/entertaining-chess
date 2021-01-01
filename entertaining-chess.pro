@@ -10,6 +10,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    controllers/backgroundcontroller.cpp \
     game/MoveEngines/abstractmoveengine.cpp \
     game/MoveEngines/humanmoveengine.cpp \
     game/MoveEngines/onlinemoveengine.cpp \
@@ -31,6 +32,7 @@ SOURCES += \
     widgets/turnbrowser.cpp
 
 HEADERS += \
+    controllers/backgroundcontroller.h \
     game/MoveEngines/abstractmoveengine.h \
     game/MoveEngines/humanmoveengine.h \
     game/MoveEngines/onlinemoveengine.h \

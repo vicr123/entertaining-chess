@@ -451,6 +451,9 @@ void GameRenderer::keyPressEvent(QKeyEvent* event) {
         case Qt::Key_Return:
             select();
             break;
+        case Qt::Key_Escape:
+            emit pauseRequested();
+            break;
         default:
             break;
     }

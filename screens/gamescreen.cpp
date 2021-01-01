@@ -26,6 +26,7 @@
 #include "pausescreen.h"
 #include <pauseoverlay.h>
 #include <QTimer>
+#include <QKeyEvent>
 
 GameScreen::GameScreen(QWidget* parent) :
     QWidget(parent),
@@ -49,6 +50,9 @@ GameScreen::GameScreen(QWidget* parent) :
         }
 
         if (ui->gameRenderer->canIssueMove()) ui->gamepadHud->setButtonText(QGamepadManager::ButtonA, tr("Issue Move"));
+    });
+    connect(ui->gameRenderer, &GameRenderer::pauseRequested, this, [ = ] {
+        ui->menuButton->click();
     });
 
     this->setFocusProxy(ui->gameRenderer);
@@ -111,4 +115,11 @@ void GameScreen::on_menuButton_clicked() {
 //        ui->gameRenderer->gameEngine()->saveGame(data);
 //    });
     screen->show();
+}
+
+
+void GameScreen::keyPressEvent(QKeyEvent* event) {
+    if (event->key() == Qt::Key_Escape) {
+        ui->menuButton->click();
+    }
 }

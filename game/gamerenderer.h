@@ -46,6 +46,7 @@ class GameRenderer : public QWidget {
 
     signals:
         void buttonsChanged();
+        void pauseRequested();
 
     private:
         GameRendererPrivate* d;

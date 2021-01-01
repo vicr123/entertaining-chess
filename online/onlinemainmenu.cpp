@@ -28,6 +28,7 @@
 #include <QRegularExpression>
 #include "createprivategamescreen.h"
 #include "joingamescreen.h"
+#include "controllers/backgroundcontroller.h"
 
 OnlineMainMenu::OnlineMainMenu(QWidget* parent) :
     QWidget(parent),
@@ -48,6 +49,8 @@ OnlineMainMenu::OnlineMainMenu(QWidget* parent) :
     ui->gamepadHud->setButtonAction(QGamepadManager::ButtonB, [ = ] {
         ui->mainMenuButton->click();
     });
+
+    BackgroundController::instance()->install(this);
 }
 
 OnlineMainMenu::~OnlineMainMenu() {

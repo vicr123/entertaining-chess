@@ -21,11 +21,16 @@
 #include "ui_mainwindow.h"
 
 #include "online/onlinecontroller.h"
+#include "controllers/backgroundcontroller.h"
 #include <pauseoverlay.h>
+#include "online/onlinecontroller.h"
+#include <online/reportcontroller.h>
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow) {
+    BackgroundController::instance()->setMainWindow(this);
+
     ui->setupUi(this);
 
     ui->menubar->setVisible(false);
@@ -49,7 +54,13 @@ MainWindow::MainWindow(QWidget* parent)
         ui->stackedWidget->setCurrentWidget(ui->mainScreen);
     });
 
+    connect(OnlineController::instance(), &OnlineController::isOnlineChanged, this, [ = ](bool isOnline) {
+        ReportController::setAutomaticReportingEnabled(this, isOnline);
+    });
+
     PauseOverlay::registerOverlayForWindow(this, ui->centralwidget);
+
+    ui->mainScreen->setFocus();
 }
 
 MainWindow::~MainWindow() {

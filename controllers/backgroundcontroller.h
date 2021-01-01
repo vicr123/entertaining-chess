@@ -1,7 +1,7 @@
 /****************************************
  *
  *   INSERT-PROJECT-NAME-HERE - INSERT-GENERIC-NAME-HERE
- *   Copyright (C) 2020 Victor Tran
+ *   Copyright (C) 2021 Victor Tran
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -17,37 +17,33 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * *************************************/
-#ifndef GAMESCREEN_H
-#define GAMESCREEN_H
+#ifndef BACKGROUNDCONTROLLER_H
+#define BACKGROUNDCONTROLLER_H
 
-#include <QWidget>
-#include "game/gameengine.h"
+#include <QObject>
 
-namespace Ui {
-    class GameScreen;
-}
-
-class GameScreen : public QWidget {
+struct BackgroundControllerPrivate;
+class BackgroundController : public QObject {
         Q_OBJECT
-
     public:
-        explicit GameScreen(QWidget* parent = nullptr);
-        ~GameScreen();
+        explicit BackgroundController(QObject* parent = nullptr);
+        ~BackgroundController();
 
-        void setGameEngine(GameEnginePtr engine);
+        static BackgroundController* instance();
+
+        void install(QWidget* widget);
+        void setMainWindow(QWidget* mainWindow);
 
     signals:
-        void returnToMainMenu();
-
-    private slots:
-        void on_menuButton_clicked();
 
     private:
-        Ui::GameScreen* ui;
+        BackgroundControllerPrivate* d;
 
-        // QWidget interface
-    protected:
-        void keyPressEvent(QKeyEvent* event);
+        void forceUpdate();
+
+        // QObject interface
+    public:
+        bool eventFilter(QObject* watched, QEvent* event);
 };
 
-#endif // GAMESCREEN_H
+#endif // BACKGROUNDCONTROLLER_H

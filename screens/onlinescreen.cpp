@@ -23,6 +23,7 @@
 #include <QJsonObject>
 #include <online/onlinewebsocket.h>
 #include "online/onlinecontroller.h"
+#include "controllers/backgroundcontroller.h"
 
 struct OnlineScreenPrivate {
     GameEnginePtr engine = nullptr;
@@ -62,6 +63,8 @@ OnlineScreen::OnlineScreen(QWidget* parent) :
 
         ui->stackedWidget->setCurrentWidget(ui->mainMenuPage);
     });
+
+    BackgroundController::instance()->install(ui->connectingPage);
 }
 
 OnlineScreen::~OnlineScreen() {

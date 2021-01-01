@@ -20,6 +20,7 @@
 #include "mainscreen.h"
 #include "ui_mainscreen.h"
 
+#include "controllers/backgroundcontroller.h"
 #include "game/gameengine.h"
 #include "game/MoveEngines/humanmoveengine.h"
 #include <musicengine.h>
@@ -31,9 +32,16 @@
 #include "online/onlinecontroller.h"
 #include <QPainter>
 #include <QSvgRenderer>
+#include <tvariantanimation.h>
+#include <gamepadevent.h>
+#include <QGraphicsOpacityEffect>
+#include <QMouseEvent>
+#include <QKeyEvent>
+#include <gamepadbuttons.h>
 
 struct MainScreenPrivate {
-    QPixmap backgroundImage;
+    tVariantAnimation* hudOpacity;
+    bool splashHidden = false;
 };
 
 MainScreen::MainScreen(QWidget* parent) :
@@ -42,10 +50,14 @@ MainScreen::MainScreen(QWidget* parent) :
     ui->setupUi(this);
     d = new MainScreenPrivate();
 
-    ui->spacer1->changeSize(0, SC_DPI(200), QSizePolicy::Preferred, QSizePolicy::Fixed);
+//    ui->topSpacer->changeSize(0, SC_DPI(50), QSizePolicy::Preferred, QSizePolicy::Fixed);
+//    ui->leftSpacer->changeSize(SC_DPI(50), 0, QSizePolicy::Fixed, QSizePolicy::Preferred);
+    ui->spacer1->changeSize(0, SC_DPI(50), QSizePolicy::Preferred, QSizePolicy::Fixed);
     ui->topBarrier->setBounceWidget(ui->playButton);
     ui->bottomBarrier->setBounceWidget(ui->exitButton);
     ui->exitButton->setProperty("type", "destructive");
+
+    ui->splashActionLabel->setText(tr("%1 Start").arg(GamepadButtons::stringForKey(QKeySequence(Qt::Key_Enter)).append(" ").append(GamepadButtons::stringForButton(QGamepadManager::ButtonA))));
 
     ui->gamepadHud->setButtonText(QGamepadManager::ButtonA, tr("Select"));
     ui->gamepadHud->setButtonText(QGamepadManager::ButtonB, tr("Exit"));
@@ -54,6 +66,24 @@ MainScreen::MainScreen(QWidget* parent) :
     ui->gamepadHud->setButtonAction(QGamepadManager::ButtonB, [ = ] {
         ui->exitButton->click();
     });
+
+    QGraphicsOpacityEffect* gamepadHudOpacity = new QGraphicsOpacityEffect();
+    ui->gamepadHud->setGraphicsEffect(gamepadHudOpacity);
+    gamepadHudOpacity->setOpacity(0);
+
+    d->hudOpacity = new tVariantAnimation(this);
+    d->hudOpacity->setStartValue(0.0);
+    d->hudOpacity->setEndValue(1.0);
+    d->hudOpacity->setDuration(250);
+    d->hudOpacity->setEasingCurve(QEasingCurve::OutCubic);
+    connect(d->hudOpacity, &tVariantAnimation::valueChanged, this, [ = ](QVariant value) {
+        gamepadHudOpacity->setOpacity(value.toReal());
+    });
+
+    this->setFocusProxy(ui->stackedWidget);
+    ui->menuPage->setFocusProxy(ui->playButton);
+
+    BackgroundController::instance()->install(this);
 }
 
 MainScreen::~MainScreen() {
@@ -77,7 +107,9 @@ void MainScreen::on_loadButton_clicked() {
             connect(question, &QuestionOverlay::accepted, question, &QuestionOverlay::deleteLater);
             connect(question, &QuestionOverlay::rejected, question, &QuestionOverlay::deleteLater);
         } else {
-            emit startGame(engine);
+            this->animateOut([ = ] {
+                emit startGame(engine);
+            });
         }
     });
     load->load();
@@ -86,7 +118,9 @@ void MainScreen::on_loadButton_clicked() {
 void MainScreen::on_playButton_clicked() {
     GameEnginePtr engine(new GameEngine(new HumanMoveEngine(), new HumanMoveEngine()));
     engine->startGame();
-    emit startGame(engine);
+    this->animateOut([ = ] {
+        emit startGame(engine);
+    });
 }
 
 void MainScreen::on_playOnlineButton_clicked() {
@@ -96,38 +130,70 @@ void MainScreen::on_playOnlineButton_clicked() {
 //        ui->onlineScreen->connectToOnline();
 
 //        ReportController::setAutomaticReportingEnabled(this, true);
-        OnlineController::instance()->connectToOnline();
+        this->animateOut([ = ] {
+            OnlineController::instance()->connectToOnline();
+        });
     } else {
 
     }
 }
 
-
-void MainScreen::paintEvent(QPaintEvent* event) {
-    QPainter painter(this);
-//    QSvgRenderer renderer(QStringLiteral(":/assets/background.svg"));
-
-    QRect geometry;
-    geometry.setSize(d->backgroundImage.size());
-    geometry.moveCenter(QPoint(this->width() / 2, this->height() / 2));
-//    renderer.render(&painter, geometry);
-    painter.drawPixmap(geometry, d->backgroundImage);
-
-    QLinearGradient grad(QPoint(0, this->height()), QPoint(0, this->height() - SC_DPI(50)));
-    grad.setColorAt(0, QColor(0, 0, 0, 127));
-    grad.setColorAt(1, QColor(0, 0, 0, 0));
-
-    painter.setBrush(grad);
-    painter.setPen(Qt::transparent);
-    painter.drawRect(0, 0, this->width(), this->height());
+void MainScreen::animateOut(std::function<void ()> after) {
+//    QMetaObject::Connection* c = new QMetaObject::Connection;
+//    *c = connect(d->backgroundOffsetTop, &tVariantAnimation::finished, this, [ = ] {
+//        after();
+//        disconnect(*c);
+//        delete c;
+//    });
+//    d->backgroundOffsetTop->start();
+    after();
 }
 
+void MainScreen::hideSplash() {
+    if (d->splashHidden) return;
+    d->splashHidden = true;
 
-void MainScreen::resizeEvent(QResizeEvent* event) {
-    QPixmap image(":/assets/background.png");
+    QGraphicsOpacityEffect* stackOpacity = new QGraphicsOpacityEffect();
+    ui->stackedWidget->setGraphicsEffect(stackOpacity);
+    stackOpacity->setOpacity(0);
 
-    QSize size = image.size();
-    size.scale(this->size(), Qt::KeepAspectRatioByExpanding);
+    tVariantAnimation* stackAnim = new tVariantAnimation(this);
+    stackAnim->setStartValue(1.0);
+    stackAnim->setEndValue(0.0);
+    stackAnim->setDuration(250);
+    stackAnim->setEasingCurve(QEasingCurve::OutCubic);
+    connect(stackAnim, &tVariantAnimation::valueChanged, this, [ = ](QVariant value) {
+        stackOpacity->setOpacity(value.toReal());
+    });
+    connect(stackAnim, &tVariantAnimation::finished, this, [ = ] {
+        if (stackAnim->direction() == tVariantAnimation::Forward) {
+            ui->stackedWidget->setCurrentWidget(ui->menuPage);
+            d->hudOpacity->start();
 
-    d->backgroundImage = image.scaled(size);
+            stackAnim->setDirection(tVariantAnimation::Backward);
+            stackAnim->start();
+        } else {
+            ui->menuPage->setFocus();
+            stackAnim->deleteLater();
+        }
+    });
+    stackAnim->start();
+}
+
+bool MainScreen::event(QEvent* event) {
+    if (event->type() == GamepadEvent::type()) {
+        GamepadEvent* gamepadEvent = static_cast<GamepadEvent*>(event);
+        if (gamepadEvent->buttonPressed() && gamepadEvent->button() == QGamepadManager::ButtonA) {
+            hideSplash();
+        }
+    }
+    return QWidget::event(event);
+}
+
+void MainScreen::mousePressEvent(QMouseEvent* event) {
+    if (event->button() == Qt::LeftButton) hideSplash();
+}
+
+void MainScreen::keyPressEvent(QKeyEvent* event) {
+    if (event->key() == Qt::Key_Space || event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) hideSplash();
 }

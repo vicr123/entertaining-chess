@@ -224,47 +224,47 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/gamescreen.cpp" line="51"/>
+        <location filename="../screens/gamescreen.cpp" line="52"/>
         <source>Issue Move</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/gamescreen.cpp" line="48"/>
+        <location filename="../screens/gamescreen.cpp" line="49"/>
         <source>Select</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/gamescreen.cpp" line="46"/>
+        <location filename="../screens/gamescreen.cpp" line="47"/>
         <source>Put Down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/gamescreen.cpp" line="67"/>
+        <location filename="../screens/gamescreen.cpp" line="71"/>
         <source>White wins!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/gamescreen.cpp" line="68"/>
+        <location filename="../screens/gamescreen.cpp" line="72"/>
         <source>Black is in check and is unable to escape.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/gamescreen.cpp" line="71"/>
+        <location filename="../screens/gamescreen.cpp" line="75"/>
         <source>Black wins!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/gamescreen.cpp" line="72"/>
+        <location filename="../screens/gamescreen.cpp" line="76"/>
         <source>White is in check and is unable to escape.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/gamescreen.cpp" line="75"/>
+        <location filename="../screens/gamescreen.cpp" line="79"/>
         <source>Stalemate!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/gamescreen.cpp" line="76"/>
+        <location filename="../screens/gamescreen.cpp" line="80"/>
         <source>Add a spiffy description here!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -320,47 +320,52 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/mainscreen.ui" line="95"/>
+        <location filename="../screens/mainscreen.ui" line="43"/>
         <source>Entertaining Chess</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/mainscreen.ui" line="130"/>
+        <location filename="../screens/mainscreen.ui" line="132"/>
         <source>Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/mainscreen.ui" line="137"/>
+        <location filename="../screens/mainscreen.ui" line="139"/>
         <source>Load</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/mainscreen.ui" line="146"/>
+        <location filename="../screens/mainscreen.ui" line="148"/>
         <source>Play Online</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/mainscreen.ui" line="158"/>
+        <location filename="../screens/mainscreen.ui" line="160"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/mainscreen.ui" line="165"/>
+        <location filename="../screens/mainscreen.ui" line="167"/>
         <source>Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/mainscreen.ui" line="172"/>
+        <location filename="../screens/mainscreen.ui" line="174"/>
         <source>Exit to Desktop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/mainscreen.cpp" line="50"/>
+        <location filename="../screens/mainscreen.cpp" line="60"/>
+        <source>%1 Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../screens/mainscreen.cpp" line="62"/>
         <source>Select</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/mainscreen.cpp" line="51"/>
+        <location filename="../screens/mainscreen.cpp" line="63"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -430,27 +435,27 @@
     </message>
     <message>
         <location filename="../online/onlinemainmenu.ui" line="152"/>
-        <location filename="../online/onlinemainmenu.cpp" line="45"/>
+        <location filename="../online/onlinemainmenu.cpp" line="46"/>
         <source>Main Menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/onlinemainmenu.cpp" line="44"/>
+        <location filename="../online/onlinemainmenu.cpp" line="45"/>
         <source>Select</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/onlinemainmenu.cpp" line="82"/>
+        <location filename="../online/onlinemainmenu.cpp" line="85"/>
         <source>What&apos;s the game code?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/onlinemainmenu.cpp" line="82"/>
+        <location filename="../online/onlinemainmenu.cpp" line="85"/>
         <source>Enter a valid game code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/onlinemainmenu.cpp" line="82"/>
+        <location filename="../online/onlinemainmenu.cpp" line="85"/>
         <source>Get this from your buddy</source>
         <translation type="unfinished"></translation>
     </message>

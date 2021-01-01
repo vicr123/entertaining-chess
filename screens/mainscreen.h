@@ -51,10 +51,17 @@ class MainScreen : public QWidget {
         Ui::MainScreen* ui;
         MainScreenPrivate* d;
 
+        void animateOut(std::function<void()> after);
+        void hideSplash();
+
+        // QObject interface
+    public:
+        bool event(QEvent* event);
+
         // QWidget interface
     protected:
-        void paintEvent(QPaintEvent* event);
-        void resizeEvent(QResizeEvent* event);
+        void mousePressEvent(QMouseEvent* event);
+        void keyPressEvent(QKeyEvent* event);
 };
 
 #endif // MAINSCREEN_H
