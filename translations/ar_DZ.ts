@@ -4,11 +4,6 @@
 <context>
     <name>BattlePlayersWidget</name>
     <message>
-        <location filename="../online/battleplayerswidget.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../online/battleplayerswidget.cpp" line="49"/>
         <location filename="../online/battleplayerswidget.cpp" line="59"/>
         <source>Nobody</source>
@@ -17,11 +12,6 @@
 </context>
 <context>
     <name>CreatePrivateGameScreen</name>
-    <message>
-        <location filename="../online/createprivategamescreen.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <location filename="../online/createprivategamescreen.ui" line="35"/>
         <source>Create Private Game</source>
@@ -108,11 +98,6 @@
 <context>
     <name>CreditsScreen</name>
     <message>
-        <location filename="../information/creditsscreen.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../information/creditsscreen.ui" line="35"/>
         <source>Credits</source>
         <translation type="unfinished"></translation>
@@ -155,14 +140,6 @@
     <message>
         <location filename="../information/creditsscreen.cpp" line="45"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>EndgameScreen</name>
-    <message>
-        <location filename="../screens/endgamescreen.ui" line="14"/>
-        <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -272,11 +249,6 @@
 <context>
     <name>GameScreen</name>
     <message>
-        <location filename="../screens/gamescreen.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../screens/gamescreen.cpp" line="52"/>
         <source>Issue Move</source>
         <translation type="unfinished"></translation>
@@ -325,11 +297,6 @@
 <context>
     <name>JoinGameScreen</name>
     <message>
-        <location filename="../online/joingamescreen.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../online/joingamescreen.ui" line="113"/>
         <source>Join Private Game</source>
         <translation type="unfinished"></translation>
@@ -367,11 +334,6 @@
 </context>
 <context>
     <name>MainScreen</name>
-    <message>
-        <location filename="../screens/mainscreen.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <location filename="../screens/mainscreen.ui" line="43"/>
         <source>Entertaining Chess</source>
@@ -452,11 +414,6 @@
 <context>
     <name>OnlineMainMenu</name>
     <message>
-        <location filename="../online/onlinemainmenu.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../online/onlinemainmenu.ui" line="69"/>
         <source>Entertaining Chess</source>
         <translation type="unfinished"></translation>
@@ -516,11 +473,6 @@
 <context>
     <name>OnlineScreen</name>
     <message>
-        <location filename="../screens/onlinescreen.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../screens/onlinescreen.ui" line="76"/>
         <source>Connecting to Entertaining Games</source>
         <translation type="unfinished"></translation>
@@ -528,11 +480,6 @@
 </context>
 <context>
     <name>PauseScreen</name>
-    <message>
-        <location filename="../screens/pausescreen.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <location filename="../screens/pausescreen.ui" line="44"/>
         <location filename="../screens/pausescreen.cpp" line="158"/>
@@ -579,11 +526,6 @@
 <context>
     <name>PromoteScreen</name>
     <message>
-        <location filename="../screens/promotescreen.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../screens/promotescreen.ui" line="35"/>
         <source>Promotion</source>
         <translation type="unfinished"></translation>
@@ -621,14 +563,6 @@
     <message>
         <location filename="../screens/promotescreen.cpp" line="40"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>TurnBrowser</name>
-    <message>
-        <location filename="../widgets/turnbrowser.ui" line="14"/>
-        <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

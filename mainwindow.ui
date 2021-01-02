@@ -45,22 +45,22 @@
      <x>0</x>
      <y>0</y>
      <width>877</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MainScreen</class>
-   <extends>QWidget</extends>
-   <header>screens/mainscreen.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>GameScreen</class>
    <extends>QWidget</extends>
    <header>screens/gamescreen.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MainScreen</class>
+   <extends>QWidget</extends>
+   <header>screens/mainscreen.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
