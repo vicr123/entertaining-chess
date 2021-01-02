@@ -92,7 +92,6 @@ void GameScreen::setGameEngine(GameEnginePtr engine) {
 }
 
 void GameScreen::on_menuButton_clicked() {
-    MusicEngine::pauseBackgroundMusic();
     MusicEngine::playSoundEffect(MusicEngine::Pause);
 
     PauseScreen* screen = new PauseScreen(ui->gameRenderer->gameEngine(), this);

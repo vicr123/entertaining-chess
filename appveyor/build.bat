@@ -7,7 +7,7 @@ if "%APPVEYOR_REPO_TAG_NAME%"=="continuous" (
 git submodule init
 git submodule update
 
-set QTDIR=C:\Qt\5.12\msvc2017_64
+set QTDIR=C:\Qt\5.15\msvc2017_64
 set PATH=%PATH%;%QTDIR%\bin
 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
 
@@ -51,7 +51,7 @@ mkdir deploy\audio
 copy "contemporary-theme\release\Contemporary.dll" deploy\styles
 copy release\entertaining-chess.exe deploy
 copy translations\*.qm deploy\translations
-copy audio\* deploy\audio
+copy assets\audio\* deploy\audio
 copy "C:\Program Files\thelibs\lib\the-libs.dll" deploy
 copy "C:\Program Files\libentertaining\lib\entertaining.dll" deploy
 copy "C:\OpenSSL-v111-Win64\bin\libssl-1_1-x64.dll" deploy

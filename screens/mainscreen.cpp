@@ -38,6 +38,7 @@
 #include <QMouseEvent>
 #include <QKeyEvent>
 #include <gamepadbuttons.h>
+#include "information/creditsscreen.h"
 
 struct MainScreenPrivate {
     tVariantAnimation* hudOpacity;
@@ -196,4 +197,9 @@ void MainScreen::mousePressEvent(QMouseEvent* event) {
 
 void MainScreen::keyPressEvent(QKeyEvent* event) {
     if (event->key() == Qt::Key_Space || event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) hideSplash();
+}
+
+void MainScreen::on_informationButton_clicked() {
+    CreditsScreen* cred = new CreditsScreen(this);
+    connect(cred, &CreditsScreen::done, cred, &CreditsScreen::deleteLater);
 }

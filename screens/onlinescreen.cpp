@@ -22,6 +22,7 @@
 
 #include <QJsonObject>
 #include <online/onlinewebsocket.h>
+#include <musicengine.h>
 #include "online/onlinecontroller.h"
 #include "controllers/backgroundcontroller.h"
 
@@ -80,4 +81,10 @@ void OnlineScreen::startGame(GameEnginePtr engine) {
 
 void OnlineScreen::on_stackedWidget_currentChanged(int arg1) {
     ui->stackedWidget->widget(arg1)->setFocus();
+
+    if (ui->stackedWidget->currentWidget() == ui->gamePage) {
+        MusicEngine::setBackgroundMusic("bleeping-intro", "bleeping-loop");
+    } else {
+        MusicEngine::setBackgroundMusic("neon-intro", "neon-loop");
+    }
 }

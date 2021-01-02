@@ -26,6 +26,9 @@
 #include "online/onlinecontroller.h"
 #include <online/reportcontroller.h>
 
+#include <QUrl>
+#include <musicengine.h>
+
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow) {
@@ -60,6 +63,9 @@ MainWindow::MainWindow(QWidget* parent)
 
     PauseOverlay::registerOverlayForWindow(this, ui->centralwidget);
 
+    MusicEngine::playBackgroundMusic();
+    on_stackedWidget_currentChanged(0);
+
     ui->mainScreen->setFocus();
 }
 
@@ -67,3 +73,11 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
+
+void MainWindow::on_stackedWidget_currentChanged(int arg1) {
+    if (ui->stackedWidget->currentWidget() == ui->gameScreen) {
+        MusicEngine::setBackgroundMusic("bleeping-intro", "bleeping-loop");
+    } else {
+        MusicEngine::setBackgroundMusic("neon-intro", "neon-loop");
+    }
+}

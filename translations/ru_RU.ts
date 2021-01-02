@@ -106,6 +106,59 @@
     </message>
 </context>
 <context>
+    <name>CreditsScreen</name>
+    <message>
+        <location filename="../information/creditsscreen.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../information/creditsscreen.ui" line="35"/>
+        <source>Credits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../information/creditsscreen.ui" line="104"/>
+        <source>Entertaining Chess</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../information/creditsscreen.ui" line="126"/>
+        <source>DEVELOPED BY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../information/creditsscreen.ui" line="194"/>
+        <source>MUSIC BY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../information/creditsscreen.ui" line="225"/>
+        <source>Menu Music - &quot;Neon Laser Horizon&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../information/creditsscreen.ui" line="238"/>
+        <source>Game Music - &quot;Bleeping Demo&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../information/creditsscreen.ui" line="251"/>
+        <source>Music is licensed under Creative Commons: BY 4.0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../information/creditsscreen.ui" line="280"/>
+        <source>Licensed under the terms of the GNU General Public License, version 3, or later.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../information/creditsscreen.cpp" line="45"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>EndgameScreen</name>
     <message>
         <location filename="../screens/endgamescreen.ui" line="14"/>
@@ -355,17 +408,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/mainscreen.cpp" line="60"/>
+        <location filename="../screens/mainscreen.cpp" line="61"/>
         <source>%1 Start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/mainscreen.cpp" line="62"/>
+        <location filename="../screens/mainscreen.cpp" line="63"/>
         <source>Select</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/mainscreen.cpp" line="63"/>
+        <location filename="../screens/mainscreen.cpp" line="64"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -381,17 +434,17 @@
 <context>
     <name>OnlineController</name>
     <message>
-        <location filename="../online/onlinecontroller.cpp" line="137"/>
+        <location filename="../online/onlinecontroller.cpp" line="134"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/onlinecontroller.cpp" line="111"/>
+        <location filename="../online/onlinecontroller.cpp" line="108"/>
         <source>Disconnected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/onlinecontroller.cpp" line="112"/>
+        <location filename="../online/onlinecontroller.cpp" line="109"/>
         <source>Your opponent has left the match.</source>
         <translation type="unfinished"></translation>
     </message>

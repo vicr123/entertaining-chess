@@ -55,9 +55,6 @@ void OnlineController::connectToOnline() {
         d->ws = ws;
 
         connect(ws, &OnlineWebSocket::disconnected, this, [ = ] {
-            //Stop any music
-            MusicEngine::pauseBackgroundMusic();
-
             QuestionOverlay::StandardDialog error;
             switch (ws->closeCode()) {
                 case QWebSocketProtocol::CloseCodeNormal:

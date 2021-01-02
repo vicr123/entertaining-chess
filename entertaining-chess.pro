@@ -16,6 +16,7 @@ SOURCES += \
     game/MoveEngines/onlinemoveengine.cpp \
     game/gameengine.cpp \
     game/gamerenderer.cpp \
+    information/creditsscreen.cpp \
     main.cpp \
     mainwindow.cpp \
     online/battleplayerswidget.cpp \
@@ -38,6 +39,7 @@ HEADERS += \
     game/MoveEngines/onlinemoveengine.h \
     game/gameengine.h \
     game/gamerenderer.h \
+    information/creditsscreen.h \
     mainwindow.h \
     online/battleplayerswidget.h \
     online/createprivategamescreen.h \
@@ -53,6 +55,7 @@ HEADERS += \
     widgets/turnbrowser.h
 
 FORMS += \
+    information/creditsscreen.ui \
     mainwindow.ui \
     online/battleplayerswidget.ui \
     online/createprivategamescreen.ui \
@@ -75,16 +78,16 @@ unix:!macx:!android {
 
     target.path = /usr/bin
 
-#    desktop.path = /usr/share/applications
-#    desktop.files = com.vicr123.entertaining.mines.desktop
+    desktop.path = /usr/share/applications
+    desktop.files = com.vicr123.entertaining.chess.desktop
 
     icon.path = /usr/share/icons/hicolor/scalable/apps/
-    icon.files = icons/entertaining-mines.svg
+    icon.files = assets/entertaining-chess.svg
 
-    audio.path = /usr/share/entertaining-mines/audio
-    audio.files = audio/*
+    audio.path = /usr/share/entertaining-chess/audio
+    audio.files = assets/audio/*
 
-#    INSTALLS += target desktop icon audio
+    INSTALLS += target desktop icon audio
 }
 
 win32 {
@@ -110,7 +113,7 @@ macx {
 #        ICON = icon.icns
     }
 
-    audio.files = audio/
+    audio.files = assets/audio/
     audio.path = Contents/audio
 
     QMAKE_BUNDLE_DATA += audio
@@ -123,3 +126,6 @@ macx {
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES += \
+    com.vicr123.entertaining.chess.desktop
