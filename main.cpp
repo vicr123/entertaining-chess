@@ -23,6 +23,8 @@
 #include <tapplication.h>
 #include <notificationengine.h>
 #include <entertaining.h>
+#include <tsettings.h>
+#include <musicengine.h>
 
 int main(int argc, char* argv[]) {
     tApplication a(argc, argv);
@@ -42,8 +44,8 @@ int main(int argc, char* argv[]) {
     a.setGenericName(QApplication::translate("main", "Chess"));
 //    a.setAboutDialogSplashGraphic(a.aboutDialogSplashGraphicFromSvg(":/icons/aboutsplash.svg"));
     a.setApplicationLicense(tApplication::Gpl3OrLater);
-    a.setCopyrightHolder("Victor Tran");
-    a.setCopyrightYear("2019");
+    a.setCopyrightHolder("Victor Tran, Mart Koster");
+    a.setCopyrightYear("2021");
     a.setDesktopFileName("com.vicr123.entertaining.chess");
 #ifdef T_BLUEPRINT_BUILD
     a.setApplicationName("Entertaining Chess Blueprint");
@@ -51,7 +53,21 @@ int main(int argc, char* argv[]) {
     a.setApplicationName("Entertaining Chess");
 #endif
 
+    tSettings::registerDefaults(a.applicationDirPath() + "/defaults.conf");
+    tSettings::registerDefaults("/etc/entertaining-games/entertaining-chess/defaults.conf");
+
     Entertaining::initialize();
+
+    tSettings settings;
+    QObject::connect(&settings, &tSettings::settingChanged, [ = ](QString key, QVariant value) {
+        if (key == "audio/backgroundVol") {
+            MusicEngine::setUserBackgroundVolume(value.toInt() / 100.0);
+        } else if (key == "audio/effects") {
+            MusicEngine::setMuteEffects(!value.toBool());
+        }
+    });
+    MusicEngine::setUserBackgroundVolume(settings.value("audio/backgroundVol").toInt() / 100.0);
+    MusicEngine::setMuteEffects(!settings.value("audio/effects").toBool());
 
     MainWindow w;
     w.show();

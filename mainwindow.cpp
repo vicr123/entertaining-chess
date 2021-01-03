@@ -44,6 +44,9 @@ MainWindow::MainWindow(QWidget* parent)
         ui->gameScreen->setGameEngine(engine);
         ui->stackedWidget->setCurrentWidget(ui->gameScreen);
     });
+    connect(ui->mainScreen, &MainScreen::goToSettings, this, [ = ] {
+        ui->stackedWidget->setCurrentWidget(ui->settingsPage);
+    });
 
     connect(OnlineController::instance(), &OnlineController::isOnlineChanged, this, [ = ](bool isOnline) {
         if (isOnline) {
@@ -54,6 +57,10 @@ MainWindow::MainWindow(QWidget* parent)
     });
 
     connect(ui->gameScreen, &GameScreen::returnToMainMenu, this, [ = ] {
+        ui->stackedWidget->setCurrentWidget(ui->mainScreen);
+    });
+
+    connect(ui->settingsPage, &SettingsScreen::goBack, this, [ = ] {
         ui->stackedWidget->setCurrentWidget(ui->mainScreen);
     });
 

@@ -46,8 +46,12 @@ class MainScreen : public QWidget {
 
         void on_informationButton_clicked();
 
+        void on_settingsButton_clicked();
+
     signals:
         void startGame(GameEnginePtr engine);
+
+        void goToSettings();
 
     private:
         Ui::MainScreen* ui;

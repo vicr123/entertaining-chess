@@ -30,6 +30,7 @@ SOURCES += \
     screens/onlinescreen.cpp \
     screens/pausescreen.cpp \
     screens/promotescreen.cpp \
+    screens/settingsscreen.cpp \
     widgets/turnbrowser.cpp
 
 HEADERS += \
@@ -52,6 +53,7 @@ HEADERS += \
     screens/onlinescreen.h \
     screens/pausescreen.h \
     screens/promotescreen.h \
+    screens/settingsscreen.h \
     widgets/turnbrowser.h
 
 FORMS += \
@@ -67,7 +69,10 @@ FORMS += \
     screens/onlinescreen.ui \
     screens/pausescreen.ui \
     screens/promotescreen.ui \
+    screens/settingsscreen.ui \
     widgets/turnbrowser.ui
+
+QMAKE_POST_LINK += $$QMAKE_COPY $$quote($$PWD/defaults.conf) $$shell_quote($$OUT_PWD)
 
 unix:!macx:!android {
     # Include the-libs build tools
@@ -87,7 +92,10 @@ unix:!macx:!android {
     audio.path = /usr/share/entertaining-chess/audio
     audio.files = assets/audio/*
 
-    INSTALLS += target desktop icon audio
+    defaults.files = defaults.conf
+    defaults.path = /etc/entertaining-games/entertaining-chess/
+
+    INSTALLS += target desktop icon audio defaults
 }
 
 win32 {
@@ -128,4 +136,5 @@ RESOURCES += \
     resources.qrc
 
 DISTFILES += \
-    com.vicr123.entertaining.chess.desktop
+    com.vicr123.entertaining.chess.desktop \
+    defaults.conf

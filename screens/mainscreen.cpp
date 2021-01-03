@@ -203,3 +203,7 @@ void MainScreen::on_informationButton_clicked() {
     CreditsScreen* cred = new CreditsScreen(this);
     connect(cred, &CreditsScreen::done, cred, &CreditsScreen::deleteLater);
 }
+
+void MainScreen::on_settingsButton_clicked() {
+    emit goToSettings();
+}

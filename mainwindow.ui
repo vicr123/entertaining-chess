@@ -33,6 +33,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <widget class="MainScreen" name="mainScreen"/>
+      <widget class="SettingsScreen" name="settingsPage"/>
       <widget class="OnlineScreen" name="onlineScreen"/>
       <widget class="GameScreen" name="gameScreen"/>
      </widget>
@@ -45,18 +46,12 @@
      <x>0</x>
      <y>0</y>
      <width>877</width>
-     <height>20</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>GameScreen</class>
-   <extends>QWidget</extends>
-   <header>screens/gamescreen.h</header>
-   <container>1</container>
-  </customwidget>
   <customwidget>
    <class>MainScreen</class>
    <extends>QWidget</extends>
@@ -64,9 +59,21 @@
    <container>1</container>
   </customwidget>
   <customwidget>
+   <class>GameScreen</class>
+   <extends>QWidget</extends>
+   <header>screens/gamescreen.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
    <class>OnlineScreen</class>
    <extends>QWidget</extends>
    <header>screens/onlinescreen.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SettingsScreen</class>
+   <extends>QWidget</extends>
+   <header>screens/settingsscreen.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

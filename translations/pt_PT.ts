@@ -98,6 +98,11 @@
 <context>
     <name>CreditsScreen</name>
     <message>
+        <location filename="../information/creditsscreen.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../information/creditsscreen.ui" line="35"/>
         <source>Credits</source>
         <translation type="unfinished"></translation>
@@ -134,6 +139,11 @@
     </message>
     <message>
         <location filename="../information/creditsscreen.ui" line="280"/>
+        <source>Copyright © 2021 Victor Tran and Mart Koster.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../information/creditsscreen.ui" line="290"/>
         <source>Licensed under the terms of the GNU General Public License, version 3, or later.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -567,9 +577,57 @@
     </message>
 </context>
 <context>
+    <name>SettingsScreen</name>
+    <message>
+        <location filename="../screens/settingsscreen.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../screens/settingsscreen.ui" line="35"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../screens/settingsscreen.cpp" line="43"/>
+        <source>Background Volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../screens/settingsscreen.cpp" line="44"/>
+        <source>Sound Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../screens/settingsscreen.cpp" line="47"/>
+        <source>Gamepad Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../screens/settingsscreen.cpp" line="53"/>
+        <source>Audio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../screens/settingsscreen.cpp" line="59"/>
+        <source>Hardware</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../screens/settingsscreen.cpp" line="89"/>
+        <source>Select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../screens/settingsscreen.cpp" line="90"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>main</name>
     <message>
-        <location filename="../main.cpp" line="42"/>
+        <location filename="../main.cpp" line="44"/>
         <source>Chess</source>
         <translation type="unfinished"></translation>
     </message>
