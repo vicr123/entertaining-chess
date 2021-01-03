@@ -103,16 +103,6 @@ void GameScreen::on_menuButton_clicked() {
         screen->deleteLater();
         emit returnToMainMenu();
     });
-//    connect(screen, &PauseScreen::provideMetadata, this, [ = ](QVariantMap * metadata) {
-//        //TODO
-//        QStringList description;
-//        description.append(tr("Chess Game"));
-
-//        metadata->insert("description", description.join(" ∙ "));
-//    });
-//    connect(screen, &PauseScreen::provideSaveData, this, [ = ](QDataStream * data) {
-//        ui->gameRenderer->gameEngine()->saveGame(data);
-//    });
     screen->show();
 }
 
