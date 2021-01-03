@@ -300,7 +300,7 @@
     </message>
     <message>
         <location filename="../screens/gamescreen.cpp" line="80"/>
-        <source>Add a spiffy description here!</source>
+        <source>This game cannot be won!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -77,7 +77,7 @@ void GameScreen::setGameEngine(GameEnginePtr engine) {
                 break;
             case GameEngine::Stalemate:
                 endgameScreen->setMainLabelText(tr("Stalemate!"));
-                endgameScreen->setDescriptionLabelText(tr("Add a spiffy description here!"));
+                endgameScreen->setDescriptionLabelText(tr("This game cannot be won!"));
                 break;
         }
 
