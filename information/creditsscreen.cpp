@@ -51,6 +51,8 @@ CreditsScreen::CreditsScreen(QWidget* parent) :
     ui->bottomSpacer->changeSize(0, 0, QSizePolicy::Preferred, QSizePolicy::Expanding);
 
     this->setFocusProxy(ui->scrollArea);
+
+    ui->entertainingLogo->setPixmap(QIcon(":/libentertaining/icons/entertaining-logo-wordmark-dark.svg").pixmap(SC_DPI_T(QSize(280, 32), QSize)));
 }
 
 CreditsScreen::~CreditsScreen() {

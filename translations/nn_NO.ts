@@ -138,12 +138,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../information/creditsscreen.ui" line="280"/>
+        <location filename="../information/creditsscreen.ui" line="306"/>
         <source>Copyright © 2021 Victor Tran and Mart Koster.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../information/creditsscreen.ui" line="290"/>
+        <location filename="../information/creditsscreen.ui" line="316"/>
         <source>Licensed under the terms of the GNU General Public License, version 3, or later.</source>
         <translation type="unfinished"></translation>
     </message>
