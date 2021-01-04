@@ -40,10 +40,9 @@ int main(int argc, char* argv[]) {
 
     a.setOrganizationName("theSuite");
     a.setOrganizationDomain("");
-    a.setApplicationIcon(QIcon::fromTheme("entertaining-chess", QIcon(":/icons/entertaining-chess.svg")));
+    a.setApplicationIcon(QIcon::fromTheme("entertaining-chess", QIcon(":/assets/entertaining-chess.svg")));
     a.setApplicationVersion("0.1");
     a.setGenericName(QApplication::translate("main", "Chess"));
-//    a.setAboutDialogSplashGraphic(a.aboutDialogSplashGraphicFromSvg(":/icons/aboutsplash.svg"));
     a.setApplicationLicense(tApplication::Gpl3OrLater);
     a.setCopyrightHolder("Victor Tran, Mart Koster");
     a.setCopyrightYear("2021");
@@ -66,7 +65,6 @@ int main(int argc, char* argv[]) {
     tSettings::registerDefaults(a.macOSBundlePath() + "/Contents/Resources/defaults.conf");
 
     a.setQuitOnLastWindowClosed(false);
-    setupMacObjC();
 #else
     tSettings::registerDefaults(a.applicationDirPath() + "/defaults.conf");
     tSettings::registerDefaults("/etc/entertaining-games/entertaining-chess/defaults.conf");
