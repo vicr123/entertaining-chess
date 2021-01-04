@@ -431,12 +431,12 @@
     <message>
         <location filename="../mainwindow.cpp" line="46"/>
         <source>White</source>
-        <translation type="unfinished">Beyaz</translation>
+        <translation>Beyaz</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="46"/>
         <source>Black</source>
-        <translation type="unfinished">Siyah</translation>
+        <translation>Siyah</translation>
     </message>
 </context>
 <context>
@@ -574,13 +574,13 @@
     <message>
         <location filename="../widgets/playerwidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished">Form</translation>
+        <translation>Form</translation>
     </message>
     <message>
         <location filename="../widgets/playerwidget.ui" line="20"/>
         <location filename="../widgets/playerwidget.ui" line="27"/>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation>MetinEtiketi</translation>
     </message>
 </context>
 <context>
