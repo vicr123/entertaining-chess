@@ -175,9 +175,11 @@ void JoinGameScreen::switchToStaging() {
     if (d->isPlayerWhite) {
         ui->battlePlayers->setWhiteSide(d->profilePicture, d->username);
         ui->battlePlayers->setBlackSide(d->peerProfilePicture, d->peerUsername);
+        emit setPlayers(d->profilePicture, d->username, d->peerProfilePicture, d->peerUsername);
     } else {
         ui->battlePlayers->setWhiteSide(d->peerProfilePicture, d->peerUsername);
         ui->battlePlayers->setBlackSide(d->profilePicture, d->username);
+        emit setPlayers(d->peerProfilePicture, d->peerUsername, d->profilePicture, d->username);
     }
     ui->stackedWidget->setCurrentWidget(ui->preparingPage);
 }

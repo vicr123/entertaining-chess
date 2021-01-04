@@ -1,7 +1,7 @@
 /****************************************
  *
  *   INSERT-PROJECT-NAME-HERE - INSERT-GENERIC-NAME-HERE
- *   Copyright (C) 2020 Victor Tran
+ *   Copyright (C) 2021 Victor Tran
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -17,39 +17,34 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * *************************************/
-#ifndef GAMESCREEN_H
-#define GAMESCREEN_H
+#ifndef PLAYERWIDGET_H
+#define PLAYERWIDGET_H
 
 #include <QWidget>
-#include "game/gameengine.h"
 
 namespace Ui {
-    class GameScreen;
+    class PlayerWidget;
 }
 
-class GameScreen : public QWidget {
+struct PlayerWidgetPrivate;
+class PlayerWidget : public QWidget {
         Q_OBJECT
 
     public:
-        explicit GameScreen(QWidget* parent = nullptr);
-        ~GameScreen();
+        explicit PlayerWidget(QWidget* parent = nullptr);
+        ~PlayerWidget();
 
-        void setGameEngine(GameEnginePtr engine);
-
-        void setPlayers(QImage whitePicture, QString whiteName, QImage blackPicture, QString blackName);
-
-    signals:
-        void returnToMainMenu();
-
-    private slots:
-        void on_menuButton_clicked();
+        void setPlayerDetails(QImage image, QString name);
+        void setIsActive(bool isActive);
 
     private:
-        Ui::GameScreen* ui;
+        Ui::PlayerWidget* ui;
+        PlayerWidgetPrivate* d;
 
         // QWidget interface
     protected:
-        void keyPressEvent(QKeyEvent* event);
+        void paintEvent(QPaintEvent* event);
+        void resizeEvent(QResizeEvent* event);
 };
 
-#endif // GAMESCREEN_H
+#endif // PLAYERWIDGET_H

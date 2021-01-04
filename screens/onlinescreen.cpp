@@ -53,6 +53,8 @@ OnlineScreen::OnlineScreen(QWidget* parent) :
     });
 
     connect(ui->mainMenuPage, &OnlineMainMenu::startGame, this, &OnlineScreen::startGame);
+    connect(ui->mainMenuPage, &OnlineMainMenu::setPlayers, ui->gamePage, &GameScreen::setPlayers);
+
     connect(ui->gamePage, &GameScreen::returnToMainMenu, this, [ = ] {
         if (OnlineController::instance()->havePeer()) {
             //Disconnect the peer

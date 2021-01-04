@@ -25,6 +25,7 @@
 #include <entertaining.h>
 #include <tsettings.h>
 #include <musicengine.h>
+#include <discordintegration.h>
 
 int main(int argc, char* argv[]) {
     tApplication a(argc, argv);
@@ -53,10 +54,26 @@ int main(int argc, char* argv[]) {
     a.setApplicationName("Entertaining Chess");
 #endif
 
+#if defined(Q_OS_WIN)
+    QIcon::setThemeName("contemporary-icons");
+    QIcon::setThemeSearchPaths({a.applicationDirPath() + "\\icons"});
+
+    tSettings::registerDefaults(a.applicationDirPath() + "/defaults.conf");
+#elif defined(Q_OS_MAC)
+    QIcon::setThemeName("contemporary-icons");
+    QIcon::setThemeSearchPaths({a.macOSBundlePath() + "/Contents/Resources/icons"});
+
+    tSettings::registerDefaults(a.macOSBundlePath() + "/Contents/Resources/defaults.conf");
+
+    a.setQuitOnLastWindowClosed(false);
+    setupMacObjC();
+#else
     tSettings::registerDefaults(a.applicationDirPath() + "/defaults.conf");
     tSettings::registerDefaults("/etc/entertaining-games/entertaining-chess/defaults.conf");
+#endif
 
     Entertaining::initialize();
+    DiscordIntegration::makeInstance("795591987495436298", "");
 
     tSettings settings;
     QObject::connect(&settings, &tSettings::settingChanged, [ = ](QString key, QVariant value) {

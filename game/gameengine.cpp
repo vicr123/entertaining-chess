@@ -295,6 +295,7 @@ void GameEngine::issueMove(int from, int to, Piece promoteTo) {
     emit moveIssued(from, to, promoteTo, d->isPlayer1Turn);
 
     d->isPlayer1Turn = !d->isPlayer1Turn;
+    emit currentTurnChanged(d->isPlayer1Turn);
 
     if (isMoveAvailable()) {
         if (d->isPlayer1Turn) {

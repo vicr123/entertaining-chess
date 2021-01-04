@@ -90,7 +90,7 @@
         <translation>İptal</translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.cpp" line="124"/>
+        <location filename="../online/createprivategamescreen.cpp" line="126"/>
         <source>You&apos;ll be facing off with %1.</source>
         <translation>%1 ile karşı karşıya geleceksin.</translation>
     </message>
@@ -156,102 +156,102 @@
 <context>
     <name>GameEngine</name>
     <message>
-        <location filename="../game/gameengine.cpp" line="718"/>
+        <location filename="../game/gameengine.cpp" line="719"/>
         <source>Empty Space</source>
         <translation>Boş Alan</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="719"/>
+        <location filename="../game/gameengine.cpp" line="720"/>
         <source>White Pawn</source>
         <translation>Beyaz Piyon</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="720"/>
+        <location filename="../game/gameengine.cpp" line="721"/>
         <source>White Knight</source>
         <translation>Beyaz Şovalye</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="721"/>
+        <location filename="../game/gameengine.cpp" line="722"/>
         <source>White Bishop</source>
         <translation>Beyaz Piskopos</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="722"/>
+        <location filename="../game/gameengine.cpp" line="723"/>
         <source>White Rook</source>
         <translation>Beyaz Kale</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="723"/>
+        <location filename="../game/gameengine.cpp" line="724"/>
         <source>White Queen</source>
         <translation>Beyaz Kraliçe</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="724"/>
+        <location filename="../game/gameengine.cpp" line="725"/>
         <source>White King</source>
         <translation>Beyaz Kral</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="725"/>
+        <location filename="../game/gameengine.cpp" line="726"/>
         <source>Black Pawn</source>
         <translation>Siyah Piyon</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="726"/>
+        <location filename="../game/gameengine.cpp" line="727"/>
         <source>Black Knight</source>
         <translation>Siyah şövalye</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="727"/>
+        <location filename="../game/gameengine.cpp" line="728"/>
         <source>Black Bishop</source>
         <translation>Siyah Piskopos</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="728"/>
+        <location filename="../game/gameengine.cpp" line="729"/>
         <source>Black Rook</source>
         <translation>Siyah Kale</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="729"/>
+        <location filename="../game/gameengine.cpp" line="730"/>
         <source>Black Queen</source>
         <translation>Kara Kraliçe</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="730"/>
+        <location filename="../game/gameengine.cpp" line="731"/>
         <source>Black King</source>
         <translation>Siyah Kral</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="753"/>
+        <location filename="../game/gameengine.cpp" line="754"/>
         <source>%1 moves %2 -&gt; %3</source>
         <translation>%1, %2&apos;yı %3&apos;ya taşıdı</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="755"/>
+        <location filename="../game/gameengine.cpp" line="756"/>
         <source>%1 moves from %2 -&gt; %3 capturing a %4</source>
         <translation>%1 %2&apos;dan hareket ediyor -&gt; 3% bir %4&apos;u ele geçiriyor</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="760"/>
+        <location filename="../game/gameengine.cpp" line="761"/>
         <source>White castles kingside</source>
         <translation>Beyaz kaleler kingside</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="762"/>
+        <location filename="../game/gameengine.cpp" line="763"/>
         <source>Black castles kingside</source>
         <translation>Kara kaleler kingside</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="766"/>
+        <location filename="../game/gameengine.cpp" line="767"/>
         <source>White castles queenside</source>
         <translation>Beyaz kaleler kraliçe kenarı</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="768"/>
+        <location filename="../game/gameengine.cpp" line="769"/>
         <source>Black castles queenside</source>
         <translation>Siyah kaleler vezir kanadı</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="771"/>
+        <location filename="../game/gameengine.cpp" line="772"/>
         <source>Beginning of game</source>
         <translation>Oyunun başlangıcı</translation>
     </message>
@@ -402,6 +402,16 @@
         <source>Entertaining Chess</source>
         <translation>Eğlenceli Satranç</translation>
     </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="46"/>
+        <source>White</source>
+        <translation type="unfinished">Beyaz</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="46"/>
+        <source>Black</source>
+        <translation type="unfinished">Siyah</translation>
+    </message>
 </context>
 <context>
     <name>OnlineController</name>
@@ -465,17 +475,17 @@
         <translation>Seç</translation>
     </message>
     <message>
-        <location filename="../online/onlinemainmenu.cpp" line="85"/>
+        <location filename="../online/onlinemainmenu.cpp" line="86"/>
         <source>What&apos;s the game code?</source>
         <translation>Oyun kodu nedir?</translation>
     </message>
     <message>
-        <location filename="../online/onlinemainmenu.cpp" line="85"/>
+        <location filename="../online/onlinemainmenu.cpp" line="86"/>
         <source>Enter a valid game code</source>
         <translation>Geçerli bir oyun kodu girin</translation>
     </message>
     <message>
-        <location filename="../online/onlinemainmenu.cpp" line="85"/>
+        <location filename="../online/onlinemainmenu.cpp" line="86"/>
         <source>Get this from your buddy</source>
         <translation>Bunu arkadaşından al</translation>
     </message>
@@ -531,6 +541,20 @@
         <location filename="../screens/pausescreen.cpp" line="44"/>
         <source>Resume</source>
         <translation>Devam et</translation>
+    </message>
+</context>
+<context>
+    <name>PlayerWidget</name>
+    <message>
+        <location filename="../widgets/playerwidget.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <location filename="../widgets/playerwidget.ui" line="20"/>
+        <location filename="../widgets/playerwidget.ui" line="27"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -627,7 +651,7 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../main.cpp" line="44"/>
+        <location filename="../main.cpp" line="45"/>
         <source>Chess</source>
         <translation>Satranç</translation>
     </message>

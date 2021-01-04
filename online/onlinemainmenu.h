@@ -47,6 +47,7 @@ class OnlineMainMenu : public QWidget {
 
     signals:
         void startGame(GameEnginePtr engine);
+        void setPlayers(QImage whiteImage, QString whiteName, QImage blackImage, QString blackName);
 
     private:
         Ui::OnlineMainMenu* ui;

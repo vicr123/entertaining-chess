@@ -50,6 +50,7 @@ class CreatePrivateGameScreen : public QWidget {
     signals:
         void done();
         void startGame(GameEnginePtr engine);
+        void setPlayers(QImage whiteImage, QString whiteName, QImage blackImage, QString blackName);
 
     private:
         CreatePrivateGameScreenPrivate* d;

@@ -46,6 +46,12 @@
       </property>
       <item>
        <widget class="QPushButton" name="menuButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -63,6 +69,32 @@
       </item>
       <item>
        <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="PlayerWidget" name="whitePlayerWidget" native="true"/>
+        </item>
+        <item>
+         <widget class="PlayerWidget" name="blackPlayerWidget" native="true"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -127,6 +159,12 @@
    <class>GameRenderer</class>
    <extends>QWidget</extends>
    <header>game/gamerenderer.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PlayerWidget</class>
+   <extends>QWidget</extends>
+   <header>widgets/playerwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

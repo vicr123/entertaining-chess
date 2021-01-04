@@ -89,6 +89,35 @@ void GameScreen::setGameEngine(GameEnginePtr engine) {
             });
         });
     });
+    connect(engine.data(), &GameEngine::currentTurnChanged, this, [ = ](bool isWhiteTurn) {
+        if (isWhiteTurn) {
+            ui->whitePlayerWidget->setIsActive(true);
+            ui->blackPlayerWidget->setIsActive(false);
+        } else {
+            ui->whitePlayerWidget->setIsActive(false);
+            ui->blackPlayerWidget->setIsActive(true);
+        }
+
+        if (engine->isHumanTurn()) {
+            if (engine->isCheck()) {
+                MusicEngine::playSoundEffect("yourturn-check");
+            } else {
+                MusicEngine::playSoundEffect("yourturn");
+            }
+        }
+    });
+    if (engine->isWhiteTurn()) {
+        ui->whitePlayerWidget->setIsActive(true);
+        ui->blackPlayerWidget->setIsActive(false);
+    } else {
+        ui->whitePlayerWidget->setIsActive(false);
+        ui->blackPlayerWidget->setIsActive(true);
+    }
+}
+
+void GameScreen::setPlayers(QImage whitePicture, QString whiteName, QImage blackPicture, QString blackName) {
+    ui->whitePlayerWidget->setPlayerDetails(whitePicture, whiteName);
+    ui->blackPlayerWidget->setPlayerDetails(blackPicture, blackName);
 }
 
 void GameScreen::on_menuButton_clicked() {

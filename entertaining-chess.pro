@@ -31,6 +31,7 @@ SOURCES += \
     screens/pausescreen.cpp \
     screens/promotescreen.cpp \
     screens/settingsscreen.cpp \
+    widgets/playerwidget.cpp \
     widgets/turnbrowser.cpp
 
 HEADERS += \
@@ -54,6 +55,7 @@ HEADERS += \
     screens/pausescreen.h \
     screens/promotescreen.h \
     screens/settingsscreen.h \
+    widgets/playerwidget.h \
     widgets/turnbrowser.h
 
 FORMS += \
@@ -70,6 +72,7 @@ FORMS += \
     screens/pausescreen.ui \
     screens/promotescreen.ui \
     screens/settingsscreen.ui \
+    widgets/playerwidget.ui \
     widgets/turnbrowser.ui
 
 QMAKE_POST_LINK += $$QMAKE_COPY $$quote($$PWD/defaults.conf) $$shell_quote($$OUT_PWD);

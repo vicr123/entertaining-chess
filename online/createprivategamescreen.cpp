@@ -103,8 +103,10 @@ CreatePrivateGameScreen::CreatePrivateGameScreen(QWidget* parent) :
             OnlineApi::instance()->profilePicture(object.value("picture").toString(), pictureSize)->then([ = ](QImage image) {
                 if (d->isPlayerWhite) {
                     ui->battlePlayers->setBlackSide(image, peerUsername);
+                    emit setPlayers(d->profilePicture, d->username, image, peerUsername);
                 } else {
                     ui->battlePlayers->setWhiteSide(image, peerUsername);
+                    emit setPlayers(image, peerUsername, d->profilePicture, d->username);
                 }
             });
 

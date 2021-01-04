@@ -25,6 +25,7 @@
 #include <pauseoverlay.h>
 #include "online/onlinecontroller.h"
 #include <online/reportcontroller.h>
+#include <the-libs_global.h>
 
 #include <QUrl>
 #include <musicengine.h>
@@ -41,6 +42,8 @@ MainWindow::MainWindow(QWidget* parent)
     OnlineController::instance()->setMainWindow(this);
 
     connect(ui->mainScreen, &MainScreen::startGame, this, [ = ](GameEnginePtr engine) {
+        QSize imageSize = SC_DPI_T(QSize(32, 32), QSize);
+        ui->gameScreen->setPlayers(QIcon(":/assets/white-icon.svg").pixmap(imageSize).toImage(), tr("White"), QIcon(":/assets/black-icon.svg").pixmap(imageSize).toImage(), tr("Black"));
         ui->gameScreen->setGameEngine(engine);
         ui->stackedWidget->setCurrentWidget(ui->gameScreen);
     });

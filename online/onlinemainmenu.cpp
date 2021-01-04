@@ -74,6 +74,7 @@ void OnlineMainMenu::on_accountButton_clicked() {
 void OnlineMainMenu::on_createPrivateButton_clicked() {
     CreatePrivateGameScreen* screen = new CreatePrivateGameScreen(this);
     connect(screen, &CreatePrivateGameScreen::done, screen, &CreatePrivateGameScreen::deleteLater);
+    connect(screen, &CreatePrivateGameScreen::setPlayers, this, &OnlineMainMenu::setPlayers);
     connect(screen, &CreatePrivateGameScreen::startGame, this, [ = ](GameEnginePtr engine) {
         emit startGame(engine);
     });
@@ -86,6 +87,7 @@ void OnlineMainMenu::on_joinPrivateButton_clicked() {
     if (!canceled) {
         JoinGameScreen* screen = new JoinGameScreen(code, this);
         connect(screen, &JoinGameScreen::done, screen, &JoinGameScreen::deleteLater);
+        connect(screen, &JoinGameScreen::setPlayers, this, &OnlineMainMenu::setPlayers);
         connect(screen, &JoinGameScreen::startGame, this, [ = ](GameEnginePtr engine) {
             emit startGame(engine);
         });
