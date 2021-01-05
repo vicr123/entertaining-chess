@@ -26,6 +26,7 @@ namespace Ui {
     class BattlePlayersWidget;
 }
 
+struct BattlePlayersWidgetPrivate;
 class BattlePlayersWidget : public QWidget {
         Q_OBJECT
 
@@ -40,6 +41,11 @@ class BattlePlayersWidget : public QWidget {
 
     private:
         Ui::BattlePlayersWidget* ui;
+        BattlePlayersWidgetPrivate* d;
+
+        // QWidget interface
+    protected:
+        void paintEvent(QPaintEvent* event);
 };
 
 #endif // BATTLEPLAYERSWIDGET_H

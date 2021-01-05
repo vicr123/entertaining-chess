@@ -4,8 +4,8 @@
 <context>
     <name>BattlePlayersWidget</name>
     <message>
-        <location filename="../online/battleplayerswidget.cpp" line="49"/>
-        <location filename="../online/battleplayerswidget.cpp" line="59"/>
+        <location filename="../online/battleplayerswidget.cpp" line="80"/>
+        <location filename="../online/battleplayerswidget.cpp" line="99"/>
         <source>Nobody</source>
         <translation>Kimse</translation>
     </message>
