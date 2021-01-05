@@ -86,7 +86,7 @@ MainWindow::~MainWindow() {
 
 void MainWindow::on_stackedWidget_currentChanged(int arg1) {
     if (ui->stackedWidget->currentWidget() == ui->gameScreen) {
-        MusicEngine::setBackgroundMusic("bleeping-intro", "bleeping-loop");
+        MusicEngine::setBackgroundMusic("ingame-intro", "ingame-loop");
     } else {
         MusicEngine::setBackgroundMusic("neon-intro", "neon-loop");
     }
