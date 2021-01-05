@@ -36,6 +36,13 @@
      </property>
     </widget>
    </item>
+   <item>
+    <widget class="FocusBarrier" name="focusBarrierTop">
+     <property name="text">
+      <string notr="true">PushButton</string>
+     </property>
+    </widget>
+   </item>
    <item alignment="Qt::AlignHCenter">
     <widget class="QWidget" name="mainWidget" native="true">
      <layout class="QGridLayout" name="gridLayout">
@@ -96,14 +103,11 @@
             <number>0</number>
            </property>
            <item>
-            <widget class="QPushButton" name="playEither">
+            <widget class="QPushButton" name="playWhite">
              <property name="text">
-              <string comment="Play as either colour">Either</string>
+              <string>White</string>
              </property>
              <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="checked">
               <bool>true</bool>
              </property>
              <property name="autoExclusive">
@@ -112,11 +116,14 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="playWhite">
+            <widget class="QPushButton" name="playEither">
              <property name="text">
-              <string>White</string>
+              <string comment="Play as either colour">Either</string>
              </property>
              <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
               <bool>true</bool>
              </property>
              <property name="autoExclusive">
@@ -267,6 +274,13 @@
     </widget>
    </item>
    <item>
+    <widget class="FocusBarrier" name="focusBarrierBottom">
+     <property name="text">
+      <string notr="true">PushButton</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -279,9 +293,18 @@
      </property>
     </spacer>
    </item>
+   <item>
+    <widget class="GamepadHud" name="gamepadHud" native="true"/>
+   </item>
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>GamepadHud</class>
+   <extends>QWidget</extends>
+   <header location="global">gamepadhud.h</header>
+   <container>1</container>
+  </customwidget>
   <customwidget>
    <class>tTitleLabel</class>
    <extends>QLabel</extends>
@@ -291,12 +314,28 @@
    </slots>
   </customwidget>
   <customwidget>
+   <class>FocusBarrier</class>
+   <extends>QPushButton</extends>
+   <header location="global">focusbarrier.h</header>
+  </customwidget>
+  <customwidget>
    <class>BattlePlayersWidget</class>
    <extends>QWidget</extends>
    <header>online/battleplayerswidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>focusBarrierTop</tabstop>
+  <tabstop>playWhite</tabstop>
+  <tabstop>playEither</tabstop>
+  <tabstop>playBlack</tabstop>
+  <tabstop>newGameButton</tabstop>
+  <tabstop>existingGameButton</tabstop>
+  <tabstop>readyButton</tabstop>
+  <tabstop>startButton</tabstop>
+  <tabstop>focusBarrierBottom</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

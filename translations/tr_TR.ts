@@ -18,79 +18,89 @@
         <translation>Özel Oyun Oluştur</translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="51"/>
+        <location filename="../online/createprivategamescreen.ui" line="58"/>
         <source>GAME SETTINGS</source>
         <translation>OYUN AYARLARI</translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="61"/>
-        <location filename="../online/createprivategamescreen.cpp" line="94"/>
+        <location filename="../online/createprivategamescreen.ui" line="68"/>
+        <location filename="../online/createprivategamescreen.cpp" line="106"/>
         <source>Ready!</source>
         <translation>Hazır!</translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="89"/>
+        <location filename="../online/createprivategamescreen.ui" line="96"/>
         <source>Play as</source>
         <translation>Olarak oyna</translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="101"/>
+        <location filename="../online/createprivategamescreen.ui" line="121"/>
         <source>Either</source>
         <comment>Play as either colour</comment>
         <translation>Ya</translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="117"/>
+        <location filename="../online/createprivategamescreen.ui" line="108"/>
         <source>White</source>
         <translation>Beyaz</translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="130"/>
+        <location filename="../online/createprivategamescreen.ui" line="137"/>
         <source>Black</source>
         <translation>Siyah</translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="145"/>
+        <location filename="../online/createprivategamescreen.ui" line="152"/>
         <source>Board</source>
         <translation>Borda</translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="157"/>
+        <location filename="../online/createprivategamescreen.ui" line="164"/>
         <source>New Game</source>
         <translation>Yeni oyun</translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="170"/>
+        <location filename="../online/createprivategamescreen.ui" line="177"/>
         <source>Load Existing Board</source>
         <translation>Mevcut Kartı Yükle</translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="207"/>
+        <location filename="../online/createprivategamescreen.ui" line="214"/>
         <source>JOINING THIS GAME</source>
         <translation>BU OYUNA KATILMAK</translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="214"/>
+        <location filename="../online/createprivategamescreen.ui" line="221"/>
         <source>Ask your buddy to use this join code:</source>
         <translation>Arkadaşınızdan bu katılma kodunu kullanmasını isteyin:</translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="248"/>
+        <location filename="../online/createprivategamescreen.ui" line="255"/>
         <source>A CHALLENGER HAS APPEARED</source>
         <translation>ZORLU BİR KİŞİ ORTAYA ÇIKTI</translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="262"/>
+        <location filename="../online/createprivategamescreen.ui" line="269"/>
         <source>Start Game</source>
         <translation>Oyunu başlat</translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.cpp" line="79"/>
+        <location filename="../online/createprivategamescreen.cpp" line="60"/>
+        <source>Select</source>
+        <translation type="unfinished">Seç</translation>
+    </message>
+    <message>
+        <location filename="../online/createprivategamescreen.cpp" line="61"/>
+        <source>Back</source>
+        <translation type="unfinished">Geri</translation>
+    </message>
+    <message>
+        <location filename="../online/createprivategamescreen.cpp" line="89"/>
         <source>Cancel</source>
         <translation>İptal</translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.cpp" line="126"/>
+        <location filename="../online/createprivategamescreen.cpp" line="141"/>
         <source>You&apos;ll be facing off with %1.</source>
         <translation>%1 ile karşı karşıya geleceksin.</translation>
     </message>
@@ -312,32 +322,48 @@
         <translation>Özel Oyuna Katılın</translation>
     </message>
     <message>
-        <location filename="../online/joingamescreen.ui" line="126"/>
+        <location filename="../online/joingamescreen.ui" line="120"/>
+        <location filename="../online/joingamescreen.ui" line="153"/>
+        <source>PushButton</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../online/joingamescreen.ui" line="133"/>
         <source>LET THE BATTLE BEGIN</source>
         <translation>SAVAŞ BAŞLASIN</translation>
     </message>
     <message>
-        <location filename="../online/joingamescreen.ui" line="139"/>
+        <location filename="../online/joingamescreen.ui" line="146"/>
         <source>Ready!</source>
         <translation>Hazır!</translation>
     </message>
     <message>
-        <location filename="../online/joingamescreen.cpp" line="93"/>
+        <location filename="../online/joingamescreen.cpp" line="57"/>
+        <source>Select</source>
+        <translation type="unfinished">Seç</translation>
+    </message>
+    <message>
+        <location filename="../online/joingamescreen.cpp" line="58"/>
+        <source>Back</source>
+        <translation type="unfinished">Geri</translation>
+    </message>
+    <message>
+        <location filename="../online/joingamescreen.cpp" line="103"/>
         <source>Game Error</source>
         <translation>Oyun Hatası</translation>
     </message>
     <message>
-        <location filename="../online/joingamescreen.cpp" line="94"/>
+        <location filename="../online/joingamescreen.cpp" line="104"/>
         <source>The game board could not be loaded. Try starting the game again.</source>
         <translation>Oyun tahtası yüklenemedi. Oyunu yeniden başlatmayı deneyin.</translation>
     </message>
     <message>
-        <location filename="../online/joingamescreen.cpp" line="116"/>
+        <location filename="../online/joingamescreen.cpp" line="126"/>
         <source>Invalid Game Code</source>
         <translation>Geçersiz Oyun Kodu</translation>
     </message>
     <message>
-        <location filename="../online/joingamescreen.cpp" line="117"/>
+        <location filename="../online/joingamescreen.cpp" line="127"/>
         <source>Sorry, that game code doesn&apos;t point to a game. Check the game code and try again.</source>
         <translation>Üzgünüz, bu oyun kodu bir oyunu işaret etmiyor. Oyun kodunu kontrol edin ve tekrar deneyin.</translation>
     </message>

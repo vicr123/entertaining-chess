@@ -26,6 +26,7 @@
 #include <online/onlineapi.h>
 #include <QJsonObject>
 #include <questionoverlay.h>
+#include <musicengine.h>
 #include "game/gameengine.h"
 #include "game/MoveEngines/humanmoveengine.h"
 #include "game/MoveEngines/onlinemoveengine.h"
@@ -52,6 +53,15 @@ JoinGameScreen::JoinGameScreen(QString gameCode, QWidget* parent) :
     ui->readyButton->setFixedWidth(SC_DPI(600));
 
     PauseOverlay::overlayForWindow(this)->pushOverlayWidget(this);
+
+    ui->gamepadHud->setButtonText(QGamepadManager::ButtonA, tr("Select"));
+    ui->gamepadHud->setButtonText(QGamepadManager::ButtonB, tr("Back"));
+
+    ui->gamepadHud->setButtonAction(QGamepadManager::ButtonA, GamepadHud::standardAction(GamepadHud::SelectAction));
+    ui->gamepadHud->setButtonAction(QGamepadManager::ButtonB, [ = ] {
+        MusicEngine::playSoundEffect(MusicEngine::Backstep);
+        ui->titleLabel->backButtonClicked();
+    });
 
     OnlineApi::instance()->get("/users/profile")->then([ = ](QJsonDocument doc) {
         QJsonObject obj = doc.object().value("user").toObject();
@@ -153,6 +163,10 @@ JoinGameScreen::JoinGameScreen(QString gameCode, QWidget* parent) :
             {"code", gameCode}
         });
     });
+
+    ui->focusBarrierTop->setBounceWidget(ui->readyButton);
+    ui->focusBarrierBottom->setBounceWidget(ui->readyButton);
+    this->setFocusProxy(ui->readyButton);
 }
 
 JoinGameScreen::~JoinGameScreen() {

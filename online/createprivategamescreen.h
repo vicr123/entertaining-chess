@@ -57,6 +57,10 @@ class CreatePrivateGameScreen : public QWidget {
         Ui::CreatePrivateGameScreen* ui;
 
         void close();
+
+        // QObject interface
+    public:
+        bool eventFilter(QObject* watched, QEvent* event);
 };
 
 #endif // CREATEPRIVATEGAMESCREEN_H

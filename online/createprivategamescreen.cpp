@@ -26,6 +26,8 @@
 #include <online/onlinecontroller.h>
 #include <online/onlinewebsocket.h>
 #include <questionoverlay.h>
+#include <musicengine.h>
+#include <QKeyEvent>
 #include "game/gameengine.h"
 #include "game/MoveEngines/humanmoveengine.h"
 #include "game/MoveEngines/onlinemoveengine.h"
@@ -55,6 +57,14 @@ CreatePrivateGameScreen::CreatePrivateGameScreen(QWidget* parent) :
     ui->challengerWidget->setVisible(false);
     PauseOverlay::overlayForWindow(parent)->pushOverlayWidget(this);
 
+    ui->gamepadHud->setButtonText(QGamepadManager::ButtonA, tr("Select"));
+    ui->gamepadHud->setButtonText(QGamepadManager::ButtonB, tr("Back"));
+
+    ui->gamepadHud->setButtonAction(QGamepadManager::ButtonA, GamepadHud::standardAction(GamepadHud::SelectAction));
+    ui->gamepadHud->setButtonAction(QGamepadManager::ButtonB, [ = ] {
+        MusicEngine::playSoundEffect(MusicEngine::Backstep);
+        ui->titleLabel->backButtonClicked();
+    });
 
     //Load data from the server
     OnlineApi::instance()->get("/users/profile")->then([ = ](QJsonDocument doc) {
@@ -86,9 +96,11 @@ CreatePrivateGameScreen::CreatePrivateGameScreen(QWidget* parent) :
                 ui->battlePlayers->setBlackSide(d->profilePicture, d->username);
             }
 
-
             ui->joinCode->setText(object.value("code").toString());
             ui->joiningWidget->setVisible(true);
+
+            ui->focusBarrierTop->setBounceWidget(ui->readyButton);
+            ui->focusBarrierBottom->setBounceWidget(ui->readyButton);
         } else if (type == "matchmakingCancelled" || type == "peerDisconnected") {
             d->isReady = false;
             ui->readyButton->setText(tr("Ready!"));
@@ -97,6 +109,9 @@ CreatePrivateGameScreen::CreatePrivateGameScreen(QWidget* parent) :
             ui->battlePlayers->clearBlackSide();
             ui->joiningWidget->setVisible(false);
             ui->challengerWidget->setVisible(false);
+
+            ui->focusBarrierTop->setBounceWidget(ui->playEither);
+            ui->focusBarrierBottom->setBounceWidget(ui->readyButton);
         } else if (type == "peerConnected") {
             QString peerUsername = object.value("username").toString();
             int pictureSize = SC_DPI(64);
@@ -125,12 +140,25 @@ CreatePrivateGameScreen::CreatePrivateGameScreen(QWidget* parent) :
             ui->challengerWidget->setVisible(true);
             ui->challengerMessage->setText(tr("You'll be facing off with %1.").arg(peerUsername));
             ui->startButton->setEnabled(false);
+
+            ui->focusBarrierTop->setBounceWidget(ui->readyButton);
+            ui->focusBarrierBottom->setBounceWidget(ui->startButton);
         } else if (type == "peerReady") {
             ui->startButton->setEnabled(true);
         } else if (type == "peerNotReady") {
             ui->startButton->setEnabled(false);
         }
     });
+
+    ui->playWhite->installEventFilter(this);
+    ui->playEither->installEventFilter(this);
+    ui->playBlack->installEventFilter(this);
+    ui->newGameButton->installEventFilter(this);
+    ui->existingGameButton->installEventFilter(this);
+    this->setFocusProxy(ui->playEither);
+
+    ui->focusBarrierTop->setBounceWidget(ui->playEither);
+    ui->focusBarrierBottom->setBounceWidget(ui->readyButton);
 }
 
 CreatePrivateGameScreen::~CreatePrivateGameScreen() {
@@ -238,4 +266,43 @@ void CreatePrivateGameScreen::on_startButton_clicked() {
     PauseOverlay::overlayForWindow(this)->popOverlayWidget([ = ] {
         emit done();
     });
+}
+
+
+bool CreatePrivateGameScreen::eventFilter(QObject* watched, QEvent* event) {
+    if (event->type() == QEvent::KeyPress) {
+        QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
+        switch (keyEvent->key()) {
+            case Qt::Key_Down: {
+                if (QList<QObject*>({ui->playWhite, ui->playEither, ui->playBlack}).contains(watched)) {
+                    ui->newGameButton->setFocus();
+                } else {
+                    ui->readyButton->setFocus();
+                }
+                return true;
+            }
+            case Qt::Key_Up: {
+                if (QList<QObject*>({ui->playWhite, ui->playEither, ui->playBlack}).contains(watched)) {
+                    ui->focusBarrierTop->setFocus();
+                } else {
+                    ui->playEither->setFocus();
+                }
+                return true;
+            }
+            case Qt::Key_Left: {
+                if (watched == ui->existingGameButton) {
+                    ui->newGameButton->setFocus();
+                    return true;
+                }
+            }
+            case Qt::Key_Right: {
+                if (watched == ui->newGameButton)  {
+                    ui->existingGameButton->setFocus();
+                    return true;
+                }
+                break;
+            }
+        }
+    }
+    return false;
 }

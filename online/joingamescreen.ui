@@ -114,6 +114,13 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="FocusBarrier" name="focusBarrierTop">
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
+       </item>
        <item alignment="Qt::AlignHCenter">
         <widget class="QLabel" name="subtitleLabel">
          <property name="font">
@@ -141,6 +148,13 @@
         </widget>
        </item>
        <item>
+        <widget class="FocusBarrier" name="focusBarrierBottom">
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacer_3">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -153,6 +167,9 @@
          </property>
         </spacer>
        </item>
+       <item>
+        <widget class="GamepadHud" name="gamepadHud" native="true"/>
+       </item>
       </layout>
      </widget>
     </widget>
@@ -161,12 +178,23 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>GamepadHud</class>
+   <extends>QWidget</extends>
+   <header location="global">gamepadhud.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
    <class>tTitleLabel</class>
    <extends>QLabel</extends>
    <header location="global">ttitlelabel.h</header>
    <slots>
     <signal>backButtonClicked()</signal>
    </slots>
+  </customwidget>
+  <customwidget>
+   <class>FocusBarrier</class>
+   <extends>QPushButton</extends>
+   <header location="global">focusbarrier.h</header>
   </customwidget>
   <customwidget>
    <class>BattlePlayersWidget</class>
@@ -181,6 +209,11 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>focusBarrierTop</tabstop>
+  <tabstop>readyButton</tabstop>
+  <tabstop>focusBarrierBottom</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

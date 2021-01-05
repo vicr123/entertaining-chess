@@ -18,79 +18,89 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="51"/>
+        <location filename="../online/createprivategamescreen.ui" line="58"/>
         <source>GAME SETTINGS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="61"/>
-        <location filename="../online/createprivategamescreen.cpp" line="94"/>
+        <location filename="../online/createprivategamescreen.ui" line="68"/>
+        <location filename="../online/createprivategamescreen.cpp" line="106"/>
         <source>Ready!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="89"/>
+        <location filename="../online/createprivategamescreen.ui" line="96"/>
         <source>Play as</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="101"/>
+        <location filename="../online/createprivategamescreen.ui" line="121"/>
         <source>Either</source>
         <comment>Play as either colour</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="117"/>
+        <location filename="../online/createprivategamescreen.ui" line="108"/>
         <source>White</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="130"/>
+        <location filename="../online/createprivategamescreen.ui" line="137"/>
         <source>Black</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="145"/>
+        <location filename="../online/createprivategamescreen.ui" line="152"/>
         <source>Board</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="157"/>
+        <location filename="../online/createprivategamescreen.ui" line="164"/>
         <source>New Game</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="170"/>
+        <location filename="../online/createprivategamescreen.ui" line="177"/>
         <source>Load Existing Board</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="207"/>
+        <location filename="../online/createprivategamescreen.ui" line="214"/>
         <source>JOINING THIS GAME</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="214"/>
+        <location filename="../online/createprivategamescreen.ui" line="221"/>
         <source>Ask your buddy to use this join code:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="248"/>
+        <location filename="../online/createprivategamescreen.ui" line="255"/>
         <source>A CHALLENGER HAS APPEARED</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.ui" line="262"/>
+        <location filename="../online/createprivategamescreen.ui" line="269"/>
         <source>Start Game</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.cpp" line="79"/>
+        <location filename="../online/createprivategamescreen.cpp" line="60"/>
+        <source>Select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../online/createprivategamescreen.cpp" line="61"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../online/createprivategamescreen.cpp" line="89"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/createprivategamescreen.cpp" line="126"/>
+        <location filename="../online/createprivategamescreen.cpp" line="141"/>
         <source>You&apos;ll be facing off with %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -312,32 +322,48 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/joingamescreen.ui" line="126"/>
+        <location filename="../online/joingamescreen.ui" line="120"/>
+        <location filename="../online/joingamescreen.ui" line="153"/>
+        <source>PushButton</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../online/joingamescreen.ui" line="133"/>
         <source>LET THE BATTLE BEGIN</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/joingamescreen.ui" line="139"/>
+        <location filename="../online/joingamescreen.ui" line="146"/>
         <source>Ready!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/joingamescreen.cpp" line="93"/>
+        <location filename="../online/joingamescreen.cpp" line="57"/>
+        <source>Select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../online/joingamescreen.cpp" line="58"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../online/joingamescreen.cpp" line="103"/>
         <source>Game Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/joingamescreen.cpp" line="94"/>
+        <location filename="../online/joingamescreen.cpp" line="104"/>
         <source>The game board could not be loaded. Try starting the game again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/joingamescreen.cpp" line="116"/>
+        <location filename="../online/joingamescreen.cpp" line="126"/>
         <source>Invalid Game Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../online/joingamescreen.cpp" line="117"/>
+        <location filename="../online/joingamescreen.cpp" line="127"/>
         <source>Sorry, that game code doesn&apos;t point to a game. Check the game code and try again.</source>
         <translation type="unfinished"></translation>
     </message>
