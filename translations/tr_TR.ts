@@ -87,12 +87,12 @@
     <message>
         <location filename="../online/createprivategamescreen.cpp" line="60"/>
         <source>Select</source>
-        <translation type="unfinished">Seç</translation>
+        <translation>Seç</translation>
     </message>
     <message>
         <location filename="../online/createprivategamescreen.cpp" line="61"/>
         <source>Back</source>
-        <translation type="unfinished">Geri</translation>
+        <translation>Geri</translation>
     </message>
     <message>
         <location filename="../online/createprivategamescreen.cpp" line="89"/>
@@ -325,7 +325,7 @@
         <location filename="../online/joingamescreen.ui" line="120"/>
         <location filename="../online/joingamescreen.ui" line="153"/>
         <source>PushButton</source>
-        <translation type="unfinished"></translation>
+        <translation>Tuş</translation>
     </message>
     <message>
         <location filename="../online/joingamescreen.ui" line="133"/>
@@ -340,12 +340,12 @@
     <message>
         <location filename="../online/joingamescreen.cpp" line="57"/>
         <source>Select</source>
-        <translation type="unfinished">Seç</translation>
+        <translation>Seç</translation>
     </message>
     <message>
         <location filename="../online/joingamescreen.cpp" line="58"/>
         <source>Back</source>
-        <translation type="unfinished">Geri</translation>
+        <translation>Geri</translation>
     </message>
     <message>
         <location filename="../online/joingamescreen.cpp" line="103"/>
