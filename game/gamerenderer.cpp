@@ -32,6 +32,8 @@
 
 struct AnimatedPiece {
     QPointF currentLocation;
+    float animationProgress;
+    bool isEatAnim = false;
     GameEngine::Piece piece;
 };
 
@@ -48,6 +50,7 @@ struct GameRendererPrivate {
 
     QList<AnimatedPiece*> animations;
     QList<int> animationsTo;
+    QList<int> animationsEat;
 };
 
 GameRenderer::GameRenderer(QWidget* parent) : QWidget(parent) {
@@ -98,6 +101,33 @@ void GameRenderer::setGameEngine(GameEnginePtr engine) {
         });
         connect(anim, &tVariantAnimation::finished, this, [ = ] {
             d->animationsTo.removeOne(to);
+            d->animations.removeOne(ap);
+            delete ap;
+
+            updateBoardRotation();
+        });
+        anim->start();
+    });
+    connect(engine.data(), &GameEngine::eatPiece, this, [ = ](int at, GameEngine::Piece piece) {
+        AnimatedPiece* ap = new AnimatedPiece();
+        ap->piece = piece;
+        ap->currentLocation = QPointF(at % 8, at / 8);
+        ap->isEatAnim = true;
+
+        d->animations.append(ap);
+        d->animationsEat.append(at);
+
+        tVariantAnimation* anim = new tVariantAnimation();
+        anim->setStartValue(1.0);
+        anim->setEndValue(0.0);
+        anim->setDuration(500);
+        anim->setEasingCurve(QEasingCurve::OutCubic);
+        connect(anim, &tVariantAnimation::valueChanged, this, [ = ](QVariant value) {
+            ap->animationProgress = value.toDouble();
+            this->update();
+        });
+        connect(anim, &tVariantAnimation::finished, this, [ = ] {
+            d->animationsEat.removeOne(at);
             d->animations.removeOne(ap);
             delete ap;
 
@@ -351,20 +381,30 @@ void GameRenderer::paintEvent(QPaintEvent* event) {
     }
 
     //Draw animating pieces
-    for (AnimatedPiece* anim : d->animations) {
-        QRectF rect(anim->currentLocation, QSizeF(1, 1));
-
+    for (AnimatedPiece* anim : qAsConst(d->animations)) {
         QPixmap piecePx(512, 512);
         piecePx.fill(Qt::transparent);
 
-        QPainter piecePainter(&piecePx);
-        piecePainter.translate(256, 256);
-        piecePainter.rotate(-d->boardRotation->currentValue().toInt());
+        if (anim->isEatAnim) {
+            QPainter piecePainter(&piecePx);
+            piecePainter.translate(256, 256);
+            piecePainter.rotate(d->boardRotation->currentValue().toInt());
+//            piecePainter.setOpacity(anim->animationProgress);
 
-        QSvgRenderer renderer(QStringLiteral(":/assets/%1.svg").arg(pieceIcons.value(anim->piece)));
-        renderer.render(&piecePainter, QRect(-128, -128, 256, 256));
+            QRect rect;
+            rect.setSize(QSize(256, 256) * anim->animationProgress);
+            rect.moveCenter(QPoint(0, 0));
 
-        piecePainter.end();
+            QSvgRenderer renderer(QStringLiteral(":/assets/%1.svg").arg(pieceIcons.value(anim->piece)));
+            renderer.render(&piecePainter, rect);
+        } else {
+            QPainter piecePainter(&piecePx);
+            piecePainter.translate(256, 256);
+            piecePainter.rotate(-d->boardRotation->currentValue().toInt());
+
+            QSvgRenderer renderer(QStringLiteral(":/assets/%1.svg").arg(pieceIcons.value(anim->piece)));
+            renderer.render(&piecePainter, QRect(-128, -128, 256, 256));
+        }
 
         QRectF pixmapRect;
         pixmapRect.setSize(QSizeF(2, 2));
@@ -373,7 +413,7 @@ void GameRenderer::paintEvent(QPaintEvent* event) {
     }
 
     //Draw the available moves
-    for (int move : d->availableMoves) {
+    for (int move : qAsConst(d->availableMoves)) {
         QRectF circleRect;
         circleRect.setWidth(0.25);
         circleRect.setHeight(0.25);

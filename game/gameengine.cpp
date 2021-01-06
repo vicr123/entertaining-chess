@@ -383,7 +383,10 @@ GameEngine::MoveResults GameEngine::issueMove(int from, int to, QList<quint8> bo
 
     //TODO: Handle En Passant
 
-    if (animate) emit animatePiece(from, to, fromPiece);
+    if (animate) {
+        if (results.takenPiece != Empty) emit eatPiece(results.to, results.takenPiece);
+        emit animatePiece(from, to, fromPiece);
+    }
 
     return results;
 }

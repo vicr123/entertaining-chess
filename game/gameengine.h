@@ -121,6 +121,7 @@ class GameEngine : public QObject {
     signals:
         void moveIssued(int from, int to, Piece promoteTo, bool isWhiteMove);
         void animatePiece(int from, int to, Piece piece);
+        void eatPiece(int at, Piece piece);
         void currentTurnChanged(bool isWhiteTurn);
         void endOfGame(GameResult result);
 

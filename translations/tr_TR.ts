@@ -138,22 +138,22 @@
         <translation>Menü Müzik - &quot;Neon Lazer Horizon&quot;</translation>
     </message>
     <message>
-        <location filename="../information/creditsscreen.ui" line="238"/>
+        <location filename="../information/creditsscreen.ui" line="253"/>
         <source>Game Music - &quot;Bleeping Demo&quot;</source>
         <translation>Oyun Müziği - &quot;Bleeping Demo&quot;</translation>
     </message>
     <message>
-        <location filename="../information/creditsscreen.ui" line="251"/>
+        <location filename="../information/creditsscreen.ui" line="266"/>
         <source>Music is licensed under Creative Commons: BY 4.0</source>
         <translation>Müzik Creative Commons altında lisanslanmıştır: 4.0 TARAFINDAN</translation>
     </message>
     <message>
-        <location filename="../information/creditsscreen.ui" line="306"/>
+        <location filename="../information/creditsscreen.ui" line="321"/>
         <source>Copyright © 2021 Victor Tran and Mart Koster.</source>
         <translation>Telif hakkı © 2021 Victor Tran ve Mart Koster.</translation>
     </message>
     <message>
-        <location filename="../information/creditsscreen.ui" line="316"/>
+        <location filename="../information/creditsscreen.ui" line="331"/>
         <source>Licensed under the terms of the GNU General Public License, version 3, or later.</source>
         <translation>GNU Genel Kamu Lisansı, sürüm 3 veya daha sonraki koşullar kapsamında lisanslanmıştır.</translation>
     </message>
@@ -166,102 +166,102 @@
 <context>
     <name>GameEngine</name>
     <message>
-        <location filename="../game/gameengine.cpp" line="719"/>
+        <location filename="../game/gameengine.cpp" line="722"/>
         <source>Empty Space</source>
         <translation>Boş Alan</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="720"/>
+        <location filename="../game/gameengine.cpp" line="723"/>
         <source>White Pawn</source>
         <translation>Beyaz Piyon</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="721"/>
+        <location filename="../game/gameengine.cpp" line="724"/>
         <source>White Knight</source>
         <translation>Beyaz Şovalye</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="722"/>
+        <location filename="../game/gameengine.cpp" line="725"/>
         <source>White Bishop</source>
         <translation>Beyaz Piskopos</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="723"/>
+        <location filename="../game/gameengine.cpp" line="726"/>
         <source>White Rook</source>
         <translation>Beyaz Kale</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="724"/>
+        <location filename="../game/gameengine.cpp" line="727"/>
         <source>White Queen</source>
         <translation>Beyaz Kraliçe</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="725"/>
+        <location filename="../game/gameengine.cpp" line="728"/>
         <source>White King</source>
         <translation>Beyaz Kral</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="726"/>
+        <location filename="../game/gameengine.cpp" line="729"/>
         <source>Black Pawn</source>
         <translation>Siyah Piyon</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="727"/>
+        <location filename="../game/gameengine.cpp" line="730"/>
         <source>Black Knight</source>
         <translation>Siyah şövalye</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="728"/>
+        <location filename="../game/gameengine.cpp" line="731"/>
         <source>Black Bishop</source>
         <translation>Siyah Piskopos</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="729"/>
+        <location filename="../game/gameengine.cpp" line="732"/>
         <source>Black Rook</source>
         <translation>Siyah Kale</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="730"/>
+        <location filename="../game/gameengine.cpp" line="733"/>
         <source>Black Queen</source>
         <translation>Kara Kraliçe</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="731"/>
+        <location filename="../game/gameengine.cpp" line="734"/>
         <source>Black King</source>
         <translation>Siyah Kral</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="754"/>
+        <location filename="../game/gameengine.cpp" line="757"/>
         <source>%1 moves %2 -&gt; %3</source>
         <translation>%1, %2&apos;yı %3&apos;ya taşıdı</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="756"/>
+        <location filename="../game/gameengine.cpp" line="759"/>
         <source>%1 moves from %2 -&gt; %3 capturing a %4</source>
         <translation>%1 %2&apos;dan hareket ediyor -&gt; 3% bir %4&apos;u ele geçiriyor</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="761"/>
+        <location filename="../game/gameengine.cpp" line="764"/>
         <source>White castles kingside</source>
         <translation>Beyaz kaleler kingside</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="763"/>
+        <location filename="../game/gameengine.cpp" line="766"/>
         <source>Black castles kingside</source>
         <translation>Kara kaleler kingside</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="767"/>
+        <location filename="../game/gameengine.cpp" line="770"/>
         <source>White castles queenside</source>
         <translation>Beyaz kaleler kraliçe kenarı</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="769"/>
+        <location filename="../game/gameengine.cpp" line="772"/>
         <source>Black castles queenside</source>
         <translation>Siyah kaleler vezir kanadı</translation>
     </message>
     <message>
-        <location filename="../game/gameengine.cpp" line="772"/>
+        <location filename="../game/gameengine.cpp" line="775"/>
         <source>Beginning of game</source>
         <translation>Oyunun başlangıcı</translation>
     </message>
