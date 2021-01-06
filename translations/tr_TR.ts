@@ -551,7 +551,7 @@
     <message>
         <location filename="../screens/pausescreen.ui" line="137"/>
         <source>Settings</source>
-        <translation type="unfinished">Ayarlar</translation>
+        <translation>Ayarlar</translation>
     </message>
     <message>
         <location filename="../screens/pausescreen.ui" line="144"/>
