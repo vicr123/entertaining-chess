@@ -94,7 +94,7 @@ PauseScreen::PauseScreen(GameEnginePtr engine, QWidget* parent) :
     connect(rightShortcut, &QShortcut::activated, this, &PauseScreen::nextScreen);
 
     QToolButton* backButton = new QToolButton(this);
-    backButton->setIcon(QIcon::fromTheme("go-back"));
+    backButton->setIcon(QIcon::fromTheme("go-previous"));
     backButton->move(0, 0);
     backButton->setFixedSize(backButton->sizeHint());
     backButton->setVisible(true);
