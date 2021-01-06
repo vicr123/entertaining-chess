@@ -132,6 +132,10 @@ void GameScreen::on_menuButton_clicked() {
         screen->deleteLater();
         emit returnToMainMenu();
     });
+    connect(screen, &PauseScreen::settings, this, [ = ] {
+        screen->deleteLater();
+        emit viewSettings();
+    });
     screen->show();
 }
 

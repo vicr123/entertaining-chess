@@ -30,10 +30,16 @@
 #include <QUrl>
 #include <musicengine.h>
 
+struct MainWindowPrivate {
+    QWidget* settingsPopWidget = nullptr;
+};
+
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow) {
     BackgroundController::instance()->setMainWindow(this);
+
+    d = new MainWindowPrivate();
 
     ui->setupUi(this);
 
@@ -48,10 +54,12 @@ MainWindow::MainWindow(QWidget* parent)
         ui->stackedWidget->setCurrentWidget(ui->gameScreen);
     });
     connect(ui->mainScreen, &MainScreen::goToSettings, this, [ = ] {
+        d->settingsPopWidget = ui->mainScreen;
         ui->stackedWidget->setCurrentWidget(ui->settingsPage);
     });
 
     connect(OnlineController::instance(), &OnlineController::isOnlineChanged, this, [ = ](bool isOnline) {
+        ReportController::setAutomaticReportingEnabled(this, isOnline);
         if (isOnline) {
             ui->stackedWidget->setCurrentWidget(ui->onlineScreen);
         } else {
@@ -62,13 +70,19 @@ MainWindow::MainWindow(QWidget* parent)
     connect(ui->gameScreen, &GameScreen::returnToMainMenu, this, [ = ] {
         ui->stackedWidget->setCurrentWidget(ui->mainScreen);
     });
-
-    connect(ui->settingsPage, &SettingsScreen::goBack, this, [ = ] {
-        ui->stackedWidget->setCurrentWidget(ui->mainScreen);
+    connect(ui->gameScreen, &GameScreen::viewSettings, this, [ = ] {
+        d->settingsPopWidget = ui->gameScreen;
+        ui->stackedWidget->setCurrentWidget(ui->settingsPage);
     });
 
-    connect(OnlineController::instance(), &OnlineController::isOnlineChanged, this, [ = ](bool isOnline) {
-        ReportController::setAutomaticReportingEnabled(this, isOnline);
+    connect(ui->settingsPage, &SettingsScreen::goBack, this, [ = ] {
+        ui->stackedWidget->setCurrentWidget(d->settingsPopWidget);
+        d->settingsPopWidget = nullptr;
+    });
+
+    connect(ui->onlineScreen, &OnlineScreen::viewSettings, this, [ = ] {
+        d->settingsPopWidget = ui->onlineScreen;
+        ui->stackedWidget->setCurrentWidget(ui->settingsPage);
     });
 
     PauseOverlay::registerOverlayForWindow(this, ui->centralwidget);
@@ -80,11 +94,13 @@ MainWindow::MainWindow(QWidget* parent)
 }
 
 MainWindow::~MainWindow() {
+    delete d;
     delete ui;
 }
 
 
 void MainWindow::on_stackedWidget_currentChanged(int arg1) {
+    if (d->settingsPopWidget) return;
     if (ui->stackedWidget->currentWidget() == ui->gameScreen) {
         MusicEngine::setBackgroundMusic("ingame-intro", "ingame-loop");
     } else {

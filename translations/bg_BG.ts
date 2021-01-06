@@ -429,12 +429,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="46"/>
+        <location filename="../mainwindow.cpp" line="52"/>
         <source>White</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="46"/>
+        <location filename="../mainwindow.cpp" line="52"/>
         <source>Black</source>
         <translation type="unfinished"></translation>
     </message>
@@ -528,13 +528,13 @@
     <name>PauseScreen</name>
     <message>
         <location filename="../screens/pausescreen.ui" line="44"/>
-        <location filename="../screens/pausescreen.cpp" line="158"/>
+        <location filename="../screens/pausescreen.cpp" line="179"/>
         <source>Move History</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../screens/pausescreen.ui" line="102"/>
-        <location filename="../screens/pausescreen.cpp" line="155"/>
+        <location filename="../screens/pausescreen.cpp" line="176"/>
         <source>System</source>
         <translation type="unfinished"></translation>
     </message>
@@ -550,21 +550,26 @@
     </message>
     <message>
         <location filename="../screens/pausescreen.ui" line="137"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../screens/pausescreen.ui" line="144"/>
         <source>Return to Main Menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/pausescreen.ui" line="187"/>
+        <location filename="../screens/pausescreen.ui" line="194"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/pausescreen.cpp" line="43"/>
+        <location filename="../screens/pausescreen.cpp" line="45"/>
         <source>Select</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../screens/pausescreen.cpp" line="44"/>
+        <location filename="../screens/pausescreen.cpp" line="46"/>
         <source>Resume</source>
         <translation type="unfinished"></translation>
     </message>

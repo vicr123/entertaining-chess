@@ -42,6 +42,7 @@ class PauseScreen : public QWidget {
     signals:
         void resume();
         void mainMenu();
+        void settings();
 
     private slots:
         void on_resumeButton_clicked();
@@ -56,9 +57,13 @@ class PauseScreen : public QWidget {
 
         void on_rightButton_clicked();
 
+        void on_settingsButton_clicked();
+
     private:
         Ui::PauseScreen* ui;
         PauseScreenPrivate* d;
+
+        bool event(QEvent* event);
 };
 
 #endif // PAUSESCREEN_H

@@ -40,6 +40,7 @@ class GameScreen : public QWidget {
 
     signals:
         void returnToMainMenu();
+        void viewSettings();
 
     private slots:
         void on_menuButton_clicked();

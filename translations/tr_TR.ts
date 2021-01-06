@@ -429,12 +429,12 @@
         <translation>Eğlenceli Satranç</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="46"/>
+        <location filename="../mainwindow.cpp" line="52"/>
         <source>White</source>
         <translation>Beyaz</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="46"/>
+        <location filename="../mainwindow.cpp" line="52"/>
         <source>Black</source>
         <translation>Siyah</translation>
     </message>
@@ -528,13 +528,13 @@
     <name>PauseScreen</name>
     <message>
         <location filename="../screens/pausescreen.ui" line="44"/>
-        <location filename="../screens/pausescreen.cpp" line="158"/>
+        <location filename="../screens/pausescreen.cpp" line="179"/>
         <source>Move History</source>
         <translation>Geçmişi Taşı</translation>
     </message>
     <message>
         <location filename="../screens/pausescreen.ui" line="102"/>
-        <location filename="../screens/pausescreen.cpp" line="155"/>
+        <location filename="../screens/pausescreen.cpp" line="176"/>
         <source>System</source>
         <translation>Sistemi</translation>
     </message>
@@ -550,21 +550,26 @@
     </message>
     <message>
         <location filename="../screens/pausescreen.ui" line="137"/>
+        <source>Settings</source>
+        <translation type="unfinished">Ayarlar</translation>
+    </message>
+    <message>
+        <location filename="../screens/pausescreen.ui" line="144"/>
         <source>Return to Main Menu</source>
         <translation>Ana menüye dön</translation>
     </message>
     <message>
-        <location filename="../screens/pausescreen.ui" line="187"/>
+        <location filename="../screens/pausescreen.ui" line="194"/>
         <source>...</source>
         <translation>…</translation>
     </message>
     <message>
-        <location filename="../screens/pausescreen.cpp" line="43"/>
+        <location filename="../screens/pausescreen.cpp" line="45"/>
         <source>Select</source>
         <translation>Seç</translation>
     </message>
     <message>
-        <location filename="../screens/pausescreen.cpp" line="44"/>
+        <location filename="../screens/pausescreen.cpp" line="46"/>
         <source>Resume</source>
         <translation>Devam et</translation>
     </message>

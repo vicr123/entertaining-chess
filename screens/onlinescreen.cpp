@@ -66,6 +66,7 @@ OnlineScreen::OnlineScreen(QWidget* parent) :
 
         ui->stackedWidget->setCurrentWidget(ui->mainMenuPage);
     });
+    connect(ui->gamePage, &GameScreen::viewSettings, this, &OnlineScreen::viewSettings);
 
     BackgroundController::instance()->install(ui->connectingPage);
 }

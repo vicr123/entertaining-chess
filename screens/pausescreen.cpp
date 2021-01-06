@@ -24,6 +24,8 @@
 #include <pauseoverlay.h>
 #include <questionoverlay.h>
 #include <saveoverlay.h>
+#include <QShortcut>
+#include <gamepadevent.h>
 #include "game/gameengine.h"
 
 struct PauseScreenPrivate {
@@ -61,7 +63,7 @@ PauseScreen::PauseScreen(GameEnginePtr engine, QWidget* parent) :
         });
     }
 
-    ui->stackedWidget->setCurrentAnimation(tStackedWidget::Fade);
+//    ui->stackedWidget->setCurrentAnimation(tStackedWidget::Fade);
     ui->stackedWidget->currentChanged(0);
 
     ui->mainMenuButton->setProperty("type", "destructive");
@@ -85,7 +87,25 @@ PauseScreen::PauseScreen(GameEnginePtr engine, QWidget* parent) :
     }
     ui->focusBarrierBottom->setBounceWidget(ui->mainMenuButton);
 
-    this->setFocusProxy(ui->turnBrowser);
+    QShortcut* leftShortcut = new QShortcut(QKeySequence(Qt::Key_Left), this);
+    connect(leftShortcut, &QShortcut::activated, this, &PauseScreen::previousScreen);
+
+    QShortcut* rightShortcut = new QShortcut(QKeySequence(Qt::Key_Right), this);
+    connect(rightShortcut, &QShortcut::activated, this, &PauseScreen::nextScreen);
+
+    QToolButton* backButton = new QToolButton(this);
+    backButton->setIcon(QIcon::fromTheme("go-back"));
+    backButton->move(0, 0);
+    backButton->setFixedSize(backButton->sizeHint());
+    backButton->setVisible(true);
+    backButton->raise();
+    connect(backButton, &QToolButton::clicked, this, [ = ] {
+        ui->resumeButton->click();
+    });
+
+    this->setFocusProxy(ui->stackedWidget);
+    ui->moveHistoryPage->setFocusProxy(ui->turnBrowser);
+    ui->systemPage->setFocusProxy(ui->resumeButton);
 }
 
 PauseScreen::~PauseScreen() {
@@ -149,6 +169,7 @@ void PauseScreen::on_mainMenuButton_clicked() {
 }
 
 void PauseScreen::on_stackedWidget_currentChanged(int arg1) {
+    ui->stackedWidget->setFocusProxy(ui->stackedWidget->currentWidget());
     switch (arg1) {
         case 0:
             ui->gamepadHud->removeText(QGamepadManager::ButtonL1);
@@ -159,6 +180,7 @@ void PauseScreen::on_stackedWidget_currentChanged(int arg1) {
             ui->gamepadHud->removeText(QGamepadManager::ButtonR1);
             break;
     }
+    ui->stackedWidget->currentWidget()->setFocus();
 }
 
 void PauseScreen::on_leftButton_clicked() {
@@ -169,3 +191,21 @@ void PauseScreen::on_rightButton_clicked() {
     nextScreen();
 }
 
+void PauseScreen::on_settingsButton_clicked() {
+    //Visit Settings
+    MusicEngine::playSoundEffect(MusicEngine::Selection);
+    PauseOverlay::overlayForWindow(this->parentWidget())->popOverlayWidget([ = ] {
+        emit settings();
+    });
+}
+
+bool PauseScreen::event(QEvent* event) {
+    if (event->type() == GamepadEvent::type()) {
+        GamepadEvent* gamepadEvent = static_cast<GamepadEvent*>(event);
+        if (gamepadEvent->button() == QGamepadManager::ButtonLeft || gamepadEvent->button() == QGamepadManager::ButtonRight || gamepadEvent->axis() == QGamepadManager::AxisLeftX) {
+            gamepadEvent->accept();
+            return true;
+        }
+    }
+    return QWidget::event(event);
+}

@@ -38,6 +38,7 @@ class OnlineScreen : public QWidget {
 
     signals:
         void quitOnline();
+        void viewSettings();
 
     private slots:
         void on_stackedWidget_currentChanged(int arg1);

@@ -31,7 +31,7 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="page">
+     <widget class="QWidget" name="moveHistoryPage">
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QLabel" name="label_2">
@@ -132,6 +132,13 @@
            </layout>
           </item>
           <item>
+           <widget class="QPushButton" name="settingsButton">
+            <property name="text">
+             <string>Settings</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="mainMenuButton">
             <property name="text">
              <string>Return to Main Menu</string>
@@ -224,15 +231,15 @@
    <header location="global">focusbarrier.h</header>
   </customwidget>
   <customwidget>
-   <class>GameRenderer</class>
-   <extends>QWidget</extends>
-   <header>game/gamerenderer.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>tStackedWidget</class>
    <extends>QStackedWidget</extends>
    <header location="global">tstackedwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>GameRenderer</class>
+   <extends>QWidget</extends>
+   <header>game/gamerenderer.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
@@ -246,6 +253,7 @@
   <tabstop>focusBarrierTop</tabstop>
   <tabstop>resumeButton</tabstop>
   <tabstop>saveButton</tabstop>
+  <tabstop>settingsButton</tabstop>
   <tabstop>mainMenuButton</tabstop>
   <tabstop>focusBarrierBottom</tabstop>
  </tabstops>
