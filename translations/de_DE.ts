@@ -7,7 +7,7 @@
         <location filename="../online/battleplayerswidget.cpp" line="80"/>
         <location filename="../online/battleplayerswidget.cpp" line="99"/>
         <source>Nobody</source>
-        <translation type="unfinished"></translation>
+        <translation>Niemand</translation>
     </message>
 </context>
 <context>
@@ -15,64 +15,64 @@
     <message>
         <location filename="../online/createprivategamescreen.ui" line="35"/>
         <source>Create Private Game</source>
-        <translation type="unfinished"></translation>
+        <translation>Erstelle privates Spiel</translation>
     </message>
     <message>
         <location filename="../online/createprivategamescreen.ui" line="58"/>
         <source>GAME SETTINGS</source>
-        <translation type="unfinished"></translation>
+        <translation>SPIELEINSTELLUNGEN</translation>
     </message>
     <message>
         <location filename="../online/createprivategamescreen.ui" line="68"/>
         <location filename="../online/createprivategamescreen.cpp" line="106"/>
         <source>Ready!</source>
-        <translation type="unfinished"></translation>
+        <translation>Bereit!</translation>
     </message>
     <message>
         <location filename="../online/createprivategamescreen.ui" line="96"/>
         <source>Play as</source>
-        <translation type="unfinished"></translation>
+        <translation>Spiele als</translation>
     </message>
     <message>
         <location filename="../online/createprivategamescreen.ui" line="121"/>
         <source>Either</source>
         <comment>Play as either colour</comment>
-        <translation type="unfinished"></translation>
+        <translation>Entweder</translation>
     </message>
     <message>
         <location filename="../online/createprivategamescreen.ui" line="108"/>
         <source>White</source>
-        <translation type="unfinished"></translation>
+        <translation>Weiß</translation>
     </message>
     <message>
         <location filename="../online/createprivategamescreen.ui" line="137"/>
         <source>Black</source>
-        <translation type="unfinished"></translation>
+        <translation>Schwarz</translation>
     </message>
     <message>
         <location filename="../online/createprivategamescreen.ui" line="152"/>
         <source>Board</source>
-        <translation type="unfinished"></translation>
+        <translation>Spielbrett</translation>
     </message>
     <message>
         <location filename="../online/createprivategamescreen.ui" line="164"/>
         <source>New Game</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues Spiel</translation>
     </message>
     <message>
         <location filename="../online/createprivategamescreen.ui" line="177"/>
         <source>Load Existing Board</source>
-        <translation type="unfinished"></translation>
+        <translation>Lade existierendes Spielbrett</translation>
     </message>
     <message>
         <location filename="../online/createprivategamescreen.ui" line="214"/>
         <source>JOINING THIS GAME</source>
-        <translation type="unfinished"></translation>
+        <translation>TRITT DIESEM SPIEL BEI</translation>
     </message>
     <message>
         <location filename="../online/createprivategamescreen.ui" line="221"/>
         <source>Ask your buddy to use this join code:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sag deinem Kumpel diesen Code zu verwenden:</translation>
     </message>
     <message>
         <location filename="../online/createprivategamescreen.ui" line="255"/>
@@ -82,27 +82,27 @@
     <message>
         <location filename="../online/createprivategamescreen.ui" line="269"/>
         <source>Start Game</source>
-        <translation type="unfinished"></translation>
+        <translation>Spiel starten</translation>
     </message>
     <message>
         <location filename="../online/createprivategamescreen.cpp" line="60"/>
         <source>Select</source>
-        <translation type="unfinished"></translation>
+        <translation>Auswählen</translation>
     </message>
     <message>
         <location filename="../online/createprivategamescreen.cpp" line="61"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Zurück</translation>
     </message>
     <message>
         <location filename="../online/createprivategamescreen.cpp" line="89"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <location filename="../online/createprivategamescreen.cpp" line="141"/>
         <source>You&apos;ll be facing off with %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Du wirst mit %1 entgegentreten.</translation>
     </message>
 </context>
 <context>
@@ -115,22 +115,22 @@
     <message>
         <location filename="../information/creditsscreen.ui" line="35"/>
         <source>Credits</source>
-        <translation type="unfinished"></translation>
+        <translation>Credits</translation>
     </message>
     <message>
         <location filename="../information/creditsscreen.ui" line="104"/>
         <source>Entertaining Chess</source>
-        <translation type="unfinished"></translation>
+        <translation>Entertaining Chess</translation>
     </message>
     <message>
         <location filename="../information/creditsscreen.ui" line="126"/>
         <source>DEVELOPED BY</source>
-        <translation type="unfinished"></translation>
+        <translation>ENTWICKELT VON</translation>
     </message>
     <message>
         <location filename="../information/creditsscreen.ui" line="194"/>
         <source>MUSIC BY</source>
-        <translation type="unfinished"></translation>
+        <translation>MUSIK VON</translation>
     </message>
     <message>
         <location filename="../information/creditsscreen.ui" line="225"/>
@@ -145,22 +145,22 @@
     <message>
         <location filename="../information/creditsscreen.ui" line="266"/>
         <source>Music is licensed under Creative Commons: BY 4.0</source>
-        <translation type="unfinished"></translation>
+        <translation>Musik lizenziert unter Creative Commons: BY 4.0</translation>
     </message>
     <message>
         <location filename="../information/creditsscreen.ui" line="321"/>
         <source>Copyright © 2021 Victor Tran and Mart Koster.</source>
-        <translation type="unfinished"></translation>
+        <translation>Copyright © 2021 Victor Tran und Mart Koster.</translation>
     </message>
     <message>
         <location filename="../information/creditsscreen.ui" line="331"/>
         <source>Licensed under the terms of the GNU General Public License, version 3, or later.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lizenziert unter den Bedingungen der GNU General Public License, version 3, oder neuer.</translation>
     </message>
     <message>
         <location filename="../information/creditsscreen.cpp" line="45"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Zurück</translation>
     </message>
 </context>
 <context>
@@ -168,67 +168,67 @@
     <message>
         <location filename="../game/gameengine.cpp" line="722"/>
         <source>Empty Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Leerraum</translation>
     </message>
     <message>
         <location filename="../game/gameengine.cpp" line="723"/>
         <source>White Pawn</source>
-        <translation type="unfinished"></translation>
+        <translation>weißer Bauer</translation>
     </message>
     <message>
         <location filename="../game/gameengine.cpp" line="724"/>
         <source>White Knight</source>
-        <translation type="unfinished"></translation>
+        <translation>weißer Springer</translation>
     </message>
     <message>
         <location filename="../game/gameengine.cpp" line="725"/>
         <source>White Bishop</source>
-        <translation type="unfinished"></translation>
+        <translation>weißer Läufer</translation>
     </message>
     <message>
         <location filename="../game/gameengine.cpp" line="726"/>
         <source>White Rook</source>
-        <translation type="unfinished"></translation>
+        <translation>weißer Turm</translation>
     </message>
     <message>
         <location filename="../game/gameengine.cpp" line="727"/>
         <source>White Queen</source>
-        <translation type="unfinished"></translation>
+        <translation>weiße Dame</translation>
     </message>
     <message>
         <location filename="../game/gameengine.cpp" line="728"/>
         <source>White King</source>
-        <translation type="unfinished"></translation>
+        <translation>weißer König</translation>
     </message>
     <message>
         <location filename="../game/gameengine.cpp" line="729"/>
         <source>Black Pawn</source>
-        <translation type="unfinished"></translation>
+        <translation>schwarzer Bauer</translation>
     </message>
     <message>
         <location filename="../game/gameengine.cpp" line="730"/>
         <source>Black Knight</source>
-        <translation type="unfinished"></translation>
+        <translation>schwarzer Springer</translation>
     </message>
     <message>
         <location filename="../game/gameengine.cpp" line="731"/>
         <source>Black Bishop</source>
-        <translation type="unfinished"></translation>
+        <translation>schwarzer Läufer</translation>
     </message>
     <message>
         <location filename="../game/gameengine.cpp" line="732"/>
         <source>Black Rook</source>
-        <translation type="unfinished"></translation>
+        <translation>schwarzer Turm</translation>
     </message>
     <message>
         <location filename="../game/gameengine.cpp" line="733"/>
         <source>Black Queen</source>
-        <translation type="unfinished"></translation>
+        <translation>schwarze Dame</translation>
     </message>
     <message>
         <location filename="../game/gameengine.cpp" line="734"/>
         <source>Black King</source>
-        <translation type="unfinished"></translation>
+        <translation>schwarzer König</translation>
     </message>
     <message>
         <location filename="../game/gameengine.cpp" line="757"/>
