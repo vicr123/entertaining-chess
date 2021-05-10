@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name[]=Entertaining Chess
+GenericName[]=Chess
+Exec=entertaining-chess
+Icon=games.entertaining.chess
+Categories=Game;LogicGame;

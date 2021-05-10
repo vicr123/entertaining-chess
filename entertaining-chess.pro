@@ -78,27 +78,38 @@ FORMS += \
 QMAKE_POST_LINK += $$QMAKE_COPY $$quote($$PWD/defaults.conf) $$shell_quote($$OUT_PWD);
 
 unix:!macx:!android {
+    DESKTOP_FILE = games.entertaining.chess.desktop
+    DESKTOP_FILE_BLUEPRINT = games.entertaining.chess_blueprint.desktop
+
     # Include the-libs build tools
-    include(/usr/share/the-libs/pri/buildmaster.pri)
+    equals(THELIBS_BUILDTOOLS_PATH, "") {
+        THELIBS_BUILDTOOLS_PATH = $$[QT_INSTALL_PREFIX]/share/the-libs/pri
+    }
+    include($$THELIBS_BUILDTOOLS_PATH/buildmaster.pri)
 
     QT += thelib entertaining
     TARGET = entertaining-chess
 
-    target.path = /usr/bin
+    blueprint {
+        metainfo.files = games.entertaining.chess_blueprint.metainfo.xml
+        icon.files = assets/games.entertaining.chess_blueprint.svg
+    } else {
+        metainfo.files = games.entertaining.chess.metainfo.xml
+        icon.files = assets/games.entertaining.chess_blueprint.svg
+    }
 
-    desktop.path = /usr/share/applications
-    desktop.files = com.vicr123.entertaining.chess.desktop
+    icon.path = $$THELIBS_INSTALL_PREFIX/share/icons/hicolor/scalable/apps/
+    metainfo.path = $$THELIBS_INSTALL_PREFIX/share/metainfo
 
-    icon.path = /usr/share/icons/hicolor/scalable/apps/
-    icon.files = assets/entertaining-chess.svg
+    target.path = $$THELIBS_INSTALL_BIN
 
-    audio.path = /usr/share/entertaining-chess/audio
+    audio.path = $$THELIBS_INSTALL_PREFIX/share/entertaining-chess/audio
     audio.files = assets/audio/*
 
     defaults.files = defaults.conf
-    defaults.path = /etc/entertaining-games/entertaining-chess/
+    defaults.path = $$THELIBS_INSTALL_SETTINGS/entertaining-games/entertaining-chess/
 
-    INSTALLS += target desktop icon audio defaults
+    INSTALLS += target metainfo icon audio defaults
 }
 
 win32 {
@@ -140,5 +151,4 @@ RESOURCES += \
     resources.qrc
 
 DISTFILES += \
-    com.vicr123.entertaining.chess.desktop \
     defaults.conf
