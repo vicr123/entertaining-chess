@@ -1,0 +1,80 @@
+app-id: games.entertaining.chess_blueprint
+runtime: org.kde.Platform
+runtime-version: '5.15'
+sdk: org.kde.Sdk
+command: entertaining-chess
+finish-args:
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --socket=pulseaudio
+  - --share=network
+  - --filesystem=xdg-config/theSuite/libentertaining.conf
+cleanup:
+  - '/include'
+  - '/qt'
+  - '/share/man'
+  - '/share/the-libs'
+  - '/bin/tltrdesktop'
+  - '/lib/debug'
+  - '/lib/pkgconfig'
+modules:
+  - name: the-libs
+    buildsystem: qmake
+    sources:
+      - type: git
+        url: https://github.com/vicr123/the-libs
+        branch: blueprint
+  - name: contemporary
+    buildsystem: qmake
+    config-opts:
+      - THELIBS_BUILDTOOLS_PATH = /app/share/the-libs/pri
+      - THELIBS_INSTALL_QT_PLUGINS = /app/lib/qt/plugins
+      - '-after'
+      - QT -= thelib
+      - QT += dbus
+      - LIBS += -L/app/lib -lthe-libs
+      - INCLUDEPATH += /app/include/the-libs
+    sources:
+      - type: git
+        url: https://github.com/vicr123/contemporary-theme
+        branch: master
+  - name: contemporary-icons
+    buildsystem: simple
+    build-commands:
+      - mkdir -p /app/share/icons/contemporary
+      - cp -r * /app/share/icons/contemporary/
+    sources:
+      - type: git
+        url: https://github.com/vicr123/contemporary-icons
+        branch: blueprint
+  - name: libentertaining
+    buildsystem: qmake
+    builddir: true
+    config-opts:
+      - THELIBS_BUILDTOOLS_PATH = /app/share/the-libs/pri
+      - THELIBS_INSTALL_SETTINGS = /app/etc
+      - '-after'
+      - QT -= thelib
+      - QT += dbus
+      - LIBS += -L/app/lib -lthe-libs
+      - INCLUDEPATH += /app/include/the-libs
+    sources:
+      - type: git
+        url: https://github.com/vicr123/libentertaining
+#        branch: blueprint
+  - name: entertaining-chess
+    buildsystem: qmake
+    builddir: true
+    config-opts:
+      - THELIBS_BUILDTOOLS_PATH = /app/share/the-libs/pri
+      - THELIBS_INSTALL_SETTINGS = /app/etc
+      - CONFIG += blueprint
+      - '-after'
+      - QT -= thelib entertaining
+      - QT += dbus
+      - LIBS += -L/app/lib -lthe-libs -lentertaining
+      - INCLUDEPATH += /app/include/the-libs /app/include/libentertaining
+    sources:
+      - type: git
+        url: https://github.com/vicr123/entertaining-chess
+#        branch: blueprint
