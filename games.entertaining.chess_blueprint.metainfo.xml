@@ -21,7 +21,7 @@
     </p>
   </description>
     
-  <launchable type="desktop-id">games.entertaining.chess.desktop</launchable>
+  <launchable type="desktop-id">games.entertaining.chess_blueprint.desktop</launchable>
   <content_rating type="oars-1.1">
     <content_attribute id="social-chat">mild</content_attribute>
     <content_attribute id="social-info">mild</content_attribute>
