@@ -24,6 +24,7 @@
 #include <QMap>
 #include <QDataStream>
 #include <QJsonObject>
+#include <QtDebug>
 #include <online/onlinewebsocket.h>
 #include "online/onlinecontroller.h"
 #include "MoveEngines/abstractmoveengine.h"
@@ -272,6 +273,8 @@ void GameEngine::issueMove(int from, int to, Piece promoteTo) {
     d->boardLayout = results.newBoardLayout;
     d->takenPieces = results.takenPieces;
 
+    d->enpassant = -1;
+
     //TODO: Check if a rook is taken and update the castling flag accordingly
     if (isWhiteTurn()) {
         if (fromPiece == WhiteKing) {
@@ -280,6 +283,12 @@ void GameEngine::issueMove(int from, int to, Piece promoteTo) {
         } else if (fromPiece == WhiteRook) {
             if (pieceAt(gridToIndex(0, 7)) != WhiteRook) d->whiteQueensidesideCastlePossible = false;
             if (pieceAt(gridToIndex(7, 7)) != WhiteRook) d->whiteKingsideCastlePossible = false;
+        } else if (fromPiece == WhitePawn) {
+            QPoint fromPoint = indexToGrid(from);
+            QPoint toPoint = indexToGrid(to);
+            if (fromPoint.y() == 6 && toPoint.y() == 4) {
+                d->enpassant = gridToIndex(toPoint.x(), 5);
+            }
         }
     } else {
         if (fromPiece == BlackKing) {
@@ -288,6 +297,12 @@ void GameEngine::issueMove(int from, int to, Piece promoteTo) {
         } else if (fromPiece == BlackRook) {
             if (pieceAt(gridToIndex(0, 0)) != BlackRook) d->blackQueensidesideCastlePossible = false;
             if (pieceAt(gridToIndex(7, 0)) != BlackRook) d->blackKingsideCastlePossible = false;
+        } else if (fromPiece == BlackPawn) {
+            QPoint fromPoint = indexToGrid(from);
+            QPoint toPoint = indexToGrid(to);
+            if (fromPoint.y() == 1 && toPoint.y() == 3) {
+                d->enpassant = gridToIndex(toPoint.x(), 2);
+            }
         }
     }
 
@@ -341,7 +356,6 @@ GameEngine::MoveResults GameEngine::issueMove(int from, int to, QList<quint8> bo
     results.moveType = StandardMove;
     boardLayout.replace(to, d->boardLayout.at(from));
     boardLayout.replace(from, 0);
-    if (toPiece != Empty) results.takenPieces.append(results.takenPiece);
 
     //Check for a castle
     if (fromPiece == WhiteKing && from == 60) {
@@ -379,9 +393,21 @@ GameEngine::MoveResults GameEngine::issueMove(int from, int to, QList<quint8> bo
         results.movedPiece = promoteTo;
     }
 
-    results.newBoardLayout = boardLayout;
+    if (to == d->enpassant) {
+        if (fromPiece == WhitePawn) {
+            boardLayout.replace(to + 8, Empty);
+            results.takenPiece = BlackPawn;
+            results.moveType = EnPassant;
+        } else if (fromPiece == BlackPawn) {
+            boardLayout.replace(to - 8, Empty);
+            results.takenPiece = WhitePawn;
+            results.moveType = EnPassant;
+        }
+    }
 
-    //TODO: Handle En Passant
+    if (results.takenPiece != Empty) results.takenPieces.append(results.takenPiece);
+
+    results.newBoardLayout = boardLayout;
 
     if (animate) {
         if (results.takenPiece != Empty) emit eatPiece(results.to, results.takenPiece);
@@ -415,9 +441,7 @@ bool GameEngine::isValidMove(int from, int to, QList<quint8> boardLayout, bool i
 
     switch (fromPiece) {
         case GameEngine::WhitePawn: {
-            //TODO: Calculate En Passant
-
-            if (toPiece == Empty) {
+            if (toPiece == Empty && to != d->enpassant) {
                 //Advance two squares if on rank 2
                 bool canAdvanceTwoSquares = fromPoint.y() == 6;
                 if (fromPoint.x() == toPoint.x() && fromPoint.y() == toPoint.y() + 1) return true; //Pawn can move by one
@@ -430,9 +454,7 @@ bool GameEngine::isValidMove(int from, int to, QList<quint8> boardLayout, bool i
             }
         }
         case BlackPawn: {
-            //TODO: Calculate En Passant
-
-            if (toPiece == Empty) {
+            if (toPiece == Empty && to != d->enpassant) {
                 //Advance two squares if on rank 7
                 bool canAdvanceTwoSquares = fromPoint.y() == 1;
                 if (fromPoint.x() == toPoint.x() && fromPoint.y() == toPoint.y() - 1) return true; //Pawn can move by one
