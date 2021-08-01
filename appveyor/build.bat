@@ -69,4 +69,4 @@ copy "C:\OpenSSL-v111-Win64\bin\libcrypto-1_1-x64.dll" deploy
 copy defaults.conf deploy
 robocopy contemporary-icons deploy\icons\ /mir
 cd deploy
-windeployqt entertaining-chess.exe -network -quickwidgets -gamepad -svg -multimedia -printsupport
+windeployqt entertaining-chess.exe -network -quickwidgets -gamepad -svg -multimedia -printsupport -concurrent
